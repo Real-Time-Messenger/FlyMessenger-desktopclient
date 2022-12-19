@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
+                xmlns="">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
+    </resheader>
+    <data name="chat" xml:space="preserve">
+        <value>Чат</value>
+    </data>
+    <data name="chats" xml:space="preserve">
+        <value>Чаты</value>
+    </data>
+    <data name="conservations" xml:space="preserve">
+        <value>Беседы</value>
+    </data>
+    <data name="english" xml:space="preserve">
+        <value>Английский</value>
+    </data>
+    <data name="estonian" xml:space="preserve">
+        <value>Эстонский</value>
+    </data>
+    <data name="exit" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="groups" xml:space="preserve">
+        <value>Группы</value>
+    </data>
+    <data name="hideWindow" xml:space="preserve">
+        <value>Скрыть FlyMessenger</value>
+    </data>
+    <data name="language" xml:space="preserve">
+        <value>Язык</value>
+    </data>
+    <data name="logout" xml:space="preserve">
+        <value>Выйти</value>
+    </data>
+    <data name="notification" xml:space="preserve">
+        <value>Уведомление</value>
+    </data>
+    <data name="notifications" xml:space="preserve">
+        <value>Уведомления</value>
+    </data>
+    <data name="russian" xml:space="preserve">
+        <value>Русский</value>
+    </data>
+    <data name="search" xml:space="preserve">
+        <value>Поиск</value>
+    </data>
+    <data name="settings" xml:space="preserve">
+        <value>Настройки</value>
+    </data>
+    <data name="showWindow" xml:space="preserve">
+        <value>Показать FlyMessenger</value>
+    </data>
+    <data name="sound" xml:space="preserve">
+        <value>Звук</value>
+    </data>
+    <data name="support" xml:space="preserve">
+        <value>Поддержка</value>
+    </data>
+    <data name="theme" xml:space="preserve">
+        <value>Тема</value>
+    </data>
+    <data name="messagesCount" xml:space="preserve">
+        <value>Сообщений</value>
+    </data>
+    <data name="pin" xml:space="preserve">
+        <value>Закрепить</value>
+    </data>
+    <data name="notifications-off" xml:space="preserve">
+        <value>Отключить уведомления</value>
+    </data>
+    <data name="block-user" xml:space="preserve">
+        <value>Заблокировать</value>
+    </data>
+    <data name="delete-chat" xml:space="preserve">
+        <value>Удалить чат</value>
+    </data>
+    <data name="unpin" xml:space="preserve">
+        <value>Открепить</value>
+    </data>
+    <data name="notifications-on" xml:space="preserve">
+        <value>Включить уведомления</value>
+    </data>
+    <data name="unblock-user" xml:space="preserve">
+        <value>Разблокировать</value>
+    </data>
+    <data name="sound-off" xml:space="preserve">
+        <value>Отключить звук</value>
+    </data>
+    <data name="sound-on" xml:space="preserve">
+        <value>Включить звук</value>
+    </data>
+    <data name="name" xml:space="preserve">
+        <value>Имя</value>
+    </data>
+</root>

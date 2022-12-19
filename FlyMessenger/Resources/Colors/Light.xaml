@@ -1,0 +1,66 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="Main" Color="#EAEDFA" />
+    <SolidColorBrush x:Key="ThemeColor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="TopBar" Color="#DCE1F0" />
+    <SolidColorBrush x:Key="TopBar-Button-Red-MouseOver" Color="#EB2D2D" />
+    <SolidColorBrush x:Key="TopBar-Button-MouseOver" Color="#CDD2E1" />
+    <SolidColorBrush x:Key="TopBar-Button-Stroke" Color="#3F3F3F" />
+    <SolidColorBrush x:Key="SearchBar" Color="#90B7E5" />
+    <SolidColorBrush x:Key="SearchBar-Foreground" Color="#303030" />
+    <SolidColorBrush x:Key="SearchBar-Hint-Foreground" Color="#434B54" />
+    <Color x:Key="SideBar-Button">#C4D2F0</Color>
+    <Color x:Key="SideBar-Button-MouseOver">#8DB8E4</Color>
+    <Color x:Key="SideBar-Button-Selected">#5B9BD9</Color>
+    <Color x:Key="SideBar-Button-Red">#EFCBCF</Color>
+    <Color x:Key="SideBar-Button-Red-Mouseover">#F2A9A9</Color>
+    <Color x:Key="SideBar-Button-Red-Selected">#E86C6C</Color>
+    <SolidColorBrush x:Key="SideBar-Button-Red-Stroke" Color="#E86C6C" />
+    <SolidColorBrush x:Key="SideBar-Button-Red-Stroke-MouseOver" Color="#AE0B0B" />
+    <SolidColorBrush x:Key="Background-Element" Color="#CFD0D4" />
+    <SolidColorBrush x:Key="ScrollBar-Stroke" Color="#AAAAAA" />
+    <SolidColorBrush x:Key="ScrollBar-Background" Color="#E5E5E5" />
+    <SolidColorBrush x:Key="MessagesCount-Border" Color="#5B9BD9"  />
+    <SolidColorBrush x:Key="MessagesCount-Border-Selected" Color="#5B9BD9" />
+    <SolidColorBrush x:Key="MessagesCount-Foreground" Color="#EAEDFA" />
+    <SolidColorBrush x:Key="ChatBox-Normal" Color="#EAEDFA" />
+    <SolidColorBrush x:Key="ChatBox-MouseOver" Color="#CAD5F2" />
+    <SolidColorBrush x:Key="ChatBox-Selected" Color="#98BDE7" />
+    <SolidColorBrush x:Key="ChatBox-Foreground" Color="#4C4C4C" />
+    <SolidColorBrush x:Key="ActiveChat-CompanionMessage" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ActiveChat-OwnerMessage" Color="#98BDE7" />
+    <SolidColorBrush x:Key="ActiveChat-Search-MouseOver" Color="#E0E0E0" />
+    <SolidColorBrush x:Key="ActiveChat-Search-Selected" Color="#B0B0B0" />
+    <SolidColorBrush x:Key="Anchor-Selected" Color="#7B7B7B" />
+    <SolidColorBrush x:Key="Anchor" Color="#7B7B7B" />
+    <SolidColorBrush x:Key="XamlIcons-Red" Color="#E86C6C" />
+    <SolidColorBrush x:Key="XamlIcons-Greed" Color="#69A55B" />
+    <SolidColorBrush x:Key="XamlIcons-Blue" Color="#5B9BD9" />
+    <!--
+    <SolidColorBrush x:Key="Lite-Stroke" Color="#A2A3A7" />
+    -->
+    <SolidColorBrush x:Key="Liter-Stroke" Color="#9B9DA3" />
+    <SolidColorBrush x:Key="Liter-Stroke-Second" Color="#9E9E9E" />
+    <SolidColorBrush x:Key="Litest-Stroke" Color="#888888" />
+    <SolidColorBrush x:Key="Litest-Stroke-Second" Color="#7B7B7B" />
+    <SolidColorBrush x:Key="Normal-Stroke" Color="#4C4C4C" />
+    <SolidColorBrush x:Key="Strong-Stroke" Color="#3F3F3F" />
+    <SolidColorBrush x:Key="Stronger-Stroke" Color="#303030" />
+    <SolidColorBrush x:Key="Strongest-Stroke" Color="#161616" />
+    <SolidColorBrush x:Key="Stroke-Darkened" Color="#696969" />
+    <SolidColorBrush x:Key="ContextMenu-Green-Stroke" Color="#69A55B" />
+    <SolidColorBrush x:Key="Settings-Icon-Profile" Color="#70A7DD" />
+    <SolidColorBrush x:Key="Settings-Icon-Notification" Color="#DAB24D" />
+    <SolidColorBrush x:Key="Settings-Icon-Privacy" Color="#3EBF6E" />
+    <SolidColorBrush x:Key="Settings-Icon-BlockUsers" Color="#9974E8" />
+    <SolidColorBrush x:Key="Settings-Icon-Language" Color="#698AF0" />
+    <SolidColorBrush x:Key="Settings-Icon-Delete" Color="#EFCBCF" />
+    <SolidColorBrush x:Key="Settings-Monitor" Color="#AFC4EC" />
+    <SolidColorBrush x:Key="Settings-Icon-Authentication" Color="#839CE9" />
+    <SolidColorBrush x:Key="Green-Switcher" Color="#45CA24" />
+    <SolidColorBrush x:Key="Red-Switcher" Color="#E86C6C" />
+    <SolidColorBrush x:Key="Unblock" Color="#1D4ED8" />
+    <SolidColorBrush x:Key="Cancel" Color="#CAD5F2" />
+    <SolidColorBrush x:Key="Confirm" Color="#EFCBCF" />
+    <Color x:Key="NotifyIcon-Background" R="234" G="237" B="250" />
+</ResourceDictionary>

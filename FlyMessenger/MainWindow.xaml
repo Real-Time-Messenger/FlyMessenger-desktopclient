@@ -1,0 +1,601 @@
+﻿<Window x:Class="FlyMessenger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:uc="clr-namespace:FlyMessenger.UserControls"
+        mc:Ignorable="d"
+        xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
+        xmlns:converters="clr-namespace:FlyMessenger.Converters"
+        xmlns:viewmodel="clr-namespace:FlyMessenger.MVVM.ViewModels"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        Height="768" Width="1366" WindowStartupLocation="CenterScreen"
+        MinHeight="504"
+        MinWidth="1024"
+        Title="FlyMessenger">
+
+    <!-- Remove top bar -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" UseAeroCaptionButtons="False" />
+    </WindowChrome.WindowChrome>
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:WidthConverter x:Key="WidthConverter" />
+    </Window.Resources>
+
+    <!-- Front end -->
+    <Grid>
+        <Grid.Style>
+            <Style TargetType="{x:Type Grid}">
+                <Style.Triggers>
+                    <DataTrigger
+                        Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=WindowState}"
+                        Value="Maximized">
+                        <Setter Property="Margin" Value="{x:Static SystemParameters.WindowResizeBorderThickness}" />
+                        <Setter Property="Margin" Value="8" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Top bar -->
+        <Grid Grid.Row="0">
+            <Border Background="{DynamicResource TopBar}" MouseDown="Border_MouseDown">
+                <Grid>
+                    <StackPanel Width="120" MinWidth="120" MaxWidth="120" Height="30" MinHeight="30" MaxHeight="30"
+                                HorizontalAlignment="Right" Orientation="Horizontal">
+                        <uc:TopBarButton TopBarData="M13 20H27"
+                                         PreviewMouseLeftButtonDown="TopBarMinimizeButton_PreviewMouseLeftButtonDown">
+                            <uc:TopBarButton.Style>
+                                <Style TargetType="uc:TopBarButton">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background"
+                                                    Value="{DynamicResource TopBar-Button-MouseOver}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:TopBarButton.Style>
+                        </uc:TopBarButton>
+                        <!-- TODO: Implement new minimize icon -->
+                        <uc:TopBarButton
+                            TopBarData="M25.4444 10H14.5556C13.6964 10 13 10.4975 13 11.1111V18.8889C13 19.5025 13.6964 20 14.5556 20H25.4444C26.3036 20 27 19.5025 27 18.8889V11.1111C27 10.4975 26.3036 10 25.4444 10Z"
+                            PreviewMouseLeftButtonDown="TopBarMaximizeButton_OnMouseUp">
+                            <uc:TopBarButton.Style>
+                                <Style TargetType="uc:TopBarButton">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background"
+                                                    Value="{DynamicResource TopBar-Button-MouseOver}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:TopBarButton.Style>
+                        </uc:TopBarButton>
+                        <uc:TopBarButton TopBarData="M25 10L15 20 M15 10L25 20"
+                                         PreviewMouseLeftButtonDown="TopBarCloseButton_MouseLeftButtonDown">
+                            <uc:TopBarButton.Style>
+                                <Style TargetType="uc:TopBarButton">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background"
+                                                    Value="{DynamicResource TopBar-Button-Red-MouseOver}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:TopBarButton.Style>
+                        </uc:TopBarButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Left menu bar -->
+        <Grid Grid.Row="1">
+            <Border Grid.Column="0" Width="50" HorizontalAlignment="Left" Background="{DynamicResource Main}"
+                    Panel.ZIndex="3"
+                    x:Name="SideBar"
+                    MouseEnter="SideBar_OnMouseEnter"
+                    MouseLeave="SideBar_OnMouseLeave">
+                <Grid>
+
+                    <!-- Logo -->
+                    <Path
+                        Data="M28.75 3.75C27.553 4.59434 26.2276 5.24013 24.825 5.6625C24.0722 4.79689 23.0717 4.18336 21.9588 3.9049C20.8459 3.62645 19.6744 3.69649 18.6026 4.10556C17.5308 4.51464 16.6106 5.243 15.9662 6.19214C15.3219 7.14129 14.9846 8.26542 15 9.4125V10.6625C12.8033 10.7195 10.6266 10.2323 8.66376 9.24431C6.70093 8.25635 5.0129 6.79829 3.75 5C3.75 5 -1.25 16.25 10 21.25C7.42566 22.9975 4.35895 23.8737 1.25 23.75C12.5 30 26.25 23.75 26.25 9.375C26.2488 9.02681 26.2154 8.67949 26.15 8.3375C27.4258 7.07936 28.326 5.49089 28.75 3.75V3.75Z"
+                        Stroke="{DynamicResource Strongest-Stroke}" StrokeThickness="2" StrokeStartLineCap="round"
+                        StrokeEndLineCap="Round"
+                        StrokeLineJoin="round" Width="30" Height="30" VerticalAlignment="Top" Margin="0 20 0 0" />
+
+                    <!-- Menu buttons -->
+                    <StackPanel Height="334">
+                        <!-- TODO: Delete IsActive for others buttons -->
+                        <uc:ChatMenuButton Title="{x:Static language:lang.chat}"
+                                           x:Name="ChatChatMenuButton"
+                                           Data="M17.5 9.58333C17.5029 10.6832 17.2459 11.7682 16.75 12.75C16.162 13.9265 15.2581 14.916 14.1395 15.6077C13.021 16.2995 11.7319 16.6662 10.4167 16.6667C9.31678 16.6695 8.23176 16.4126 7.25 15.9167L2.5 17.5L4.08333 12.75C3.58744 11.7682 3.33047 10.6832 3.33333 9.58333C3.33384 8.26813 3.70051 6.97904 4.39227 5.86046C5.08402 4.74188 6.07355 3.83797 7.25 3.25C8.23176 2.75411 9.31678 2.49713 10.4167 2.5H10.8333C12.5703 2.59583 14.2109 3.32897 15.441 4.55905C16.671 5.78913 17.4042 7.42971 17.5 9.16667V9.58333Z"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="ChatChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Setter Property="IsActive" Value="True" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.conservations}"
+                                           x:Name="GroupsChatMenuButton"
+                                           Data="M13.4584 16.625V15.0417C13.4584 14.2018 13.1247 13.3964 12.5309 12.8025C11.937 12.2086 11.1315 11.875 10.2917 11.875H3.95835C3.1185 11.875 2.31305 12.2086 1.71918 12.8025C1.12532 13.3964 0.791687 14.2018 0.791687 15.0417V16.625 M7.12498 8.70833C8.87388 8.70833 10.2916 7.29057 10.2916 5.54167C10.2916 3.79277 8.87388 2.375 7.12498 2.375C5.37608 2.375 3.95831 3.79277 3.95831 5.54167C3.95831 7.29057 5.37608 8.70833 7.12498 8.70833Z M18.2083 16.625V15.0417C18.2078 14.34 17.9743 13.6584 17.5444 13.1039C17.1145 12.5494 16.5127 12.1533 15.8333 11.9779 M12.6667 2.47792C13.3478 2.65233 13.9516 3.04848 14.3827 3.60392C14.8139 4.15936 15.0479 4.84249 15.0479 5.54563C15.0479 6.24876 14.8139 6.9319 14.3827 7.48734C13.9516 8.04278 13.3478 8.43893 12.6667 8.61334"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="GroupsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.groups}"
+                                           x:Name="ConservationsChatMenuButton"
+                                           Data="M10 18.3333C14.6024 18.3333 18.3334 14.6024 18.3334 10C18.3334 5.39763 14.6024 1.66667 10 1.66667C5.39765 1.66667 1.66669 5.39763 1.66669 10C1.66669 14.6024 5.39765 18.3333 10 18.3333Z M1.66669 10H18.3334 M10 1.66667C12.0844 3.94863 13.269 6.91003 13.3334 10C13.269 13.09 12.0844 16.0514 10 18.3333C7.91562 16.0514 6.73106 13.09 6.66669 10C6.73106 6.91003 7.91562 3.94863 10 1.66667V1.66667Z"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="ConservationsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.support}"
+                                           x:Name="SupportChatMenuButton"
+                                           Data="M15 15.7167H14.3667C13.7 15.7167 13.0667 15.975 12.6 16.4417L11.175 17.85C10.525 18.4917 9.46667 18.4917 8.81667 17.85L7.39167 16.4417C6.925 15.975 6.28333 15.7167 5.625 15.7167H5C3.61667 15.7167 2.5 14.6084 2.5 13.2417V4.15005C2.5 2.78338 3.61667 1.67505 5 1.67505H15C16.3833 1.67505 17.5 2.78338 17.5 4.15005V13.2417C17.5 14.6 16.3833 15.7167 15 15.7167Z M5.83337 7.63329C5.83337 6.85829 6.46671 6.22496 7.24171 6.22496C8.01671 6.22496 8.65004 6.85829 8.65004 7.63329C8.65004 9.19996 6.42504 9.36663 5.93337 10.8583C5.83337 11.1666 6.09171 11.475 6.41671 11.475H8.65004M13.3667 11.4666V6.70829C13.3672 6.603 13.3332 6.50044 13.27 6.41621C13.2069 6.33197 13.1179 6.27067 13.0167 6.24163C12.9148 6.21285 12.8064 6.21756 12.7073 6.25506C12.6083 6.29257 12.524 6.36089 12.4667 6.44996C11.8667 7.41663 11.2167 8.51663 10.65 9.48329C10.5584 9.64163 10.5584 9.84996 10.65 10.0083C10.7417 10.1666 10.9167 10.2666 11.1084 10.2666H14.1667"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="SupportChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.settings}"
+                                           x:Name="SettingsChatMenuButton"
+                                           Data="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z M16.1667 12.5C16.0558 12.7514 16.0227 13.0302 16.0717 13.3005C16.1207 13.5709 16.2496 13.8203 16.4417 14.0167L16.4917 14.0667C16.6467 14.2215 16.7696 14.4053 16.8535 14.6076C16.9373 14.81 16.9805 15.0268 16.9805 15.2459C16.9805 15.4649 16.9373 15.6818 16.8535 15.8841C16.7696 16.0864 16.6467 16.2703 16.4917 16.425C16.3369 16.58 16.1531 16.7029 15.9508 16.7868C15.7484 16.8707 15.5316 16.9139 15.3125 16.9139C15.0935 16.9139 14.8766 16.8707 14.6743 16.7868C14.472 16.7029 14.2882 16.58 14.1334 16.425L14.0834 16.375C13.887 16.1829 13.6375 16.0541 13.3672 16.005C13.0969 15.956 12.8181 15.9891 12.5667 16.1C12.3202 16.2057 12.11 16.3811 11.962 16.6047C11.8139 16.8282 11.7344 17.0902 11.7334 17.3584V17.5C11.7334 17.9421 11.5578 18.366 11.2452 18.6786C10.9327 18.9911 10.5087 19.1667 10.0667 19.1667C9.62468 19.1667 9.20076 18.9911 8.8882 18.6786C8.57564 18.366 8.40004 17.9421 8.40004 17.5V17.425C8.39359 17.1492 8.30431 16.8817 8.1438 16.6573C7.98329 16.4329 7.75899 16.2619 7.50004 16.1667C7.24869 16.0558 6.96988 16.0227 6.69955 16.0717C6.42922 16.1207 6.17977 16.2496 5.98337 16.4417L5.93337 16.4917C5.77859 16.6467 5.59477 16.7696 5.39244 16.8535C5.19011 16.9373 4.97323 16.9805 4.75421 16.9805C4.53518 16.9805 4.3183 16.9373 4.11597 16.8535C3.91364 16.7696 3.72983 16.6467 3.57504 16.4917C3.42008 16.3369 3.29715 16.1531 3.21327 15.9508C3.1294 15.7484 3.08623 15.5316 3.08623 15.3125C3.08623 15.0935 3.1294 14.8766 3.21327 14.6743C3.29715 14.472 3.42008 14.2882 3.57504 14.1334L3.62504 14.0834C3.81715 13.887 3.94603 13.6375 3.99504 13.3672C4.04406 13.0969 4.01097 12.8181 3.90004 12.5667C3.7944 12.3202 3.619 12.11 3.39543 11.962C3.17185 11.8139 2.90986 11.7344 2.64171 11.7334H2.50004C2.05801 11.7334 1.63409 11.5578 1.32153 11.2452C1.00897 10.9327 0.833374 10.5087 0.833374 10.0667C0.833374 9.62468 1.00897 9.20076 1.32153 8.8882C1.63409 8.57564 2.05801 8.40004 2.50004 8.40004H2.57504C2.85087 8.39359 3.11838 8.30431 3.34279 8.1438C3.5672 7.98329 3.73814 7.75899 3.83337 7.50004C3.9443 7.24869 3.97739 6.96988 3.92838 6.69955C3.87936 6.42922 3.75049 6.17977 3.55837 5.98337L3.50837 5.93337C3.35341 5.77859 3.23048 5.59477 3.14661 5.39244C3.06273 5.19011 3.01956 4.97323 3.01956 4.75421C3.01956 4.53518 3.06273 4.3183 3.14661 4.11597C3.23048 3.91364 3.35341 3.72983 3.50837 3.57504C3.66316 3.42008 3.84698 3.29715 4.04931 3.21327C4.25164 3.1294 4.46852 3.08623 4.68754 3.08623C4.90657 3.08623 5.12344 3.1294 5.32577 3.21327C5.5281 3.29715 5.71192 3.42008 5.86671 3.57504L5.91671 3.62504C6.11311 3.81715 6.36255 3.94603 6.63288 3.99504C6.90321 4.04406 7.18203 4.01097 7.43337 3.90004H7.50004C7.74652 3.7944 7.95672 3.619 8.10478 3.39543C8.25285 3.17185 8.3323 2.90986 8.33337 2.64171V2.50004C8.33337 2.05801 8.50897 1.63409 8.82153 1.32153C9.13409 1.00897 9.55801 0.833374 10 0.833374C10.4421 0.833374 10.866 1.00897 11.1786 1.32153C11.4911 1.63409 11.6667 2.05801 11.6667 2.50004V2.57504C11.6678 2.8432 11.7472 3.10519 11.8953 3.32876C12.0434 3.55234 12.2536 3.72774 12.5 3.83337C12.7514 3.9443 13.0302 3.97739 13.3005 3.92838C13.5709 3.87936 13.8203 3.75049 14.0167 3.55837L14.0667 3.50837C14.2215 3.35341 14.4053 3.23048 14.6076 3.14661C14.81 3.06273 15.0268 3.01956 15.2459 3.01956C15.4649 3.01956 15.6818 3.06273 15.8841 3.14661C16.0864 3.23048 16.2703 3.35341 16.425 3.50837C16.58 3.66316 16.7029 3.84698 16.7868 4.04931C16.8707 4.25164 16.9139 4.46852 16.9139 4.68754C16.9139 4.90657 16.8707 5.12344 16.7868 5.32577C16.7029 5.5281 16.58 5.71192 16.425 5.86671L16.375 5.91671C16.1829 6.11311 16.0541 6.36255 16.005 6.63288C15.956 6.90321 15.9891 7.18203 16.1 7.43337V7.50004C16.2057 7.74652 16.3811 7.95672 16.6047 8.10478C16.8282 8.25285 17.0902 8.3323 17.3584 8.33337H17.5C17.9421 8.33337 18.366 8.50897 18.6786 8.82153C18.9911 9.13409 19.1667 9.55801 19.1667 10C19.1667 10.4421 18.9911 10.866 18.6786 11.1786C18.366 11.4911 17.9421 11.6667 17.5 11.6667H17.425C17.1569 11.6678 16.8949 11.7472 16.6713 11.8953C16.4477 12.0434 16.2723 12.2536 16.1667 12.5V12.5Z"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="SettingsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.theme}"
+                                           x:Name="ThemeChatMenuButton"
+                                           Data="M13.3334 4.16669H6.66671C3.44505 4.16669 0.833374 6.77836 0.833374 10C0.833374 13.2217 3.44505 15.8334 6.66671 15.8334H13.3334C16.555 15.8334 19.1667 13.2217 19.1667 10C19.1667 6.77836 16.555 4.16669 13.3334 4.16669Z M6.66663 12.5C8.04734 12.5 9.16663 11.3807 9.16663 10C9.16663 8.61929 8.04734 7.5 6.66663 7.5C5.28591 7.5 4.16663 8.61929 4.16663 10C4.16663 11.3807 5.28591 12.5 6.66663 12.5Z"
+                                           ForegroundColor="{DynamicResource Normal-Stroke}"
+                                           PreviewMouseLeftButtonUp="ThemeChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource Normal-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-MouseOver}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                        <uc:ChatMenuButton Title="{x:Static language:lang.logout}"
+                                           x:Name="LogoutChatMenuButton"
+                                           Data="M15.3 5.53333C16.3487 6.58232 17.0627 7.91869 17.3519 9.37348C17.6411 10.8283 17.4924 12.3361 16.9247 13.7065C16.357 15.0768 15.3957 16.248 14.1624 17.072C12.9291 17.896 11.4791 18.3358 9.99585 18.3358C8.5126 18.3358 7.06265 17.896 5.82933 17.072C4.59602 16.248 3.63472 15.0768 3.06699 13.7065C2.49926 12.3361 2.35059 10.8283 2.63978 9.37348C2.92897 7.91869 3.64304 6.58232 4.69169 5.53333 M10 1.66669V10"
+                                           ForegroundColor="{DynamicResource SideBar-Button-Red-Stroke}"
+                                           PreviewMouseLeftButtonUp="LogoutChatMenuButton_OnPreviewMouseLeftButtonUp">
+                            <uc:ChatMenuButton.Style>
+                                <Style TargetType="uc:ChatMenuButton">
+                                    <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button-Red}" />
+                                    <Setter Property="StrokeColor" Value="{DynamicResource SideBar-Button-Red-Stroke}" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Red-Mouseover}" />
+                                            <Setter Property="StrokeColor"
+                                                    Value="{DynamicResource SideBar-Button-Red-Stroke-MouseOver}" />
+                                        </Trigger>
+                                        <Trigger Property="IsActive" Value="True">
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{DynamicResource SideBar-Button-Red-Selected}" />
+                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </uc:ChatMenuButton.Style>
+                        </uc:ChatMenuButton>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Triggers for SideBar -->
+                <Border.Triggers>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard x:Name="HideSideBar">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SideBar"
+                                    Storyboard.TargetProperty="Width"
+                                    BeginTime="0:0:0"
+                                    Duration="0:0:0.2"
+                                    From="{Binding ElementName=SideBar, Path=Width}" To="50" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard x:Name="ShowSideBar">
+                                <DoubleAnimation
+                                    Storyboard.TargetName="SideBar"
+                                    Storyboard.TargetProperty="Width"
+                                    BeginTime="0:0:0.025"
+                                    Duration="0:0:0.2"
+                                    From="{Binding ElementName=SideBar, Path=Width}" To="280" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Border.Triggers>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="8"
+                                      Direction="-90"
+                                      Opacity="0.25"
+                                      Color="#000000" />
+                </Border.Effect>
+            </Border>
+
+            <!-- Element, that give darkened effect when hover SideBar -->
+            <Border x:Name="DarkBorder"
+                    Panel.ZIndex="2"
+                    Width="1920"
+                    Visibility="{Binding BorderVisibility, 
+                    UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, 
+                    Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Background="#000000"
+                    Opacity="0">
+            </Border>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="240" MaxWidth="440" />
+                    <ColumnDefinition MinWidth="734" />
+                </Grid.ColumnDefinitions>
+                <!-- Chats panel -->
+                <Grid Column="0" Margin="50 0 0 0" Background="{DynamicResource ThemeColor}"
+                      HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="149" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0">
+                        <StackPanel x:Name="HeaderPanel">
+                            <Grid Height="49" MaxWidth="265" MinWidth="200"
+                                  Focusable="False"
+                                  Margin="20 20 0 0" HorizontalAlignment="Left">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBlock Text="{x:Static language:lang.messagesCount}"
+                                               FontFamily="{StaticResource Alata}"
+                                               Foreground="{DynamicResource Stronger-Stroke}"
+                                               FontSize="36"
+                                               MaxWidth="{Binding ActualWidth, Converter={StaticResource WidthConverter}, ElementName=HeaderPanel}"
+                                               TextWrapping="WrapWithOverflow"
+                                               TextTrimming="CharacterEllipsis"
+                                               FontWeight="Regular" VerticalAlignment="Center"
+                                               HorizontalAlignment="Stretch" />
+                                </Grid>
+                                <Grid Grid.Column="1" Margin="15 0 0 0" HorizontalAlignment="Right">
+                                    <Border Width="40" Height="40" Background="{DynamicResource MessagesCount-Border}"
+                                            CornerRadius="20">
+                                        <TextBlock
+                                            Text="{Binding UnreadedMessagesCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            FontFamily="{StaticResource Alata}"
+                                            FontSize="20" FontWeight="Regular" VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            Foreground="{DynamicResource MessagesCount-Foreground}" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            <Border Height="40" MinWidth="200" MaxWidth="350" Background="{DynamicResource SearchBar}"
+                                    CornerRadius="5"
+                                    Margin="20 20 20 0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Width="20" VerticalAlignment="Center"
+                                            HorizontalAlignment="Center">
+                                        <Path
+                                            Data="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z M17.5 17.5L13.875 13.875"
+                                            Stroke="{DynamicResource SearchBar-Foreground}" StrokeThickness="2"
+                                            StrokeStartLineCap="Round" />
+                                    </Border>
+                                    <TextBox Grid.Column="1"
+                                             x:Name="SearchBox"
+                                             Foreground="{DynamicResource SearchBar-Foreground}"
+                                             BorderThickness="0"
+                                             FontFamily="{StaticResource Alata}"
+                                             FontSize="14" FontWeight="Regular"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Stretch"
+                                             Margin="0 0 0 0" Padding="0 0 38 0"
+                                             MaxWidth="{Binding ActualWidth, 
+                                             Converter={StaticResource WidthConverter}, 
+                                             ElementName=HeaderPanel}"
+                                             CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                             Text="{Binding SearchBoxText}">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Key="Escape" Command="{Binding ClearSearchBox}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="Background" Value="{DynamicResource SearchBar}" />
+                                                <Style.Resources>
+                                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                                 AlignmentY="Center" Stretch="None">
+                                                        <VisualBrush.Visual>
+                                                            <Label x:Name="HintLabel"
+                                                                   Content="{x:Static language:lang.search}"
+                                                                   FontFamily="{StaticResource Alata}"
+                                                                   FontSize="14" FontWeight="Regular"
+                                                                   Foreground="{DynamicResource SearchBar-Hint-Foreground}"
+                                                                   VerticalAlignment="Center"
+                                                                   VerticalContentAlignment="Center"
+                                                                   Margin="0 0 0 0" Padding="4 0 0 0" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Style.Resources>
+                                                <Style.Triggers>
+                                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                        <Setter Property="Background"
+                                                                Value="{StaticResource CueBannerBrush}" />
+                                                    </Trigger>
+                                                    <Trigger Property="Text" Value="{x:Null}">
+                                                        <Setter Property="Background"
+                                                                Value="{StaticResource CueBannerBrush}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <Button Grid.Column="1" Margin="0 0 14 0" Padding="0 0 0 0"
+                                            VerticalAlignment="Center" HorizontalAlignment="Right"
+                                            OverridesDefaultStyle="True"
+                                            Command="{Binding ClearSearchBox}">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                                <Setter Property="BorderThickness" Value="0" />
+                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Setter Property="Padding" Value="0" />
+                                                <Setter Property="Margin" Value="0" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="Transparent"
+                                                                    BorderBrush="Transparent"
+                                                                    BorderThickness="0"
+                                                                    Padding="0"
+                                                                    Margin="0">
+                                                                <Path Data="M 0,0 10,10 M 10,0 0,10"
+                                                                      Stroke="{DynamicResource SearchBar-Foreground}"
+                                                                      StrokeThickness="2" />
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}"
+                                                                 Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="4"
+                                                      ShadowDepth="0"
+                                                      Direction="0"
+                                                      Opacity="0.25"
+                                                      Color="#000000" />
+                                </Border.Effect>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" Margin="0 0 0 0">
+                        <StackPanel HorizontalAlignment="Stretch">
+                            <ListView ItemsSource="{Binding Messages}"
+                                      ItemContainerStyle="{StaticResource ChatBox}"
+                                      BorderBrush="Transparent"
+                                      HorizontalAlignment="Stretch"
+                                      BorderThickness="0"
+                                      MinWidth="200"
+                                      MaxWidth="350"
+                                      Margin="20 0 8 0"
+                                      Padding="0">
+                                <ListView.Template>
+                                    <ControlTemplate>
+                                        <ItemsPresenter />
+                                    </ControlTemplate>
+                                </ListView.Template>
+                            </ListView>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <!-- Active Chat -->
+                <Grid Column="1" Margin="0 0 0 0" HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="{DynamicResource ThemeColor}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="10 0 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Ellipse Grid.Column="0" Width="50" Height="50">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="https://i.imgur.com/1Q1Z1Zm.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <StackPanel Grid.Column="1" Margin="10 16 0 0">
+                                    <TextBlock Text="Esteban Welch"
+                                               FontFamily="{StaticResource Alata}"
+                                               Foreground="{DynamicResource Strongest-Stroke}"
+                                               FontSize="16"
+                                               FontWeight="Regular" VerticalAlignment="Center"
+                                               HorizontalAlignment="Stretch" />
+                                    <TextBlock Text="Viimane tegevus 19:34"
+                                               FontFamily="{StaticResource Alata}"
+                                               Foreground="{DynamicResource Strong-Stroke}"
+                                               FontSize="10"
+                                               FontWeight="Regular" VerticalAlignment="Center"
+                                               HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Column="1" Margin="0 0 20 0" HorizontalAlignment="Right">
+                                <Button Width="40" Height="40" VerticalAlignment="Center">
+                                    <Image Width="20" Height="20" Resources="{StaticResource Icons}"
+                                           Source="{StaticResource ActiveChat-Search}" />
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="Padding" Value="0" />
+                                            <Setter Property="Margin" Value="0" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                CornerRadius="40"
+                                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                                Padding="{TemplateBinding Padding}"
+                                                                Margin="{TemplateBinding Margin}">
+                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                              VerticalAlignment="Center" />
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background"
+                                                                        Value="{DynamicResource ActiveChat-Search-MouseOver}" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsPressed" Value="True">
+                                                                <Setter Property="Background"
+                                                                        Value="{DynamicResource ActiveChat-Search-Selected}" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                    <Border Grid.Row="1" Background="{DynamicResource Main}"></Border>
+                    <Border Grid.Row="2" Background="{DynamicResource ThemeColor}"></Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="FlyMessenger.UserControls.TopBarButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             d:DesignHeight="30" d:DesignWidth="40"
+             Name="topBarButton">
+    <!-- Template for Topbar button -->
+    
+    <!-- TODO: Implement stroke trigger -->
+    <Button Style="{DynamicResource TopButtonBar}">
+        <Grid Width="40" Height="30">
+            <Path x:Name="MyPath"
+                  Data="{Binding ElementName=topBarButton, Path=TopBarData}"
+                  Stroke="{DynamicResource TopBar-Button-Stroke}" 
+                  StrokeThickness="2" 
+                  StrokeLineJoin="round" 
+                  StrokeStartLineCap="round" 
+                  StrokeEndLineCap="round"/>
+        </Grid>
+    </Button>
+</UserControl>

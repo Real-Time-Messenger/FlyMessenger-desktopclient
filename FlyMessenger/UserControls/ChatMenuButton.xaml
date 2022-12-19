@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="FlyMessenger.UserControls.ChatMenuButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:uc="clr-namespace:FlyMessenger.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="34" d:DesignWidth="34"
+             Name="chatMenuButton">
+    <!-- Template for Sidebar button -->
+    <Button Style="{DynamicResource SideBarButton}" Width="280" Height="48">
+        <Grid>
+            <Border CornerRadius="10" Width="34" Height="34" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 0 0 0">
+                <Border.Background>
+                    <SolidColorBrush Color="{Binding ElementName=chatMenuButton, Path=BackgroundColor}"/>
+                </Border.Background>
+                <Grid Margin="7">
+                    <Path Data="{Binding ElementName=chatMenuButton, Path=Data}" 
+                          Stroke="{Binding ElementName=chatMenuButton, Path=StrokeColor}" StrokeThickness="2" StrokeLineJoin="round" StrokeStartLineCap="round" StrokeEndLineCap="round"/>
+                </Grid>
+            </Border>
+            <TextBlock Text="{Binding ElementName=chatMenuButton, Path=Title}" FontFamily="{StaticResource Alata}" FontSize="16" FontWeight="Regular" Foreground="{Binding ElementName=chatMenuButton, Path=ForegroundColor}" VerticalAlignment="Center" Margin="62 0 0 0"/>
+        </Grid>
+    </Button>
+</UserControl>

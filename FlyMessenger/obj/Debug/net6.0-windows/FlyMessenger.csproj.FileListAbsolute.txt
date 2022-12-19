@@ -1,0 +1,99 @@
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.AssemblyReference.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\TopBarButton.baml
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MVVM\View\ChatBox.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\ChatMenuButton.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\TopBarButton.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\App.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_MarkupCompile.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_MarkupCompile.lref
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.exe
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo128.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo16.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo192.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo24.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo256.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo32.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo48.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo64.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo96.ico
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.dll.config
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.deps.json
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.runtimeconfig.json
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.pdb
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\en-US\FlyMessenger.resources.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\ru-RU\FlyMessenger.resources.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_Content.g.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\App.baml
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MVVM\View\ChatBox.baml
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\ChatMenuButton.baml
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.g.resources
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.resources
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.en-US.resources
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.ru-RU.resources
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.GenerateResource.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.AssemblyInfoInputs.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.AssemblyInfo.cs
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.CoreCompileInputs.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\en-US\FlyMessenger.resources.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\ru-RU\FlyMessenger.resources.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\refint\FlyMessenger.dll
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.pdb
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.genruntimeconfig.cache
+C:\Users\kirya\Desktop\desktop\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\ref\FlyMessenger.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Resources\Languages\lang.resx
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Resources\Languages\lang.en-US.resx
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Resources\Languages\lang.ru-RU.resx
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.exe
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo128.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo16.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo192.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo24.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo256.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo32.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo48.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo64.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\Public\Icons\Logo96.ico
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.dll.config
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.deps.json
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.runtimeconfig.json
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\FlyMessenger.pdb
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\en-US\FlyMessenger.resources.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\bin\Debug\net6.0-windows\ru-RU\FlyMessenger.resources.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.AssemblyReference.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\TopBarButton.baml
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MainWindow.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\ChatMenuButton.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\TopBarButton.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\App.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_Content.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_MarkupCompile.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger_MarkupCompile.lref
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\App.baml
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\MainWindow.baml
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\UserControls\ChatMenuButton.baml
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.g.resources
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.resources
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.en-US.resources
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.Resources.Languages.lang.ru-RU.resources
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.GenerateResource.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.GeneratedMSBuildEditorConfig.editorconfig
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.AssemblyInfoInputs.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.AssemblyInfo.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.csproj.CoreCompileInputs.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\en-US\FlyMessenger.resources.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\ru-RU\FlyMessenger.resources.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\refint\FlyMessenger.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.pdb
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\FlyMessenger.genruntimeconfig.cache
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\ref\FlyMessenger.dll
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\en-US\FlyMessenger.resources.cs
+D:\C++ Projects\FlyMessenger\FlyMessenger\obj\Debug\net6.0-windows\ru-RU\FlyMessenger.resources.cs

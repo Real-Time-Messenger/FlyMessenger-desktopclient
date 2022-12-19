@@ -1,0 +1,115 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
+        <ApplicationIcon>Public/Icons/Logo32.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Public\Images\anchor.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Public/Icons/Logo32.ico" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="MVVM\View" />
+        <Folder Include="Public\Images" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <None Update="Public\Icons\Logo128.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo16.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo192.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo24.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo256.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo32.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo48.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo64.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Public\Icons\Logo96.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Resources\Languages\lang.ru-RU.resx">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>lang.ru-RU.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Languages\lang.en-US.resx">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <Generator>PublicResXFileCodeGenerator</Generator>
+		  <LastGenOutput>lang.en-US.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Languages\lang.resx">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <Generator>PublicResXFileCodeGenerator</Generator>
+          <LastGenOutput>lang.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Languages\lang.Designer.cs">
+          <DesignTime>True</DesignTime>
+          <AutoGen>True</AutoGen>
+          <DependentUpon>lang.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\Languages\lang.ru-RU.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>lang.ru-RU.resx</DependentUpon>
+        </Compile>
+		<Compile Update="Resources\Languages\lang.en-US.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>lang.en-US.resx</DependentUpon>
+		</Compile>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Resource Include="Resources\Fonts\Alata-Regular.ttf" />
+        <Resource Include="Resources\Icons\XamlIcons.xaml">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Resource>
+        <Page Remove="Resources\Colors\Dark.xaml" />
+        <Resource Include="Resources\Colors\Dark.xaml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+        <Page Remove="Resources\Colors\Light.xaml" />
+        <Resource Include="Resources\Colors\Light.xaml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
+
+</Project>

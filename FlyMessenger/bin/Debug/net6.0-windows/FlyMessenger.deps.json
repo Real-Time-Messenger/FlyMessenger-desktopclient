@@ -1,0 +1,31 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "FlyMessenger/1.0.0": {
+        "runtime": {
+          "FlyMessenger.dll": {}
+        },
+        "resources": {
+          "en-US/FlyMessenger.resources.dll": {
+            "locale": "en-US"
+          },
+          "ru-RU/FlyMessenger.resources.dll": {
+            "locale": "ru-RU"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FlyMessenger/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
