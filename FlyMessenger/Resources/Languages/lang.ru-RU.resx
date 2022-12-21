@@ -114,4 +114,7 @@
     <data name="name" xml:space="preserve">
         <value>Имя</value>
     </data>
+    <data name="noChats" xml:space="preserve">
+        <value>Вы пока не с кем не общались</value>
+    </data>
 </root>

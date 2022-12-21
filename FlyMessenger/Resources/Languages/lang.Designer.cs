@@ -186,6 +186,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sa pole veel kellegagi rääkima hakanud.
+        /// </summary>
+        public static string noChats {
+            get {
+                return ResourceManager.GetString("noChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Teade.
         /// </summary>
         public static string notification {

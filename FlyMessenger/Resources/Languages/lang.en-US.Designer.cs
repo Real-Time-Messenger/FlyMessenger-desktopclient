@@ -60,6 +60,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Block user.
+        /// </summary>
+        public static string block_user {
+            get {
+                return ResourceManager.GetString("block-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat.
         /// </summary>
         public static string chat {
@@ -83,6 +92,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string conservations {
             get {
                 return ResourceManager.GetString("conservations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete chat.
+        /// </summary>
+        public static string delete_chat {
+            get {
+                return ResourceManager.GetString("delete-chat", resourceCulture);
             }
         }
         
@@ -123,11 +141,11 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hide.
+        ///   Looks up a localized string similar to Hide FlyMessenger.
         /// </summary>
-        public static string hide {
+        public static string hideWindow {
             get {
-                return ResourceManager.GetString("hide", resourceCulture);
+                return ResourceManager.GetString("hideWindow", resourceCulture);
             }
         }
         
@@ -150,6 +168,33 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
+        public static string messagesCount {
+            get {
+                return ResourceManager.GetString("messagesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t started talking to anyone yet.
+        /// </summary>
+        public static string noChats {
+            get {
+                return ResourceManager.GetString("noChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Notification.
         /// </summary>
         public static string notification {
@@ -164,6 +209,33 @@ namespace FlyMessenger.Resources.Languages {
         public static string notifications {
             get {
                 return ResourceManager.GetString("notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn off notifications.
+        /// </summary>
+        public static string notifications_off {
+            get {
+                return ResourceManager.GetString("notifications-off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on notifications.
+        /// </summary>
+        public static string notifications_on {
+            get {
+                return ResourceManager.GetString("notifications-on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin.
+        /// </summary>
+        public static string pin {
+            get {
+                return ResourceManager.GetString("pin", resourceCulture);
             }
         }
         
@@ -195,11 +267,11 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show.
+        ///   Looks up a localized string similar to Show FlyMessenger.
         /// </summary>
-        public static string show {
+        public static string showWindow {
             get {
-                return ResourceManager.GetString("show", resourceCulture);
+                return ResourceManager.GetString("showWindow", resourceCulture);
             }
         }
         
@@ -209,6 +281,24 @@ namespace FlyMessenger.Resources.Languages {
         public static string sound {
             get {
                 return ResourceManager.GetString("sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn off sound.
+        /// </summary>
+        public static string sound_off {
+            get {
+                return ResourceManager.GetString("sound-off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turn on sound.
+        /// </summary>
+        public static string sound_on {
+            get {
+                return ResourceManager.GetString("sound-on", resourceCulture);
             }
         }
         
@@ -231,11 +321,20 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Messages.
+        ///   Looks up a localized string similar to Unblock user.
         /// </summary>
-        public static string messages {
+        public static string unblock_user {
             get {
-                return ResourceManager.GetString("messagesCount", resourceCulture);
+                return ResourceManager.GetString("unblock-user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unpin.
+        /// </summary>
+        public static string unpin {
+            get {
+                return ResourceManager.GetString("unpin", resourceCulture);
             }
         }
     }

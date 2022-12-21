@@ -207,4 +207,7 @@
   <data name="name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="noChats" xml:space="preserve">
+    <value>You haven't started talking to anyone yet</value>
+  </data>
 </root>

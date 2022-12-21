@@ -101,4 +101,7 @@
     <data name="name" xml:space="preserve">
         <value>Nimi</value>
     </data>
+    <data name="noChats" xml:space="preserve">
+        <value>Sa pole veel kellegagi rääkima hakanud</value>
+    </data>
 </root>

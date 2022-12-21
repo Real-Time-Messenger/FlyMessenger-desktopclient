@@ -186,6 +186,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы пока не с кем не общались.
+        /// </summary>
+        public static string noChats {
+            get {
+                return ResourceManager.GetString("noChats", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Уведомление.
         /// </summary>
         public static string notification {
