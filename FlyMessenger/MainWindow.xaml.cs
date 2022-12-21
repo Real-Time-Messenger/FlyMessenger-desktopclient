@@ -7,6 +7,7 @@ using System.Windows.Media.Animation;
 using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.UserControls;
 using Application = System.Windows.Application;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace FlyMessenger
@@ -93,107 +94,36 @@ namespace FlyMessenger
         // Mouse left button up event to change IsActive property
         private void LogoutChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            // other buttons are not active
-            ChatChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create logout method
         }
 
         private void ChatChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            LogoutChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create chat method
         }
 
         private void ConservationsChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            ChatChatMenuButton.IsActive = false;
-            LogoutChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create conservations method
         }
 
         private void GroupsChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            ChatChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            LogoutChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create groups method
         }
 
         private void SettingsChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            ChatChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            LogoutChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create settings method
         }
 
         private void SupportChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            ChatChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            LogoutChatMenuButton.IsActive = false;
-            ThemeChatMenuButton.IsActive = false;
-
             // TODO: Create support method
         }
 
         private void ThemeChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if (sender is not ChatMenuButton chatMenuButton) return;
-            chatMenuButton.IsActive = true;
-
-            ChatChatMenuButton.IsActive = false;
-            ConservationsChatMenuButton.IsActive = false;
-            GroupsChatMenuButton.IsActive = false;
-            SettingsChatMenuButton.IsActive = false;
-            SupportChatMenuButton.IsActive = false;
-            LogoutChatMenuButton.IsActive = false;
-
             var resources = Application.Current.Resources.MergedDictionaries;
             
             // Clear all resources
@@ -219,6 +149,14 @@ namespace FlyMessenger
                 _light = true;
             }
             _notifyIconManager.InitializeNotifyIcon();
+        }
+
+        private void ActiveChat_Search_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            // Set focus to searchbox
+            SearchBox.Focus();
+            
+            // TODO: Implement search method
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public class SearchModel
     {
-        public DialogModel? Dialog { get; set; }
-        public DialogModel Message { get; set; }
-        public DialogModel? User { get; set; }
+        public DialogModel[]? Dialogs { get; set; }
+        public DialogModel[] Messages { get; set; }
+        public DialogModel[]? Users { get; set; }
     }
 }

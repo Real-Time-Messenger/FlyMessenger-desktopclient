@@ -56,5 +56,13 @@ namespace FlyMessenger.HTTP
 
             _client.Execute(request);
         }
+        
+        protected async Task<T> GetAsync<T>(string url)
+        {
+            var request = new RestRequest(url);
+
+            var response = await _client.ExecuteAsync<T>(request);
+            return response.Data!;
+        }
     }
 }

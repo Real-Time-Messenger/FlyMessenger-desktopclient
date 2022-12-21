@@ -28,26 +28,38 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         // TODO: Implement Search functionality
-        private void Search()
+        private async void Search()
         {
             if (string.IsNullOrEmpty(SearchBoxText))
-            {
-                SearchBoxClearVisibility = false;
-            }
-            else
-            {
-                SearchBoxClearVisibility = true;
-            }
+                return;
+            
+            SearchResult = await ControllerBase.SearchController.Search(SearchBoxText);
+            
+            MessageBox.Show(SearchResult.Dialogs?[0].Label + " " + SearchResult.Users?[0].Label);
+            
+            SearchBoxClearVisibility = !string.IsNullOrEmpty(SearchBoxText);
         }
 
-        private DialogModel _selectedMessage;
+        private DialogModel _selectedDialog;
 
-        public DialogModel SelectedMessage
+        public DialogModel SelectedDialog
         {
-            get => _selectedMessage;
+            get => _selectedDialog;
             set
             {
-                _selectedMessage = value;
+                _selectedDialog = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private SearchModel _searchResult;
+
+        public SearchModel SearchResult
+        {
+            get => _searchResult;
+            set
+            {
+                _searchResult = value;
                 OnPropertyChanged();
             }
         }
@@ -130,7 +142,7 @@ namespace FlyMessenger.MVVM.ViewModels
             }
             
             // Count how many MessagesCount are
-            // UnreadedMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
+            UnreadedMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
             
             ClearSearchBox = new RelayCommand(
                 _ =>

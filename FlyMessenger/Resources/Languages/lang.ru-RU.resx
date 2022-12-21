@@ -117,4 +117,7 @@
     <data name="noChats" xml:space="preserve">
         <value>Вы пока не с кем не общались</value>
     </data>
+    <data name="writeMessage" xml:space="preserve">
+        <value>Написать сообщение...</value>
+    </data>
 </root>

@@ -142,12 +142,46 @@
             <DrawingGroup ClipGeometry="M0,0 V30 H30 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M30,30z M0,0z M13.75,23.75C19.2728,23.75 23.75,19.2728 23.75,13.75 23.75,8.22715 19.2728,3.75 13.75,3.75 8.22715,3.75 3.75,8.22715 3.75,13.75 3.75,19.2728 8.22715,23.75 13.75,23.75z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Strongest-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{DynamicResource ActiveChat-Search-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
                 <GeometryDrawing Geometry="F1 M30,30z M0,0z M26.25,26.25L20.8125,20.8125">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Strongest-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{DynamicResource ActiveChat-Search-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
+    <DrawingImage x:Key="ActiveChat-Attachment">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup.ClipGeometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,24,24" />
+                    </DrawingGroup.ClipGeometry>
+                    <GeometryDrawing Geometry="F1 M24,24z M0,0z M2.55999,12.95L11.75,3.76002C12.8758,2.63418 14.4028,2.00168 15.995,2.00168 17.5872,2.00168 19.1141,2.63418 20.24,3.76002 21.3658,4.88587 21.9983,6.41284 21.9983,8.00502 21.9983,9.5972 21.3658,11.1242 20.24,12.25L11.05,21.44C10.2994,22.1906 9.28144,22.6122 8.21999,22.6122 7.15853,22.6122 6.14055,22.1906 5.38999,21.44 4.63942,20.6895 4.21776,19.6715 4.21776,18.61 4.21776,17.5486 4.63943,16.5306 5.38999,15.78L14.59,6.59002C14.9653,6.21474 15.4743,6.00391 16.005,6.00391 16.5357,6.00391 17.0447,6.21474 17.42,6.59002 17.7953,6.9653 18.0061,7.47429 18.0061,8.00502 18.0061,8.53575 17.7953,9.04474 17.42,9.42002L8.92999,17.9">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Paperclip-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
+    <DrawingImage x:Key="ActiveChat-Send">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M15,10L20,15 15,20">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource ActiveChat-Send-Stroke}" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M4,4L4,11C4,12.0609 4.42143,13.0783 5.17157,13.8284 5.92172,14.5786 6.93913,15 8,15L20,15">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource ActiveChat-Send-Stroke}" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>

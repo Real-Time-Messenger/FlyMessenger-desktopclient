@@ -23,22 +23,22 @@ namespace FlyMessenger.Controllers
     {
         public IEnumerable<DialogModel> GetDialogs()
         {
-            return Get<DialogModel[]>("/dialogs/me");
+            return Get<DialogModel[]>(Constants.DialogsUrl + "/me");
         }
 
         public DialogModel CreateDialog(string id)
         {
-            return Post<DialogModel, DialogInCreate>("/dialogs", new DialogInCreate { ToUserId = id });
+            return Post<DialogModel, DialogInCreate>(Constants.DialogsUrl, new DialogInCreate { ToUserId = id });
         }
 
         public DialogModel EditDialog(string id, DialogInEdit data)
         {
-            return Put<DialogModel, DialogInEdit>($"/dialogs/{id}", data);
+            return Put<DialogModel, DialogInEdit>(Constants.DialogsUrl + $"/{id}", data);
         }
 
         public void DeleteDialog(string id)
         {
-            Delete($"/dialogs/{id}");
+            Delete(Constants.DialogsUrl + $"/{id}");
         }
     }
 }

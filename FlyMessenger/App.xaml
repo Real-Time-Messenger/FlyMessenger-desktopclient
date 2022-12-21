@@ -316,7 +316,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <DataTrigger
-                                Binding="{Binding MessagesCount, Converter={StaticResource MessagesCountConverter}}">
+                                Binding="{Binding UnreadMessages, Converter={StaticResource MessagesCountConverter}}">
                                 <DataTrigger.Value>True</DataTrigger.Value>
                                 <Setter TargetName="MessagesCountBorder" Property="Visibility" Value="Visible" />
                             </DataTrigger>

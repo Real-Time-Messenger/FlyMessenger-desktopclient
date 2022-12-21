@@ -26,6 +26,7 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:WidthConverter x:Key="WidthConverter" />
+        <converters:HeightConverter x:Key="HeightConverter" />
     </Window.Resources>
 
     <!-- Front end -->
@@ -118,7 +119,6 @@
 
                     <!-- Menu buttons -->
                     <StackPanel Height="334">
-                        <!-- TODO: Delete IsActive for others buttons -->
                         <uc:ChatMenuButton Title="{x:Static language:lang.chat}"
                                            x:Name="ChatChatMenuButton"
                                            Data="M17.5 9.58333C17.5029 10.6832 17.2459 11.7682 16.75 12.75C16.162 13.9265 15.2581 14.916 14.1395 15.6077C13.021 16.2995 11.7319 16.6662 10.4167 16.6667C9.31678 16.6695 8.23176 16.4126 7.25 15.9167L2.5 17.5L4.08333 12.75C3.58744 11.7682 3.33047 10.6832 3.33333 9.58333C3.33384 8.26813 3.70051 6.97904 4.39227 5.86046C5.08402 4.74188 6.07355 3.83797 7.25 3.25C8.23176 2.75411 9.31678 2.49713 10.4167 2.5H10.8333C12.5703 2.59583 14.2109 3.32897 15.441 4.55905C16.671 5.78913 17.4042 7.42971 17.5 9.16667V9.58333Z"
@@ -159,11 +159,6 @@
                                                     Value="{DynamicResource SideBar-Button-MouseOver}" />
                                             <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
                                         </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
-                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </uc:ChatMenuButton.Style>
@@ -182,11 +177,6 @@
                                             <Setter Property="BackgroundColor"
                                                     Value="{DynamicResource SideBar-Button-MouseOver}" />
                                             <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
-                                        </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -207,11 +197,6 @@
                                                     Value="{DynamicResource SideBar-Button-MouseOver}" />
                                             <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
                                         </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
-                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </uc:ChatMenuButton.Style>
@@ -230,11 +215,6 @@
                                             <Setter Property="BackgroundColor"
                                                     Value="{DynamicResource SideBar-Button-MouseOver}" />
                                             <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
-                                        </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -255,11 +235,6 @@
                                                     Value="{DynamicResource SideBar-Button-MouseOver}" />
                                             <Setter Property="StrokeColor" Value="{DynamicResource Stronger-Stroke}" />
                                         </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
-                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
                             </uc:ChatMenuButton.Style>
@@ -279,11 +254,6 @@
                                                     Value="{DynamicResource SideBar-Button-Red-Mouseover}" />
                                             <Setter Property="StrokeColor"
                                                     Value="{DynamicResource SideBar-Button-Red-Stroke-MouseOver}" />
-                                        </Trigger>
-                                        <Trigger Property="IsActive" Value="True">
-                                            <Setter Property="BackgroundColor"
-                                                    Value="{DynamicResource SideBar-Button-Red-Selected}" />
-                                            <Setter Property="StrokeColor" Value="{DynamicResource Strongest-Stroke}" />
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -343,17 +313,19 @@
                     <ColumnDefinition MinWidth="240" MaxWidth="440" />
                     <ColumnDefinition MinWidth="734" />
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- Chats panel -->
-                <Grid Column="0" Margin="50 0 0 0" Background="{DynamicResource ThemeColor}"
+                <Grid Column="0"
+                      Margin="50 0 0 0"
+                      Background="{DynamicResource ThemeColor}"
                       HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="149" />
+                        <RowDefinition Height="150" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0">
                         <StackPanel x:Name="HeaderPanel">
-                            <Grid Height="49" MaxWidth="265" MinWidth="200"
+                            <Grid Height="50" MaxWidth="265" MinWidth="200"
                                   Focusable="False"
                                   Margin="20 20 0 0" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
@@ -497,6 +469,7 @@
                         <StackPanel HorizontalAlignment="Stretch">
                             <ListView ItemsSource="{Binding Dialogs}"
                                       ItemContainerStyle="{StaticResource ChatBox}"
+                                      SelectedItem="{Binding SelectedDialog}"
                                       BorderBrush="Transparent"
                                       HorizontalAlignment="Stretch"
                                       BorderThickness="0"
@@ -510,7 +483,7 @@
                                     </ControlTemplate>
                                 </ListView.Template>
                             </ListView>
-                            <TextBlock 
+                            <TextBlock
                                 Text="{x:Static language:lang.noChats}"
                                 FontFamily="{StaticResource Alata}"
                                 FontSize="14" FontWeight="Regular"
@@ -524,14 +497,18 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
+
                 <!-- Active Chat -->
                 <Grid Column="1" Margin="0 0 0 0" HorizontalAlignment="Stretch">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0" Background="{DynamicResource ThemeColor}">
+                    <Border Grid.Row="0"
+                            Background="{DynamicResource ThemeColor}"
+                            BorderBrush="{DynamicResource Main}"
+                            BorderThickness="1 0 0 0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50*" />
@@ -544,17 +521,17 @@
                                 </Grid.ColumnDefinitions>
                                 <Ellipse Grid.Column="0" Width="50" Height="50">
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="https://i.imgur.com/1Q1Z1Zm.png" />
+                                        <ImageBrush ImageSource="{Binding SelectedDialog.User.PhotoUrl}" />
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <StackPanel Grid.Column="1" Margin="10 16 0 0">
-                                    <TextBlock Text="Esteban Welch"
+                                    <TextBlock Text="{Binding SelectedDialog.Label}"
                                                FontFamily="{StaticResource Alata}"
                                                Foreground="{DynamicResource Strongest-Stroke}"
                                                FontSize="16"
                                                FontWeight="Regular" VerticalAlignment="Center"
                                                HorizontalAlignment="Stretch" />
-                                    <TextBlock Text="Viimane tegevus 19:34"
+                                    <TextBlock Text="{Binding SelectedDialog.User.LastActivity}"
                                                FontFamily="{StaticResource Alata}"
                                                Foreground="{DynamicResource Strong-Stroke}"
                                                FontSize="10"
@@ -563,7 +540,8 @@
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Column="1" Margin="0 0 20 0" HorizontalAlignment="Right">
-                                <Button Width="40" Height="40" VerticalAlignment="Center">
+                                <Button Width="40" Height="40" VerticalAlignment="Center" Cursor="Hand"
+                                        PreviewMouseLeftButtonUp="ActiveChat_Search_OnPreviewMouseLeftButtonUp">
                                     <Image Width="20" Height="20" Resources="{StaticResource Icons}"
                                            Source="{StaticResource ActiveChat-Search}" />
                                     <Button.Style>
@@ -604,8 +582,149 @@
                             </Grid>
                         </Grid>
                     </Border>
-                    <Border Grid.Row="1" Background="{DynamicResource Main}"></Border>
-                    <Border Grid.Row="2" Background="{DynamicResource ThemeColor}"></Border>
+                    <Border Grid.Row="1"
+                            Background="{DynamicResource Main}">
+
+                    </Border>
+                    <Border Grid.Row="2"
+                            Background="{DynamicResource ThemeColor}"
+                            BorderBrush="{DynamicResource Main}"
+                            BorderThickness="1 0 0 0"
+                            Padding="0 6 0 6">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="50" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Width="34" Height="34" VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" Cursor="Hand">
+                                <Image Width="20" Height="20" Resources="{StaticResource Icons}"
+                                       Source="{StaticResource ActiveChat-Attachment}" />
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            CornerRadius="20"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            Padding="{TemplateBinding Padding}"
+                                                            Margin="{TemplateBinding Margin}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource Paperclip-MouseOver}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource Paperclip-Selected}" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <TextBox Grid.Column="1"
+                                     x:Name="ActiveChatMessage"
+                                     MinHeight="30"
+                                     MaxHeight="200"
+                                     BorderBrush="Transparent"
+                                     BorderThickness="0"
+                                     Foreground="{DynamicResource ActiveChat-Text}"
+                                     FontFamily="{StaticResource Alata}"
+                                     FontSize="14"
+                                     FontWeight="Regular"
+                                     Padding="0"
+                                     Margin="0"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Stretch"
+                                     VerticalContentAlignment="Center"
+                                     TextWrapping="Wrap"
+                                     CaretBrush="{DynamicResource Strong-Stroke}">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrushText" AlignmentX="Left"
+                                                         AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <Label x:Name="TextHintLabel"
+                                                           Content="{x:Static language:lang.writeMessage}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           FontSize="14" FontWeight="Regular"
+                                                           Foreground="{DynamicResource ActiveChat-Text-Hint}"
+                                                           VerticalAlignment="Center"
+                                                           VerticalContentAlignment="Center"
+                                                           Margin="0 0 0 0" Padding="4 0 0 0" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrushText}" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="{x:Null}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrushText}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <Button Grid.Column="2" Width="34" Height="34" VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Center" Cursor="Hand">
+                                <Image Width="16" Height="16" Resources="{StaticResource Icons}"
+                                       Source="{StaticResource ActiveChat-Send}" />
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="Padding" Value="0" />
+                                        <Setter Property="Margin" Value="0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            CornerRadius="20"
+                                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                                            Padding="{TemplateBinding Padding}"
+                                                            Margin="{TemplateBinding Margin}">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource ActiveChat-Send-MouseOver}" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True">
+                                                            <Setter Property="Background"
+                                                                    Value="{DynamicResource ActiveChat-Send-Selected}" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Border>
                 </Grid>
             </Grid>
         </Grid>

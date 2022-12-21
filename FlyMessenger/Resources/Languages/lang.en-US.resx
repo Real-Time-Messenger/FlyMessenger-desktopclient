@@ -210,4 +210,7 @@
   <data name="noChats" xml:space="preserve">
     <value>You haven't started talking to anyone yet</value>
   </data>
+  <data name="writeMessage" xml:space="preserve">
+    <value>Write message...</value>
+  </data>
 </root>

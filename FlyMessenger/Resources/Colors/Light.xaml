@@ -29,8 +29,17 @@
     <SolidColorBrush x:Key="ChatBox-Foreground" Color="#4C4C4C" />
     <SolidColorBrush x:Key="ActiveChat-CompanionMessage" Color="#FFFFFF" />
     <SolidColorBrush x:Key="ActiveChat-OwnerMessage" Color="#98BDE7" />
+    <SolidColorBrush x:Key="ActiveChat-Search-Stroke" Color="#4C4C4C" />
     <SolidColorBrush x:Key="ActiveChat-Search-MouseOver" Color="#E0E0E0" />
     <SolidColorBrush x:Key="ActiveChat-Search-Selected" Color="#B0B0B0" />
+    <SolidColorBrush x:Key="ActiveChat-Send-Stroke" Color="#4C4C4C" />
+    <SolidColorBrush x:Key="ActiveChat-Send-MouseOver" Color="#E0E0E0" />
+    <SolidColorBrush x:Key="ActiveChat-Send-Selected" Color="#B0B0B0" />
+    <SolidColorBrush x:Key="ActiveChat-Text" Color="#161616" />
+    <SolidColorBrush x:Key="ActiveChat-Text-Hint" Color="#434B54" />
+    <SolidColorBrush x:Key="Paperclip-Stroke" Color="#4C4C4C" />
+    <SolidColorBrush x:Key="Paperclip-MouseOver" Color="#E0E0E0" />
+    <SolidColorBrush x:Key="Paperclip-Selected" Color="#B0B0B0" />
     <SolidColorBrush x:Key="Anchor-Selected" Color="#7B7B7B" />
     <SolidColorBrush x:Key="Anchor" Color="#7B7B7B" />
     <SolidColorBrush x:Key="XamlIcons-Red" Color="#E86C6C" />

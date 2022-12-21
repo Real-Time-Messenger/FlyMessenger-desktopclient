@@ -337,5 +337,14 @@ namespace FlyMessenger.Resources.Languages {
                 return ResourceManager.GetString("unpin", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Написать сообщение....
+        /// </summary>
+        public static string writeMessage {
+            get {
+                return ResourceManager.GetString("writeMessage", resourceCulture);
+            }
+        }
     }
 }

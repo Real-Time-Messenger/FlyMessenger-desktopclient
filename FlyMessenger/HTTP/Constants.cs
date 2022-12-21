@@ -3,7 +3,7 @@
     public class Constants
     {
         public const string ApiUrl = "http://localhost:8000/api";
-        public const string DialogsUrl = "/dialogs/me";
+        public const string DialogsUrl = "/dialogs";
         /*public const string LoginUrl = BaseUrl + "/login";
         public const string RegisterUrl = BaseUrl + "/register";
         public const string LogoutUrl = BaseUrl + "/logout";

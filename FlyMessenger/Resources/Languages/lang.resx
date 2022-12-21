@@ -104,4 +104,7 @@
     <data name="noChats" xml:space="preserve">
         <value>Sa pole veel kellegagi rääkima hakanud</value>
     </data>
+    <data name="writeMessage" xml:space="preserve">
+        <value>Kirjuta sõnumi...</value>
+    </data>
 </root>
