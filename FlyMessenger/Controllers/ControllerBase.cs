@@ -6,5 +6,6 @@ namespace FlyMessenger.Controllers
     {
         public static readonly DialogController DialogController = new DialogController();
         public static readonly SearchController SearchController = new SearchController();
+        public static readonly UserController UserController = new UserController();
     }
 }

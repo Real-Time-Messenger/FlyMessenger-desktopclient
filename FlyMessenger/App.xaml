@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:FlyMessenger.Converters"
              xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
+             xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
@@ -11,19 +13,13 @@
         <converters:AnchorVisibilityConverter x:Key="AnchorVisibilityConverter" />
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:IntToStringConverter x:Key="IntToString" />
+        <converters:ChatBoxNameConverter x:Key="ChatBoxNameConverter" />
 
         <ResourceDictionary x:Key="Icons">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Resources/Icons/XamlIcons.xaml" />
+                <ResourceDictionary Source="Resources/Icons/XamlIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-
-        <ResourceDictionary x:Key="Theme">
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Colors/Light.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
 
         <FontFamily x:Key="Alata">
             pack://application:,,,/FlyMessenger;,,,/Resources/Fonts/Alata-Regular.ttf#Alata
@@ -32,7 +28,27 @@
         <!-- Sidebar Buttons Resources -->
         <Style x:Key="SideBarButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Background-Element}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Settings Buttons Resources -->
+        <Style x:Key="SettingsModalButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -54,7 +70,6 @@
         <!-- topBar Buttons Resources -->
         <Style x:Key="TopButtonBar" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -64,6 +79,84 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Modal Close Button Resources -->
+        <Style x:Key="ModalCloseButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0 0 10 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalCloseButton-MouseOver}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalCloseButton-Selected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Modal Back Button Resources -->
+        <Style x:Key="ModalBackButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="10 0 0 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalBackButton-MouseOver}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalBackButton-Selected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Underline Text Resources -->
+        <Style x:Key="UnderlineTextOnHover" TargetType="TextBlock">
+            <Setter Property="TextDecorations" Value="None" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextDecorations">
+                        <Setter.Value>
+                            <TextDecorationCollection>
+                                <TextDecoration Location="Underline" PenOffset="1" />
+                            </TextDecorationCollection>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <!-- ScrollBar Resources -->
@@ -87,8 +180,6 @@
                         <Style x:Key="ScrollBarThumb" TargetType="Thumb">
                             <Setter Property="SnapsToDevicePixels" Value="True" />
                             <Setter Property="OverridesDefaultStyle" Value="True" />
-                            <Setter Property="Focusable" Value="False" />
-                            <Setter Property="IsTabStop" Value="False" />
                             <Setter Property="MinHeight" Value="16" />
                             <Setter Property="Template">
                                 <Setter.Value>
@@ -127,8 +218,6 @@
                         <Style x:Key="ScrollBarTrackUp" TargetType="{x:Type RepeatButton}">
                             <Setter Property="SnapsToDevicePixels" Value="True" />
                             <Setter Property="OverridesDefaultStyle" Value="True" />
-                            <Setter Property="Focusable" Value="False" />
-                            <Setter Property="IsTabStop" Value="False" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -142,8 +231,6 @@
                         <Style x:Key="ScrollBarTrackDown" TargetType="{x:Type RepeatButton}">
                             <Setter Property="SnapsToDevicePixels" Value="True" />
                             <Setter Property="OverridesDefaultStyle" Value="True" />
-                            <Setter Property="Focusable" Value="False" />
-                            <Setter Property="IsTabStop" Value="False" />
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type RepeatButton}">
@@ -176,7 +263,6 @@
             <Setter Property="Margin" Value="0" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="MinWidth" Value="200" />
             <Setter Property="MaxWidth" Value="350" />
 
@@ -188,7 +274,6 @@
                                 Background="{DynamicResource ChatBox-Normal}"
                                 MinWidth="200"
                                 MaxWidth="350"
-                                Focusable="False"
                                 Margin="0 0 0 10"
                                 Height="78">
                             <Grid>
@@ -217,15 +302,21 @@
                                             <ColumnDefinition Width="60" />
                                         </Grid.ColumnDefinitions>
                                         <Grid Grid.Column="0" HorizontalAlignment="Left">
-                                            <TextBlock Text="{Binding Label}"
-                                                       FontSize="14" FontFamily="{StaticResource Alata}"
+                                            <TextBlock FontSize="14" FontFamily="{StaticResource Alata}"
                                                        FontWeight="Regular"
                                                        Foreground="{DynamicResource Strongest-Stroke}"
                                                        MaxHeight="19"
                                                        MaxWidth="274"
                                                        TextTrimming="CharacterEllipsis"
                                                        HorizontalAlignment="Left"
-                                                       Margin="2,11,0,0" />
+                                                       Margin="2,11,0,0">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
+                                                        <Binding Path="User.FirstName" />
+                                                        <Binding Path="User.LastName" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
                                         </Grid>
                                         <Grid Grid.Column="2" HorizontalAlignment="Right">
                                             <StackPanel Orientation="Horizontal">
@@ -235,12 +326,13 @@
                                                             MaxWidth="36"
                                                             Background="{DynamicResource MessagesCount-Border}"
                                                             Visibility="Collapsed">
-                                                        <TextBlock Text="{Binding UnreadMessages, Converter={StaticResource IntToString}}"
-                                                                   FontSize="10"
-                                                                   FontFamily="{StaticResource Alata}"
-                                                                   FontWeight="Regular"
-                                                                   Foreground="{DynamicResource MessagesCount-Foreground}"
-                                                                   Margin="4,0,4,2" />
+                                                        <TextBlock
+                                                            Text="{Binding UnreadMessages, Converter={StaticResource IntToString}}"
+                                                            FontSize="10"
+                                                            FontFamily="{StaticResource Alata}"
+                                                            FontWeight="Regular"
+                                                            Foreground="{DynamicResource MessagesCount-Foreground}"
+                                                            Margin="4,0,4,2" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Height="14" Width="14" Margin="0 0 6 0"
@@ -278,12 +370,13 @@
                                                            Margin="2,0,0,0" />
                                             </Grid>
                                             <Grid Grid.Column="2" HorizontalAlignment="Right">
-                                                <TextBlock Text="{Binding LastMessage.SentAt, Converter={StaticResource DateTimeConverter}}"
-                                                           FontSize="10"
-                                                           FontFamily="{StaticResource Alata}"
-                                                           FontWeight="Regular"
-                                                           Foreground="{DynamicResource Litest-Stroke-Second}"
-                                                           Margin="0 19 10 0" />
+                                                <TextBlock
+                                                    Text="{Binding LastMessage.SentAt, Converter={StaticResource DateTimeConverter}}"
+                                                    FontSize="10"
+                                                    FontFamily="{StaticResource Alata}"
+                                                    FontWeight="Regular"
+                                                    Foreground="{DynamicResource Litest-Stroke-Second}"
+                                                    Margin="0 19 10 0" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -293,7 +386,7 @@
                                 <ContextMenu Resources="{StaticResource Icons}">
                                     <MenuItem Header="{x:Static language:lang.pin}">
                                         <MenuItem.Icon>
-                                            <Image Source="{StaticResource AnchorIcon}" Width="16" Height="16" />
+                                            <Image Source="{StaticResource AnchorIcon}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <MenuItem Header="{x:Static language:lang.notifications_off}">
@@ -328,9 +421,12 @@
                                 <MultiTrigger.Setters>
                                     <Setter Property="Background" TargetName="border"
                                             Value="{DynamicResource ChatBox-Selected}" />
-                                    <Setter Property="Stroke" TargetName="AnchorPin" Value="{DynamicResource Anchor-Selected}" />
-                                    <Setter Property="Background" TargetName="MessagesCountBorder" Value="{DynamicResource MessagesCount-Border-Selected}" />
-                                    <Setter Property="Foreground" TargetName="MessageText" Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="Stroke" TargetName="AnchorPin"
+                                            Value="{DynamicResource Anchor-Selected}" />
+                                    <Setter Property="Background" TargetName="MessagesCountBorder"
+                                            Value="{DynamicResource MessagesCount-Border-Selected}" />
+                                    <Setter Property="Foreground" TargetName="MessageText"
+                                            Value="{DynamicResource Strongest-Stroke}" />
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
                             <MultiTrigger>
@@ -341,9 +437,12 @@
                                 <MultiTrigger.Setters>
                                     <Setter Property="Background" TargetName="border"
                                             Value="{DynamicResource ChatBox-Selected}" />
-                                    <Setter Property="Stroke" TargetName="AnchorPin" Value="{DynamicResource Anchor-Selected}" />
-                                    <Setter Property="Background" TargetName="MessagesCountBorder" Value="{DynamicResource MessagesCount-Border-Selected}" />
-                                    <Setter Property="Foreground" TargetName="MessageText" Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="Stroke" TargetName="AnchorPin"
+                                            Value="{DynamicResource Anchor-Selected}" />
+                                    <Setter Property="Background" TargetName="MessagesCountBorder"
+                                            Value="{DynamicResource MessagesCount-Border-Selected}" />
+                                    <Setter Property="Foreground" TargetName="MessageText"
+                                            Value="{DynamicResource Strongest-Stroke}" />
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
                             <MultiTrigger>
@@ -369,8 +468,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ContextMenu">
-                        <Border CornerRadius="5" 
-                                BorderBrush="{DynamicResource Background-Element}" 
+                        <Border CornerRadius="5"
+                                BorderBrush="{DynamicResource Background-Element}"
                                 BorderThickness="1"
                                 Background="{DynamicResource Main}"
                                 SnapsToDevicePixels="True">
@@ -381,6 +480,7 @@
             </Setter>
         </Style>
 
+        <!-- ContextMenu Items -->
         <Style TargetType="MenuItem">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="FontSize" Value="14" />
@@ -407,12 +507,161 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsHighlighted" Value="True">
-                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Background-Element}" />
+                                <Setter Property="Background" TargetName="Bd"
+                                        Value="{DynamicResource Background-Element}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Modal Window Resources -->
+        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="ModalWindowStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
+                        <ControlTemplate.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                        </ControlTemplate.Resources>
+                        <Grid Background="{TemplateBinding Background}"
+                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <ContentControl Content="{TemplateBinding Content}" />
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="10"
+                                                      Color="#FF000000" />
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ModalWindowTipStyle Resource -->
+        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="UsernameCopiedTipStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
+                        <ControlTemplate.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                        </ControlTemplate.Resources>
+                        <Grid Background="{TemplateBinding Background}"
+                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <ContentControl Content="{TemplateBinding Content}" />
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="6"
+                                                      Color="#FF000000" />
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DeleteAccountModalWindowStyle Resource -->
+        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="DeleteAccountModalWindowStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
+                        <ControlTemplate.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                        </ControlTemplate.Resources>
+                        <Grid Background="{TemplateBinding Background}"
+                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <ContentControl Content="{TemplateBinding Content}" />
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="10"
+                                                      Color="#FF000000" />
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- LanguageModalWindowStyle Resource -->
+        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="LanguageModalWindowStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
+                        <ControlTemplate.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                        </ControlTemplate.Resources>
+                        <Grid Background="{TemplateBinding Background}"
+                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                <ContentControl Content="{TemplateBinding Content}" />
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      BlurRadius="10"
+                                                      Color="#FF000000" />
+                                </Border.Effect>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- CancelButton Resource -->
+        <Style x:Key="CancelButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource Cancel}" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" CornerRadius="5" Padding="8 3" BorderThickness="0"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Cancel-MouseOver}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ConfirmRedButton Resource -->
+        <Style x:Key="ConfirmRedButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource Confirm-Red}" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" CornerRadius="5" Padding="12 3" BorderThickness="0"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Confirm-Red-MouseOver}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- RadioButtonStyle -->
+        <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
         </Style>
     </Application.Resources>
 </Application>

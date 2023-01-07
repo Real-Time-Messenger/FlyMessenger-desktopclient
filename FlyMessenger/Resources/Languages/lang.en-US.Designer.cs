@@ -69,6 +69,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Blocked users.
+        /// </summary>
+        public static string blocked_users {
+            get {
+                return ResourceManager.GetString("blocked-users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat.
         /// </summary>
         public static string chat {
@@ -96,11 +114,65 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copied.
+        /// </summary>
+        public static string copied {
+            get {
+                return ResourceManager.GetString("copied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy to clipboard.
+        /// </summary>
+        public static string copyToClipboard {
+            get {
+                return ResourceManager.GetString("copyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string delete {
+            get {
+                return ResourceManager.GetString("delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete account.
+        /// </summary>
+        public static string delete_acc {
+            get {
+                return ResourceManager.GetString("delete-acc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete account?.
+        /// </summary>
+        public static string delete_acc_question {
+            get {
+                return ResourceManager.GetString("delete-acc-question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete chat.
         /// </summary>
         public static string delete_chat {
             get {
                 return ResourceManager.GetString("delete-chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string email {
+            get {
+                return ResourceManager.GetString("email", resourceCulture);
             }
         }
         
@@ -155,6 +227,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string login_Name {
+            get {
+                return ResourceManager.GetString("login-Name", resourceCulture);
             }
         }
         
@@ -236,6 +317,24 @@ namespace FlyMessenger.Resources.Languages {
         public static string pin {
             get {
                 return ResourceManager.GetString("pin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Privacy.
+        /// </summary>
+        public static string privacy {
+            get {
+                return ResourceManager.GetString("privacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string profile {
+            get {
+                return ResourceManager.GetString("profile", resourceCulture);
             }
         }
         

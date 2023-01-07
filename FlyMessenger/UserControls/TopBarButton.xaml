@@ -7,8 +7,6 @@
              d:DesignHeight="30" d:DesignWidth="40"
              Name="topBarButton">
     <!-- Template for Topbar button -->
-    
-    <!-- TODO: Implement stroke trigger -->
     <Button Style="{DynamicResource TopButtonBar}">
         <Grid Width="40" Height="30">
             <Path x:Name="MyPath"

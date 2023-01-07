@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
 using FlyMessenger.Controllers;
 using FlyMessenger.Core;
 using FlyMessenger.MVVM.Model;
+using FlyMessenger.Resources.Settings;
 
 namespace FlyMessenger.MVVM.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        public static ObservableCollection<DialogModel>? Dialogs { get; private set; }
+        public static ObservableCollection<DialogModel>? Dialogs { get; private set; } = null;
         public RelayCommand SendCommand { get; set; }
         public RelayCommand ClearSearchBox { get; set; }
+
+        private string _searchBoxText;
 
         public string SearchBoxText
         {
@@ -32,16 +31,13 @@ namespace FlyMessenger.MVVM.ViewModels
         {
             if (string.IsNullOrEmpty(SearchBoxText))
                 return;
-            
+
             SearchResult = await ControllerBase.SearchController.Search(SearchBoxText);
-            
-            MessageBox.Show(SearchResult.Dialogs?[0].Label + " " + SearchResult.Users?[0].Label);
-            
+
             SearchBoxClearVisibility = !string.IsNullOrEmpty(SearchBoxText);
         }
 
         private DialogModel _selectedDialog;
-
         public DialogModel SelectedDialog
         {
             get => _selectedDialog;
@@ -51,9 +47,8 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        private SearchModel _searchResult;
 
+        private SearchModel _searchResult;
         public SearchModel SearchResult
         {
             get => _searchResult;
@@ -65,7 +60,6 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private bool _borderVisibility;
-
         public bool BorderVisibility
         {
             get => _borderVisibility;
@@ -75,9 +69,8 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _noMessagesVisibility = true;
-        
         public bool NoMessagesVisibility
         {
             get => _noMessagesVisibility;
@@ -87,9 +80,8 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _searchBoxClearVisibility;
-        
         public bool SearchBoxClearVisibility
         {
             get => _searchBoxClearVisibility;
@@ -101,7 +93,6 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private int _unreadedMessagesCount;
-
         public int UnreadedMessagesCount
         {
             get => _unreadedMessagesCount;
@@ -112,37 +103,75 @@ namespace FlyMessenger.MVVM.ViewModels
             }
         }
 
-        private string _message;
-        private string _searchBoxText;
-
-        public string Message
+        private UserModel _myProfile;
+        public UserModel MyProfile
         {
-            get => _message;
+            get => _myProfile;
             set
             {
-                _message = value;
+                _myProfile = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private SettingsPage _currentPage;
+        public SettingsPage CurrentPage
+        {
+            get => _currentPage;
+            set
+            {
+                _currentPage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _canGoBack;
+        public bool CanGoBack
+        {
+            get => _canGoBack;
+            set
+            {
+                _canGoBack = value;
                 OnPropertyChanged();
             }
         }
 
         public MainViewModel()
         {
+            CurrentPage = SettingsManager.DefaultPage;
+            
             // Get all dialogs
-            // If answer is null, then show NoMessages
-            // Else show all dialogs
             if (ControllerBase.DialogController.GetDialogs().Any())
             {
                 Dialogs = new ObservableCollection<DialogModel>(ControllerBase.DialogController.GetDialogs());
                 NoMessagesVisibility = false;
-                
+
                 // Sort by MessageDateTime and MessageAnchor
                 Dialogs = new ObservableCollection<DialogModel>(
                     Dialogs.OrderByDescending(x => x.IsPinned).ThenByDescending(x => x.LastMessage?.SentAt)
                 );
+
+                // Count how many MessagesCount are
+                UnreadedMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
             }
-            
-            // Count how many MessagesCount are
-            UnreadedMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
+            else
+            {
+                UnreadedMessagesCount = 0;
+            }
+
+            MyProfile = ControllerBase.UserController.GetMyProfile();
+            Name = MyProfile.FirstName + " " + MyProfile.LastName;
             
             ClearSearchBox = new RelayCommand(
                 _ =>

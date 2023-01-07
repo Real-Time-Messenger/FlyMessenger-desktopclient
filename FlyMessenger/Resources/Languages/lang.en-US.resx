@@ -213,4 +213,37 @@
   <data name="writeMessage" xml:space="preserve">
     <value>Write message...</value>
   </data>
+  <data name="copyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="blocked-users" xml:space="preserve">
+    <value>Blocked users</value>
+  </data>
+  <data name="delete-acc" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="copied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="login-Name" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="delete-acc-question" xml:space="preserve">
+    <value>Delete account?</value>
+  </data>
+  <data name="delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

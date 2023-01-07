@@ -1,0 +1,113 @@
+<Page x:Class="FlyMessenger.Resources.Settings.Pages.ProfilePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages"
+      xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
+      xmlns:converters="clr-namespace:FlyMessenger.Converters"
+      xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
+      xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
+      mc:Ignorable="d"
+      Title="Profile">
+
+    <Page.Resources>
+        <converters:OnlineStatusConverter x:Key="OnlineStatusConverter" />
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModels:MainViewModel />
+    </Page.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Width="116">
+            <!-- TODO: Create photo uploading -->
+            <Ellipse Width="100" Height="100"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding MyProfile.PhotoUrl}" />
+                </Ellipse.Fill>
+            </Ellipse>
+            <Border Width="40"
+                    Height="40"
+                    BorderBrush="{DynamicResource Main}"
+                    BorderThickness="2"
+                    CornerRadius="20"
+                    Background="{DynamicResource Settings-Change-Photo}"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Margin="0 0 0 3">
+                <Image Source="{DynamicResource Change-Photo}"
+                       Width="24"
+                       Height="24"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0 10 0 0">
+            <StackPanel>
+            <TextBox Text="{Binding Name}"
+                       FontFamily="{DynamicResource Alata}"
+                       FontSize="16"
+                       Foreground="{DynamicResource Stronger-Stroke}"
+                       TextWrapping="Wrap"
+                       IsReadOnly="True"
+                       BorderThickness="0"
+                       Background="Transparent"
+                       Padding="-2 0 0 0"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding MyProfile.IsOnline, Converter={StaticResource OnlineStatusConverter}}"
+                       FontFamily="{DynamicResource Alata}"
+                       FontSize="12"
+                       Foreground="{DynamicResource Settings-Status}"
+                       TextWrapping="Wrap"
+                       TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Margin="0 0 0 10"/>
+            </StackPanel>
+        </Grid>
+        <Border Grid.Row="2" Background="{DynamicResource Background-Element}" />
+        <StackPanel Grid.Row="3" Margin="0 6 0 0" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <!-- TODO: Создать открытие более малых окон -->
+            <userControls:SettingsButton Title="{x:Static language:lang.name}"
+                                         ForegroundColor="{DynamicResource Normal-Stroke}"
+                                         Icon="{DynamicResource Settings-Profile}">
+                <userControls:SettingsButton.Style>
+                    <Style TargetType="userControls:SettingsButton">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Profile}" />
+                    </Style>
+                </userControls:SettingsButton.Style>
+            </userControls:SettingsButton>
+            <userControls:SettingsButton Title="{x:Static language:lang.email}"
+                                         ForegroundColor="{DynamicResource Normal-Stroke}"
+                                         Icon="{DynamicResource Settings-Privacy}">
+                <userControls:SettingsButton.Style>
+                    <Style TargetType="userControls:SettingsButton">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Privacy}" />
+                    </Style>
+                </userControls:SettingsButton.Style>
+            </userControls:SettingsButton>
+            <userControls:SettingsButton Title="{x:Static language:lang.login_Name}"
+                                         ForegroundColor="{DynamicResource Normal-Stroke}"
+                                         Icon="{DynamicResource Settings-Notifications}">
+                <userControls:SettingsButton.Style>
+                    <Style TargetType="userControls:SettingsButton">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Notifications}" />
+                    </Style>
+                </userControls:SettingsButton.Style>
+            </userControls:SettingsButton>
+        </StackPanel>
+    </Grid>
+</Page>

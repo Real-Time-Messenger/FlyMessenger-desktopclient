@@ -120,4 +120,37 @@
     <data name="writeMessage" xml:space="preserve">
         <value>Написать сообщение...</value>
     </data>
+    <data name="copyToClipboard" xml:space="preserve">
+        <value>Скопировать</value>
+    </data>
+    <data name="profile" xml:space="preserve">
+        <value>Профиль</value>
+    </data>
+    <data name="privacy" xml:space="preserve">
+        <value>Конфиденциальность</value>
+    </data>
+    <data name="blocked-users" xml:space="preserve">
+        <value>Заблокированные пользователи</value>
+    </data>
+    <data name="delete-acc" xml:space="preserve">
+        <value>Удалить аккаунт</value>
+    </data>
+    <data name="copied" xml:space="preserve">
+        <value>Скопировано</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="login-Name" xml:space="preserve">
+        <value>Имя пользователя</value>
+    </data>
+    <data name="delete-acc-question" xml:space="preserve">
+        <value>Удалить аккаунт?</value>
+    </data>
+    <data name="delete" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="cancel" xml:space="preserve">
+        <value>Отмена</value>
+    </data>
 </root>

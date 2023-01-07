@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows;
 using RestSharp;
 
 namespace FlyMessenger.HTTP
@@ -24,7 +22,7 @@ namespace FlyMessenger.HTTP
 
         protected T Get<T>(string url)
         {
-            var request = new RestRequest(url, Method.Get);
+            var request = new RestRequest(url);
 
             var response = _client.Execute<T>(request);
             return response.Data!;

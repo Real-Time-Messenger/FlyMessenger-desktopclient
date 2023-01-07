@@ -19,14 +19,13 @@
         <WindowChrome CaptionHeight="0" UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
-    <Window.DataContext>
-        <viewmodel:MainViewModel />
-    </Window.DataContext>
+    <!-- <Window.DataContext> -->
+    <!--     <viewmodel:MainViewModel /> -->
+    <!-- </Window.DataContext> -->
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:WidthConverter x:Key="WidthConverter" />
-        <converters:HeightConverter x:Key="HeightConverter" />
     </Window.Resources>
 
     <!-- Front end -->
@@ -101,8 +100,182 @@
             </Border>
         </Grid>
 
-        <!-- Left menu bar -->
+        <!-- Main Window -->
         <Grid Grid.Row="1">
+
+            <!-- Modal Window -->
+            <uc:ModalWindow x:Name="ModalWindow"
+                            Style="{StaticResource ModalWindowStyle}"
+                            Panel.ZIndex="4">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Border x:Name="ModalWindowBorder"
+                        Width="300"
+                        Background="{DynamicResource Main}"
+                        CornerRadius="5">
+                    <StackPanel ClipToBounds="True" x:Name="ModalWindowContent">
+                        <Grid x:Name="Page">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="44" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <DockPanel Grid.Row="0">
+                                <Button DockPanel.Dock="Left"
+                                        Name="GoBackButton"
+                                        Style="{DynamicResource ModalBackButton}"
+                                        PreviewMouseLeftButtonUp="GoBack"
+                                        Visibility="Collapsed">
+                                    <Image Width="16" Height="16"
+                                           Source="{DynamicResource Arrow-Back}" />
+                                </Button>
+                                <TextBlock Text="{Binding CurrentPage.Title}"
+                                           Margin="20,6,0,0"
+                                           HorizontalAlignment="Left"
+                                           FontFamily="{StaticResource Alata}"
+                                           FontWeight="Regular"
+                                           FontSize="20"
+                                           Name="SettingsWindowTitle"
+                                           Foreground="{DynamicResource Stronger-Stroke}" />
+                                <Button DockPanel.Dock="Right"
+                                        x:Name="BtnCloseModal"
+                                        Style="{DynamicResource ModalCloseButton}"
+                                        Click="OnCloseModalClick"
+                                        Command="{Binding CloseModalWindowCommand}">
+                                    <Image Width="16" Height="16"
+                                           Source="{DynamicResource CloseModalWindow}" />
+                                </Button>
+                            </DockPanel>
+                            <Frame Grid.Row="1"
+                                   x:Name="ModalFrame"
+                                   NavigationUIVisibility="Hidden"
+                                   Content="{Binding CurrentPage.Page}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </uc:ModalWindow>
+
+            <!-- Modal Window Small Windows & Tip -->
+            <!-- Username copied Tip -->
+            <uc:ModalWindow x:Name="UsernameCopiedTip"
+                            Style="{StaticResource UsernameCopiedTipStyle}"
+                            Panel.ZIndex="5">
+                <Border x:Name="UsernameCopiedTipContent"
+                        Width="100"
+                        Height="40"
+                        Background="#000000"
+                        Opacity="0.65"
+                        CornerRadius="5">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Text="{x:Static language:lang.copied}"
+                               TextAlignment="Center"
+                               FontSize="12"
+                               FontFamily="{StaticResource Alata}"
+                               Foreground="#FFFFFF" />
+                </Border>
+            </uc:ModalWindow>
+
+            <!-- Delete account modal window -->
+            <uc:ModalWindow x:Name="DeleteAccountModalWindow"
+                            Style="{StaticResource DeleteAccountModalWindowStyle}"
+                            Panel.ZIndex="6">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Border x:Name="DeleteAccountModalWindowContent"
+                        Width="220"
+                        Height="92"
+                        Background="{DynamicResource Main}"
+                        CornerRadius="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Text="{x:Static language:lang.delete_acc_question}"
+                                   TextAlignment="Center"
+                                   Margin="0 10 0 5"
+                                   FontSize="20"
+                                   FontFamily="{StaticResource Alata}"
+                                   Foreground="{DynamicResource Stronger-Stroke}" />
+                        <Grid Grid.Row="1"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center">
+                            <DockPanel Margin="0 0 0 10">
+                                <Button DockPanel.Dock="Left"
+                                        Style="{StaticResource CancelButton}"
+                                        Margin="0 0 10 0"
+                                        Click="OnDeleteCancelClick"
+                                        Command="{Binding CloseDeleteAccountModalWindowCommand}">
+                                    <TextBlock Text="{x:Static language:lang.cancel}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="14"
+                                               Foreground="{DynamicResource Normal-Stroke}" />
+                                </Button>
+                                <Button DockPanel.Dock="Right"
+                                        Style="{StaticResource ConfirmRedButton}"
+                                        Click="OnDeleteAccountClick"
+                                        Command="{Binding DeleteAccountCommand}">
+                                    <TextBlock Text="{x:Static language:lang.delete}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="14"
+                                               Foreground="#E86C6C" />
+                                </Button>
+                            </DockPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </uc:ModalWindow>
+
+            <!-- Language modal window -->
+            <uc:ModalWindow x:Name="LanguageModalWindow"
+                            Style="{StaticResource LanguageModalWindowStyle}"
+                            Panel.ZIndex="6">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Border x:Name="LanguageModalWindowContent"
+                        Background="{DynamicResource Main}"
+                        Width="160"
+                        Height="116"
+                        CornerRadius="5">
+                    <Grid>
+                        <StackPanel Margin="0 10 0 0">
+                            <!-- Create radio buttons -->
+                            <RadioButton x:Name="EstonianRadioButton"
+                                         Style="{StaticResource RadioButtonStyle}"
+                                         GroupName="Language"
+                                         Checked="OnEstonianRadioButtonChecked">
+                                <TextBlock Text="{x:Static language:lang.estonian}"
+                                           FontFamily="{StaticResource Alata}"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource Normal-Stroke}" />
+                            </RadioButton>
+                            <RadioButton x:Name="RussianRadioButton"
+                                         Style="{StaticResource RadioButtonStyle}"
+                                         GroupName="Language"
+                                         Checked="OnRussianRadioButtonChecked">
+                                <TextBlock Text="{x:Static language:lang.russian}"
+                                           FontFamily="{StaticResource Alata}"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource Normal-Stroke}" />
+                            </RadioButton>
+                            <RadioButton x:Name="EnglishRadioButton"
+                                         Style="{StaticResource RadioButtonStyle}"
+                                         GroupName="Language"
+                                         Checked="OnEnglishRadioButtonChecked">
+                                <TextBlock Text="{x:Static language:lang.english}"
+                                           FontFamily="{StaticResource Alata}"
+                                           FontSize="12"
+                                           Foreground="{DynamicResource Normal-Stroke}" />
+                            </RadioButton>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </uc:ModalWindow>
+
+            <!-- Left menu bar -->
             <Border Grid.Column="0" Width="50" HorizontalAlignment="Left" Background="{DynamicResource Main}"
                     Panel.ZIndex="3"
                     x:Name="SideBar"
@@ -326,7 +499,6 @@
                     <Border Grid.Row="0">
                         <StackPanel x:Name="HeaderPanel">
                             <Grid Height="50" MaxWidth="265" MinWidth="200"
-                                  Focusable="False"
                                   Margin="20 20 0 0" HorizontalAlignment="Left">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -525,12 +697,18 @@
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <StackPanel Grid.Column="1" Margin="10 16 0 0">
-                                    <TextBlock Text="{Binding SelectedDialog.Label}"
-                                               FontFamily="{StaticResource Alata}"
+                                    <TextBlock FontFamily="{StaticResource Alata}"
                                                Foreground="{DynamicResource Strongest-Stroke}"
                                                FontSize="16"
                                                FontWeight="Regular" VerticalAlignment="Center"
-                                               HorizontalAlignment="Stretch" />
+                                               HorizontalAlignment="Stretch">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
+                                                <Binding Path="SelectedDialog.User.FirstName" />
+                                                <Binding Path="SelectedDialog.User.LastName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
                                     <TextBlock Text="{Binding SelectedDialog.User.LastActivity}"
                                                FontFamily="{StaticResource Alata}"
                                                Foreground="{DynamicResource Strong-Stroke}"
@@ -542,8 +720,8 @@
                             <Grid Grid.Column="1" Margin="0 0 20 0" HorizontalAlignment="Right">
                                 <Button Width="40" Height="40" VerticalAlignment="Center" Cursor="Hand"
                                         PreviewMouseLeftButtonUp="ActiveChat_Search_OnPreviewMouseLeftButtonUp">
-                                    <Image Width="20" Height="20" Resources="{StaticResource Icons}"
-                                           Source="{StaticResource ActiveChat-Search}" />
+                                    <Image Width="20" Height="20"
+                                           Source="{DynamicResource ActiveChat-Search}" />
                                     <Button.Style>
                                         <Style TargetType="Button">
                                             <Setter Property="Background" Value="Transparent" />
@@ -584,7 +762,9 @@
                     </Border>
                     <Border Grid.Row="1"
                             Background="{DynamicResource Main}">
+                        <Grid>
 
+                        </Grid>
                     </Border>
                     <Border Grid.Row="2"
                             Background="{DynamicResource ThemeColor}"
@@ -599,8 +779,8 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0" Width="34" Height="34" VerticalAlignment="Bottom"
                                     HorizontalAlignment="Center" Cursor="Hand">
-                                <Image Width="20" Height="20" Resources="{StaticResource Icons}"
-                                       Source="{StaticResource ActiveChat-Attachment}" />
+                                <Image Width="20" Height="20"
+                                       Source="{DynamicResource ActiveChat-Attachment}" />
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="Transparent" />
@@ -686,8 +866,8 @@
                             </TextBox>
                             <Button Grid.Column="2" Width="34" Height="34" VerticalAlignment="Bottom"
                                     HorizontalAlignment="Center" Cursor="Hand">
-                                <Image Width="16" Height="16" Resources="{StaticResource Icons}"
-                                       Source="{StaticResource ActiveChat-Send}" />
+                                <Image Width="16" Height="16"
+                                       Source="{DynamicResource ActiveChat-Send}" />
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="Transparent" />

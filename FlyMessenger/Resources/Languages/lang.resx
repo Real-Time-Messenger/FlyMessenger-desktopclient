@@ -107,4 +107,37 @@
     <data name="writeMessage" xml:space="preserve">
         <value>Kirjuta sõnumi...</value>
     </data>
+    <data name="copyToClipboard" xml:space="preserve">
+        <value>Kopeeri</value>
+    </data>
+    <data name="profile" xml:space="preserve">
+        <value>Profiil</value>
+    </data>
+    <data name="privacy" xml:space="preserve">
+        <value>Konfidentsiaalsus</value>
+    </data>
+    <data name="blocked-users" xml:space="preserve">
+        <value>Blokeeritud kasutajad</value>
+    </data>
+    <data name="delete-acc" xml:space="preserve">
+        <value>Kustuta konto</value>
+    </data>
+    <data name="copied" xml:space="preserve">
+        <value>Kopeeritud</value>
+    </data>
+    <data name="email" xml:space="preserve">
+        <value>E-post</value>
+    </data>
+    <data name="login-Name" xml:space="preserve">
+        <value>Kasutajanimi</value>
+    </data>
+    <data name="delete-acc-question" xml:space="preserve">
+        <value>Kustuta konto?</value>
+    </data>
+    <data name="delete" xml:space="preserve">
+        <value>Kustuta</value>
+    </data>
+    <data name="cancel" xml:space="preserve">
+        <value>Tühista</value>
+    </data>
 </root>

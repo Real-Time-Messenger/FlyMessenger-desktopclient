@@ -7,6 +7,11 @@
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
         <ApplicationIcon>Public/Icons/Logo32.ico</ApplicationIcon>
+        <LangVersion>10</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <NoWarn>1701;1702</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
@@ -100,7 +105,7 @@
     <ItemGroup>
         <Resource Include="Resources\Fonts\Alata-Regular.ttf" />
         <Resource Include="Resources\Icons\XamlIcons.xaml">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
         <Page Remove="Resources\Colors\Dark.xaml" />
         <Resource Include="Resources\Colors\Dark.xaml">
