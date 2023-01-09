@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -60,18 +61,21 @@ namespace FlyMessenger
         {
             var window = (MainWindow) sender;
             if (window == null || string.IsNullOrEmpty(window.LangSwitch)) return;
-
-            window.Closed -= ToggleLanguage;
-            window.Close();
-
+            
             var language = window.LangSwitch;
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
             Settings.Default.LanguageCode = language;
             Settings.Default.Save();
 
-            window = new MainWindow();
-            window.Show();
+            RestartApp();
+        }
+        
+        public static void RestartApp()
+        {
+            var processName = Process.GetCurrentProcess().ProcessName;
+            Process.Start(processName + ".exe");
+            Current.Shutdown();
         }
 
         public App() : base()

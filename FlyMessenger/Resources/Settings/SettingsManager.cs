@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms.VisualStyles;
 using FlyMessenger.MVVM.ViewModels;
+using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings.Pages;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Application = System.Windows.Application;
@@ -35,27 +36,27 @@ namespace FlyMessenger.Resources.Settings
         {
             new SettingsPage(
                 0,
-                "Settings",
+                lang.settings,
                 new DefaultPage()
             ),
             new SettingsPage(
                 1,
-                "Profile",
+                lang.profile,
                 new ProfilePage()
             ),
             new SettingsPage(
                 2,
-                "Notifications",
+                lang.notifications,
                 new NotificationsPage()
             ),
             new SettingsPage(
                 3,
-                "Privacy",
+                lang.privacy,
                 new PrivacyPage()
             ),
             new SettingsPage(
                 4,
-                "Blocked Users",
+                lang.blocked_users,
                 new BlockedUsersPage()
             ),
             new SettingsPage(

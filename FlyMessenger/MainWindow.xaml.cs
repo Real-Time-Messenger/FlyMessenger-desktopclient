@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,12 +12,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
+using FlyMessenger.Controllers;
 using FlyMessenger.Core.Utils;
 using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
+using FlyMessenger.Resources.Settings.Pages;
 using FlyMessenger.UserControls;
 using Application = System.Windows.Application;
+using Button = System.Windows.Controls.Button;
 using Clipboard = System.Windows.Clipboard;
 using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -32,7 +37,7 @@ namespace FlyMessenger
         // NotifyIconManager handler
         private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
         private bool _light = true;
-        public string LangSwitch { get; private set; } = "";
+        public string LangSwitch { get; set; } = "";
 
         public MainWindow()
         {
@@ -47,9 +52,9 @@ namespace FlyMessenger
             DataContext = new MainViewModel();
         }
         
-        private void MainWindowPreviewKeyDown(object sender, KeyEventArgs e)
+        private static void MainWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Tab)
+            if (e.Key is Key.Tab or Key.LeftAlt)
             {
                 e.Handled = true;
             }
@@ -259,41 +264,6 @@ namespace FlyMessenger
         private void GoBack(object sender, RoutedEventArgs e)
         {
             SettingsManager.GoBack();
-        }
-
-        private void OnDeleteCancelClick(object sender, RoutedEventArgs e)
-        {
-            var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
-            
-            closeAnimation.Completed += (o, args) =>
-            {
-                DeleteAccountModalWindow.IsOpen = false;
-            };
-            
-            DeleteAccountModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
-        }
-
-        private void OnDeleteAccountClick(object sender, RoutedEventArgs e)
-        {
-            // Todo: Create delete account method
-        }
-
-        private void OnEstonianRadioButtonChecked(object sender, RoutedEventArgs e)
-        {
-            LangSwitch = "et-EE";
-            Close();
-        }
-        
-        private void OnRussianRadioButtonChecked(object sender, RoutedEventArgs e)
-        {
-            LangSwitch = "ru-RU";
-            Close();
-        }
-        
-        private void OnEnglishRadioButtonChecked(object sender, RoutedEventArgs e)
-        {
-            LangSwitch = "en-US";
-            Close();
         }
     }
 }

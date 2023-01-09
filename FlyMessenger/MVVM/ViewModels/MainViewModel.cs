@@ -177,7 +177,7 @@ namespace FlyMessenger.MVVM.ViewModels
                 _ =>
                 {
                     SearchBoxText = string.Empty;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(SearchBoxText));
                 },
                 _ => true
             );

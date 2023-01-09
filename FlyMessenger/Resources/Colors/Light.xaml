@@ -47,6 +47,8 @@
     <SolidColorBrush x:Key="Paperclip-Selected" Color="#B0B0B0" />
     <SolidColorBrush x:Key="ModalCloseButton-MouseOver" Color="#CFD0D4" />
     <SolidColorBrush x:Key="ModalCloseButton-Selected" Color="#B0B0B0" />
+    <SolidColorBrush x:Key="ModalBackButton-MouseOver" Color="#CFD0D4" />
+    <SolidColorBrush x:Key="ModalBackButton-Selected" Color="#B0B0B0" />
     <SolidColorBrush x:Key="Anchor-Selected" Color="#7B7B7B" />
     <SolidColorBrush x:Key="Anchor" Color="#7B7B7B" />
     <SolidColorBrush x:Key="XamlIcons-Red" Color="#E86C6C" />
@@ -79,6 +81,7 @@
     <Color x:Key="Settings-Icon-Delete-MouseOver">#FFA8B2</Color>
     <SolidColorBrush x:Key="Settings-Change-Photo" Color="#70A7DD" />
     <SolidColorBrush x:Key="Settings-Status" Color="#70A7DD" />
+    <SolidColorBrush x:Key="Profile-DataText" Color="#70A7DD" />
     <SolidColorBrush x:Key="Settings-Monitor" Color="#AFC4EC" />
     <SolidColorBrush x:Key="Settings-Icon-Authentication" Color="#839CE9" />
     <SolidColorBrush x:Key="Settings-Icons-Stroke" Color="#303030" />
@@ -90,5 +93,7 @@
     <SolidColorBrush x:Key="Cancel-MouseOver" Color="#ACBFF1" />
     <SolidColorBrush x:Key="Confirm-Red" Color="#EFCBCF" />
     <SolidColorBrush x:Key="Confirm-Red-MouseOver" Color="#FFBCC4" />
+    <SolidColorBrush x:Key="Confirm-Blue" Color="#CAD5F2" />
+    <SolidColorBrush x:Key="Confirm-Blue-MouseOver" Color="#ACBFF1" />
     <Color x:Key="NotifyIcon-Background" R="234" G="237" B="250" />
 </ResourceDictionary>

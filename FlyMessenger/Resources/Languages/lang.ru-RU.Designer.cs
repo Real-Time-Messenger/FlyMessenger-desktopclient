@@ -168,6 +168,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Редактирование почты.
+        /// </summary>
+        public static string edit_email {
+            get {
+                return ResourceManager.GetString("edit-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактирование имени.
+        /// </summary>
+        public static string edit_name {
+            get {
+                return ResourceManager.GetString("edit-name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string email {
@@ -227,6 +245,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Фамилия.
+        /// </summary>
+        public static string lastname {
+            get {
+                return ResourceManager.GetString("lastname", resourceCulture);
             }
         }
         
@@ -344,6 +371,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string russian {
             get {
                 return ResourceManager.GetString("russian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить.
+        /// </summary>
+        public static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
             }
         }
         

@@ -111,7 +111,7 @@
                     <SolidColorBrush Color="Black" Opacity="0.5" />
                 </uc:ModalWindow.Background>
                 <Border x:Name="ModalWindowBorder"
-                        Width="300"
+                        Width="400"
                         Background="{DynamicResource Main}"
                         CornerRadius="5">
                     <StackPanel ClipToBounds="True" x:Name="ModalWindowContent">
@@ -160,119 +160,57 @@
             <uc:ModalWindow x:Name="UsernameCopiedTip"
                             Style="{StaticResource UsernameCopiedTipStyle}"
                             Panel.ZIndex="5">
-                <Border x:Name="UsernameCopiedTipContent"
-                        Width="100"
-                        Height="40"
-                        Background="#000000"
-                        Opacity="0.65"
-                        CornerRadius="5">
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Text="{x:Static language:lang.copied}"
-                               TextAlignment="Center"
-                               FontSize="12"
-                               FontFamily="{StaticResource Alata}"
-                               Foreground="#FFFFFF" />
-                </Border>
+                <Frame x:Name="UsernameCopiedTipFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/UsernameCopiedTip.xaml" />
             </uc:ModalWindow>
 
             <!-- Delete account modal window -->
             <uc:ModalWindow x:Name="DeleteAccountModalWindow"
-                            Style="{StaticResource DeleteAccountModalWindowStyle}"
+                            Style="{StaticResource ModalWindowStyle}"
                             Panel.ZIndex="6">
                 <uc:ModalWindow.Background>
                     <SolidColorBrush Color="Black" Opacity="0.5" />
                 </uc:ModalWindow.Background>
-                <Border x:Name="DeleteAccountModalWindowContent"
-                        Width="220"
-                        Height="92"
-                        Background="{DynamicResource Main}"
-                        CornerRadius="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                   Text="{x:Static language:lang.delete_acc_question}"
-                                   TextAlignment="Center"
-                                   Margin="0 10 0 5"
-                                   FontSize="20"
-                                   FontFamily="{StaticResource Alata}"
-                                   Foreground="{DynamicResource Stronger-Stroke}" />
-                        <Grid Grid.Row="1"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center">
-                            <DockPanel Margin="0 0 0 10">
-                                <Button DockPanel.Dock="Left"
-                                        Style="{StaticResource CancelButton}"
-                                        Margin="0 0 10 0"
-                                        Click="OnDeleteCancelClick"
-                                        Command="{Binding CloseDeleteAccountModalWindowCommand}">
-                                    <TextBlock Text="{x:Static language:lang.cancel}"
-                                               FontFamily="{StaticResource Alata}"
-                                               FontSize="14"
-                                               Foreground="{DynamicResource Normal-Stroke}" />
-                                </Button>
-                                <Button DockPanel.Dock="Right"
-                                        Style="{StaticResource ConfirmRedButton}"
-                                        Click="OnDeleteAccountClick"
-                                        Command="{Binding DeleteAccountCommand}">
-                                    <TextBlock Text="{x:Static language:lang.delete}"
-                                               FontFamily="{StaticResource Alata}"
-                                               FontSize="14"
-                                               Foreground="#E86C6C" />
-                                </Button>
-                            </DockPanel>
-                        </Grid>
-                    </Grid>
-                </Border>
+                <Frame x:Name="DeleteAccountModalWindowFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/DeleteAccountPage.xaml" />
             </uc:ModalWindow>
 
             <!-- Language modal window -->
             <uc:ModalWindow x:Name="LanguageModalWindow"
-                            Style="{StaticResource LanguageModalWindowStyle}"
+                            Style="{StaticResource ModalWindowStyle}"
                             Panel.ZIndex="6">
                 <uc:ModalWindow.Background>
                     <SolidColorBrush Color="Black" Opacity="0.5" />
                 </uc:ModalWindow.Background>
-                <Border x:Name="LanguageModalWindowContent"
-                        Background="{DynamicResource Main}"
-                        Width="160"
-                        Height="116"
-                        CornerRadius="5">
-                    <Grid>
-                        <StackPanel Margin="0 10 0 0">
-                            <!-- Create radio buttons -->
-                            <RadioButton x:Name="EstonianRadioButton"
-                                         Style="{StaticResource RadioButtonStyle}"
-                                         GroupName="Language"
-                                         Checked="OnEstonianRadioButtonChecked">
-                                <TextBlock Text="{x:Static language:lang.estonian}"
-                                           FontFamily="{StaticResource Alata}"
-                                           FontSize="12"
-                                           Foreground="{DynamicResource Normal-Stroke}" />
-                            </RadioButton>
-                            <RadioButton x:Name="RussianRadioButton"
-                                         Style="{StaticResource RadioButtonStyle}"
-                                         GroupName="Language"
-                                         Checked="OnRussianRadioButtonChecked">
-                                <TextBlock Text="{x:Static language:lang.russian}"
-                                           FontFamily="{StaticResource Alata}"
-                                           FontSize="12"
-                                           Foreground="{DynamicResource Normal-Stroke}" />
-                            </RadioButton>
-                            <RadioButton x:Name="EnglishRadioButton"
-                                         Style="{StaticResource RadioButtonStyle}"
-                                         GroupName="Language"
-                                         Checked="OnEnglishRadioButtonChecked">
-                                <TextBlock Text="{x:Static language:lang.english}"
-                                           FontFamily="{StaticResource Alata}"
-                                           FontSize="12"
-                                           Foreground="{DynamicResource Normal-Stroke}" />
-                            </RadioButton>
-                        </StackPanel>
-                    </Grid>
-                </Border>
+                <Frame x:Name="LanguageModalWindowFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/LanguagePage.xaml" />
+            </uc:ModalWindow>
+
+            <!-- Name edit modal window -->
+            <uc:ModalWindow x:Name="NameEditModalWindow"
+                            Style="{StaticResource ModalWindowStyle}"
+                            Panel.ZIndex="6">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Frame x:Name="NameEditModalWindowFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/NameEditPage.xaml" />
+            </uc:ModalWindow>
+            
+            <!-- Email edit modal window -->
+            <uc:ModalWindow x:Name="EmailEditModalWindow"
+                            Style="{StaticResource ModalWindowStyle}"
+                            Panel.ZIndex="6">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Frame x:Name="EmailEditModalWindowFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/EmailEditPage.xaml" />
             </uc:ModalWindow>
 
             <!-- Left menu bar -->

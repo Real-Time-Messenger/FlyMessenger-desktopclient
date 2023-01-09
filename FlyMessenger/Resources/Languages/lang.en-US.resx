@@ -246,4 +246,16 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="lastname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="edit-name" xml:space="preserve">
+    <value>Name edit</value>
+  </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="edit-email" xml:space="preserve">
+    <value>Email edit</value>
+  </data>
 </root>

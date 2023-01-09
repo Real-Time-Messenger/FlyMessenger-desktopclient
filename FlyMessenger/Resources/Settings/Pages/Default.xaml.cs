@@ -21,8 +21,7 @@ namespace FlyMessenger.Resources.Settings.Pages
         {
             if (sender is not TextBlock textBlock) return;
 
-            var window = Application.Current.MainWindow as MainWindow;
-            if (window == null || window.UsernameCopiedTip.IsOpen) return;
+            if (Application.Current.MainWindow is not MainWindow window || window.UsernameCopiedTip.IsOpen) return;
             
             window.UsernameCopiedTip.IsOpen = true;
             

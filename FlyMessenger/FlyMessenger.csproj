@@ -118,6 +118,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <PackageReference Include="MimeMapping" Version="1.0.1.50" />
       <PackageReference Include="RestSharp" Version="109.0.0-preview.1" />
     </ItemGroup>
 

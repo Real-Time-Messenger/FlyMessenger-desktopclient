@@ -35,7 +35,8 @@
                 </Ellipse.Fill>
             </Ellipse>
             <StackPanel Grid.Column="1" Margin="10 0 0 0">
-                <TextBox Text="{Binding Name}"
+                <TextBox x:Name="ProfileNameDefault"
+                         Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          IsReadOnly="True"
                          BorderThickness="0"
                          Background="Transparent"

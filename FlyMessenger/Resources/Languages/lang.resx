@@ -140,4 +140,16 @@
     <data name="cancel" xml:space="preserve">
         <value>Tühista</value>
     </data>
+    <data name="lastname" xml:space="preserve">
+        <value>Perekonnanimi</value>
+    </data>
+    <data name="edit-name" xml:space="preserve">
+        <value>Nime redigeerimine</value>
+    </data>
+    <data name="save" xml:space="preserve">
+        <value>Salvesta</value>
+    </data>
+    <data name="edit-email" xml:space="preserve">
+        <value>E-poste redigeerimine</value>
+    </data>
 </root>

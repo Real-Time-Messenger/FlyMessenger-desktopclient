@@ -153,4 +153,16 @@
     <data name="cancel" xml:space="preserve">
         <value>Отмена</value>
     </data>
+    <data name="lastname" xml:space="preserve">
+        <value>Фамилия</value>
+    </data>
+    <data name="edit-name" xml:space="preserve">
+        <value>Редактирование имени</value>
+    </data>
+    <data name="save" xml:space="preserve">
+        <value>Сохранить</value>
+    </data>
+    <data name="edit-email" xml:space="preserve">
+        <value>Редактирование почты</value>
+    </data>
 </root>

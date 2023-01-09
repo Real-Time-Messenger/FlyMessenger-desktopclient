@@ -67,6 +67,27 @@
             </Style.Triggers>
         </Style>
 
+        <!-- Profile Buttons Resources -->
+        <Style x:Key="ProfileModalButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Background-Element}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- topBar Buttons Resources -->
         <Style x:Key="TopButtonBar" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -566,56 +587,6 @@
             </Setter>
         </Style>
 
-        <!-- DeleteAccountModalWindowStyle Resource -->
-        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="DeleteAccountModalWindowStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
-                        <ControlTemplate.Resources>
-                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-                        </ControlTemplate.Resources>
-                        <Grid Background="{TemplateBinding Background}"
-                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                <ContentControl Content="{TemplateBinding Content}" />
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0"
-                                                      BlurRadius="10"
-                                                      Color="#FF000000" />
-                                </Border.Effect>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
-        <!-- LanguageModalWindowStyle Resource -->
-        <Style TargetType="{x:Type userControls:ModalWindow}" x:Key="LanguageModalWindowStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
-                        <ControlTemplate.Resources>
-                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-                        </ControlTemplate.Resources>
-                        <Grid Background="{TemplateBinding Background}"
-                              Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Border UseLayoutRounding="True" HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                <ContentControl Content="{TemplateBinding Content}" />
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0"
-                                                      BlurRadius="10"
-                                                      Color="#FF000000" />
-                                </Border.Effect>
-                            </Border>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <!-- CancelButton Resource -->
         <Style x:Key="CancelButton" TargetType="Button">
             <Setter Property="Background" Value="{DynamicResource Cancel}" />
@@ -656,6 +627,28 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="{DynamicResource Confirm-Red-MouseOver}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- ConfirmBlueButton Resource -->
+        <Style x:Key="ConfirmBlueButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource Confirm-Blue}" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" CornerRadius="5" Padding="12 3" BorderThickness="0"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Confirm-Blue-MouseOver}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
