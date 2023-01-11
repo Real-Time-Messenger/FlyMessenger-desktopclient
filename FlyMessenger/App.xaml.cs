@@ -29,6 +29,7 @@ namespace FlyMessenger
     public partial class App : Application
     {
         private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
+        public static ImageBrush ProfilePhotoDefaultPage { get; set; }
         
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -67,8 +68,6 @@ namespace FlyMessenger
             Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
             Settings.Default.LanguageCode = language;
             Settings.Default.Save();
-
-            RestartApp();
         }
         
         public static void RestartApp()

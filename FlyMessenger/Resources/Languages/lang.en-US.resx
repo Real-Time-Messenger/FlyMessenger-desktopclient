@@ -258,4 +258,13 @@
   <data name="edit-email" xml:space="preserve">
     <value>Email edit</value>
   </data>
+  <data name="restart-app" xml:space="preserve">
+    <value>To change the language, need to restart the application.</value>
+  </data>
+  <data name="restart" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="not-yet" xml:space="preserve">
+    <value>Not now</value>
+  </data>
 </root>

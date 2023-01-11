@@ -79,8 +79,6 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             var surname = SurnameEditTextBox.Text;
             
             ControllerBase.UserController.EditMyProfileName(name, surname);
-            
-            App.RestartApp();
         }
     }
 }

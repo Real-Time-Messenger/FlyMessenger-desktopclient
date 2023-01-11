@@ -54,6 +54,7 @@
     <SolidColorBrush x:Key="XamlIcons-Red" Color="#E86C6C" />
     <SolidColorBrush x:Key="XamlIcons-Greed" Color="#69A55B" />
     <SolidColorBrush x:Key="XamlIcons-Blue" Color="#5B9BD9" />
+    <SolidColorBrush x:Key="XamlIcons-Blue-MouseOver" Color="#5B9BD9" Opacity="0.5" />
     <!--
     <SolidColorBrush x:Key="Lite-Stroke" Color="#A2A3A7" />
     -->
@@ -95,5 +96,7 @@
     <SolidColorBrush x:Key="Confirm-Red-MouseOver" Color="#FFBCC4" />
     <SolidColorBrush x:Key="Confirm-Blue" Color="#CAD5F2" />
     <SolidColorBrush x:Key="Confirm-Blue-MouseOver" Color="#ACBFF1" />
+    <SolidColorBrush x:Key="Confirm-Green" Color="#AFDED0" />
+    <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#86CAB5" />
     <Color x:Key="NotifyIcon-Background" R="234" G="237" B="250" />
 </ResourceDictionary>

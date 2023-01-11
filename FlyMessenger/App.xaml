@@ -5,8 +5,14 @@
              xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
              xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
+        <ObjectDataProvider x:Key="UserFirstNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
+        <ObjectDataProvider x:Key="UserLastNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
+        <ObjectDataProvider x:Key="UserEmailDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
+        <ObjectDataProvider x:Key="UserPhotoDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
 
         <!-- Resources -->
         <converters:MessagesCountConverter x:Key="MessagesCountConverter" />
@@ -631,6 +637,28 @@
             </Style.Triggers>
         </Style>
         
+        <!-- ConfirmGreenButton Resource -->
+        <Style x:Key="ConfirmGreenButton" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource Confirm-Green}" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" CornerRadius="5" Padding="12 3" BorderThickness="0"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Confirm-Green-MouseOver}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- ConfirmBlueButton Resource -->
         <Style x:Key="ConfirmBlueButton" TargetType="Button">
             <Setter Property="Background" Value="{DynamicResource Confirm-Blue}" />
@@ -655,6 +683,48 @@
 
         <!-- RadioButtonStyle -->
         <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <BulletDecorator x:Name="BulletDecorator" Cursor="Arrow" VerticalAlignment="Center" Height="36">
+                            <BulletDecorator.Bullet>
+                                <Grid Width="20" Height="20" Margin="10 8 0 0">
+                                    <Border Name="RadioOuter" Background="Transparent"
+                                            BorderBrush="{DynamicResource XamlIcons-Blue}"
+                                            BorderThickness="2"
+                                            CornerRadius="10" />
+                                    <Border CornerRadius="10"
+                                            Margin="5"
+                                            Name="RadioMark"
+                                            Background="{DynamicResource XamlIcons-Blue}"
+                                            Visibility="Hidden" />
+                                </Grid>
+                            </BulletDecorator.Bullet>
+                            <TextBlock Margin="20,0,0,0"
+                                       Text="{TemplateBinding Content}"
+                                       VerticalAlignment="Center">
+                                <ContentPresenter />
+                            </TextBlock>
+                        </BulletDecorator>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="RadioMark" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="RadioMark" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="RadioMark" Property="Background"
+                                        Value="{DynamicResource XamlIcons-Blue-MouseOver}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="BulletDecorator" Property="Background"
+                                        Value="{DynamicResource Background-Element}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

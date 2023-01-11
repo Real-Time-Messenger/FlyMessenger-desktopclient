@@ -152,4 +152,13 @@
     <data name="edit-email" xml:space="preserve">
         <value>E-poste redigeerimine</value>
     </data>
+    <data name="restart-app" xml:space="preserve">
+        <value>Keele muutmiseks peab rakenduse taaskäivitama.</value>
+    </data>
+    <data name="restart" xml:space="preserve">
+        <value>Jah</value>
+    </data>
+    <data name="not-yet" xml:space="preserve">
+        <value>Mitte praegu</value>
+    </data>
 </root>

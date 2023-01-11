@@ -49,9 +49,9 @@ namespace FlyMessenger.Controllers
             return Put<UserModel, UserInEditEmail>(Constants.ProfilesUrl + "/me", new UserInEditEmail { Email = email });
         }
         
-        public UserModel EditMyProfilePhoto(MultipartFormDataContent photo)
+        public UserModel EditMyProfilePhoto(byte[] photo)
         {
-            return Put<UserModel, UserInEditPhoto>(Constants.ProfilesUrl + "/me/avatar", new UserInEditPhoto { Photo = photo });
+            return Put<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
         }
     }
 }

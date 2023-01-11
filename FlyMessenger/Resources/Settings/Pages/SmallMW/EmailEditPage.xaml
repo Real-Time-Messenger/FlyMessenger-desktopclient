@@ -50,7 +50,7 @@
                                  Background="Transparent"
                                  BorderBrush="Transparent"
                                  BorderThickness="0"
-                                 Text="{Binding MyProfile.Email}"
+                                 Text="{Binding Source={StaticResource UserEmailDataProvider}, Path=MyProfile.Email}"
                                  FontFamily="{StaticResource Alata}"
                                  FontSize="14"
                                  Foreground="{DynamicResource Normal-Stroke}"

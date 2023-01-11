@@ -54,6 +54,7 @@
     <SolidColorBrush x:Key="XamlIcons-Red" Color="#E86C6C" />
     <SolidColorBrush x:Key="XamlIcons-Greed" Color="#9DEA8A" />
     <SolidColorBrush x:Key="XamlIcons-Blue" Color="#B8BAF2" />
+    <SolidColorBrush x:Key="XamlIcons-Blue-MouseOver" Color="#B8BAF2" Opacity="0.5" />
     <!--
     <SolidColorBrush x:Key="Lite-Stroke" Color="#A2A3A7" /> It's a message time in ChatBox
     -->
@@ -95,5 +96,7 @@
     <SolidColorBrush x:Key="Confirm-Red-MouseOver" Color="#462D3B" />
     <SolidColorBrush x:Key="Confirm-Blue" Color="#20293F" />
     <SolidColorBrush x:Key="Confirm-Blue-MouseOver" Color="#31385E" />
+    <SolidColorBrush x:Key="Confirm-Green" Color="#203D3F" />
+    <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#2B5053" />
     <Color x:Key="NotifyIcon-Background" R="16" G="24" B="43" />
 </ResourceDictionary>

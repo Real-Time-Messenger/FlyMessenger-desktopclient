@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
         xmlns:converters="clr-namespace:FlyMessenger.Converters"
-        xmlns:viewmodel="clr-namespace:FlyMessenger.MVVM.ViewModels"
         xmlns:sys="clr-namespace:System;assembly=System.Runtime"
         Height="768" Width="1366" WindowStartupLocation="CenterScreen"
         MinHeight="504"
@@ -211,6 +210,18 @@
                 <Frame x:Name="EmailEditModalWindowFrame"
                        NavigationUIVisibility="Hidden"
                        Source="Resources/Settings/Pages/SmallMW/EmailEditPage.xaml" />
+            </uc:ModalWindow>
+            
+            <!-- Restart notify modal window -->
+            <uc:ModalWindow x:Name="RestartNotifyModalWindow"
+                            Style="{StaticResource ModalWindowStyle}"
+                            Panel.ZIndex="8">
+                <uc:ModalWindow.Background>
+                    <SolidColorBrush Color="Black" Opacity="0.5" />
+                </uc:ModalWindow.Background>
+                <Frame x:Name="RestartNotifyModalWindowFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/RestartNotifyPage.xaml" />
             </uc:ModalWindow>
 
             <!-- Left menu bar -->

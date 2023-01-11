@@ -165,4 +165,13 @@
     <data name="edit-email" xml:space="preserve">
         <value>Редактирование почты</value>
     </data>
+    <data name="restart-app" xml:space="preserve">
+        <value>Для смены языка придётся перезагрузить приложение.</value>
+    </data>
+    <data name="restart" xml:space="preserve">
+        <value>Ок</value>
+    </data>
+    <data name="not-yet" xml:space="preserve">
+        <value>Не сейчас</value>
+    </data>
 </root>

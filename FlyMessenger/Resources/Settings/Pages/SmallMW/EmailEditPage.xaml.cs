@@ -50,8 +50,6 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             
             EmailEditLabel.Opacity = 0.5;
             EmailEditTextBoxBorder.BorderThickness = new Thickness(0, 0, 0, 1);
-            
-            App.RestartApp();
         }
     }
 }

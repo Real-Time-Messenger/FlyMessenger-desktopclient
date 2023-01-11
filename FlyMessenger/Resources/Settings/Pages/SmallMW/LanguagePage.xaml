@@ -5,40 +5,49 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages.SmallMW"
       xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
+      xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
       mc:Ignorable="d">
+    
+    <Page.DataContext>
+        <viewModels:MainViewModel />
+    </Page.DataContext>
+    
     <Border x:Name="LanguageModalWindowContent"
             Background="{DynamicResource Main}"
             Width="160"
             Height="116"
             CornerRadius="5">
         <Grid>
-            <StackPanel Margin="0 10 0 0">
+            <StackPanel Margin="0 4 0 0">
                 <!-- Create radio buttons -->
                 <RadioButton x:Name="EstonianRadioButton"
                              Style="{StaticResource RadioButtonStyle}"
                              GroupName="Language"
-                             Checked="OnEstonianRadioButtonChecked">
+                             Click="OnEstonianRadioButtonClick"
+                             IsChecked="{Binding IsEstonianChecked, Mode=TwoWay}">
                     <TextBlock Text="{x:Static language:lang.estonian}"
                                FontFamily="{StaticResource Alata}"
-                               FontSize="12"
+                               FontSize="14"
                                Foreground="{DynamicResource Normal-Stroke}" />
                 </RadioButton>
                 <RadioButton x:Name="RussianRadioButton"
                              Style="{StaticResource RadioButtonStyle}"
                              GroupName="Language"
-                             Checked="OnRussianRadioButtonChecked">
+                             Click="OnRussianRadioButtonClick"
+                             IsChecked="{Binding IsRussianChecked, Mode=TwoWay}">
                     <TextBlock Text="{x:Static language:lang.russian}"
                                FontFamily="{StaticResource Alata}"
-                               FontSize="12"
+                               FontSize="14"
                                Foreground="{DynamicResource Normal-Stroke}" />
                 </RadioButton>
                 <RadioButton x:Name="EnglishRadioButton"
                              Style="{StaticResource RadioButtonStyle}"
                              GroupName="Language"
-                             Checked="OnEnglishRadioButtonChecked">
+                             Click="OnEnglishRadioButtonClick"
+                             IsChecked="{Binding IsEnglishChecked, Mode=TwoWay}">
                     <TextBlock Text="{x:Static language:lang.english}"
                                FontFamily="{StaticResource Alata}"
-                               FontSize="12"
+                               FontSize="14"
                                Foreground="{DynamicResource Normal-Stroke}" />
                 </RadioButton>
             </StackPanel>

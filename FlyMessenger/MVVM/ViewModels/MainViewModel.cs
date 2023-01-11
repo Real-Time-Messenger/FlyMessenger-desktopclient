@@ -3,6 +3,7 @@ using System.Linq;
 using FlyMessenger.Controllers;
 using FlyMessenger.Core;
 using FlyMessenger.MVVM.Model;
+using FlyMessenger.Properties;
 using FlyMessenger.Resources.Settings;
 
 namespace FlyMessenger.MVVM.ViewModels
@@ -114,17 +115,6 @@ namespace FlyMessenger.MVVM.ViewModels
             }
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
-            }
-        }
-
         private SettingsPage _currentPage;
         public SettingsPage CurrentPage
         {
@@ -143,6 +133,39 @@ namespace FlyMessenger.MVVM.ViewModels
             set
             {
                 _canGoBack = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isEstonianChecked;
+        public bool IsEstonianChecked
+        {
+            get => _isEstonianChecked;
+            set
+            {
+                _isEstonianChecked = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private bool _isRussianChecked;
+        public bool IsRussianChecked
+        {
+            get => _isRussianChecked;
+            set
+            {
+                _isRussianChecked = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private bool _isEnglishChecked;
+        public bool IsEnglishChecked
+        {
+            get => _isEnglishChecked;
+            set
+            {
+                _isEnglishChecked = value;
                 OnPropertyChanged();
             }
         }
@@ -171,7 +194,19 @@ namespace FlyMessenger.MVVM.ViewModels
             }
 
             MyProfile = ControllerBase.UserController.GetMyProfile();
-            Name = MyProfile.FirstName + " " + MyProfile.LastName;
+            
+            switch (Settings.Default.LanguageCode)
+            {
+                case "et-EE":
+                    IsEstonianChecked = true;
+                    break;
+                case "ru-RU":
+                    IsRussianChecked = true;
+                    break;
+                case "en-US":
+                    IsEnglishChecked = true;
+                    break;
+            }
             
             ClearSearchBox = new RelayCommand(
                 _ =>

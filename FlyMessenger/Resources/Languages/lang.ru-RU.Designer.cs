@@ -303,6 +303,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не сейчас.
+        /// </summary>
+        public static string not_yet {
+            get {
+                return ResourceManager.GetString("not-yet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Уведомление.
         /// </summary>
         public static string notification {
@@ -362,6 +371,24 @@ namespace FlyMessenger.Resources.Languages {
         public static string profile {
             get {
                 return ResourceManager.GetString("profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ок.
+        /// </summary>
+        public static string restart {
+            get {
+                return ResourceManager.GetString("restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Для смены языка придётся перезагрузить приложение..
+        /// </summary>
+        public static string restart_app {
+            get {
+                return ResourceManager.GetString("restart-app", resourceCulture);
             }
         }
         

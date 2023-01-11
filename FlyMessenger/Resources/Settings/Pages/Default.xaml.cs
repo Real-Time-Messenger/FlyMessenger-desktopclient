@@ -15,6 +15,8 @@ namespace FlyMessenger.Resources.Settings.Pages
             DataContext = new MainViewModel();
             
             InitializeComponent();
+            
+            App.ProfilePhotoDefaultPage = ProfilePhotoDefaultPage;
         }
 
         private void Username_CopyToClipboard(object sender, MouseButtonEventArgs e)

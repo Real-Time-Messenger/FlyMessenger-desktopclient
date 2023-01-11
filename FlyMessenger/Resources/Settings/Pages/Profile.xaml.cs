@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
 using Microsoft.Win32;
@@ -68,17 +69,12 @@ namespace FlyMessenger.Resources.Settings.Pages
             };
             
             if (openFileDialog.ShowDialog() != true) return;
+            var fileToBytes = File.ReadAllBytes(openFileDialog.FileName);
 
-            // MessageBox.Show(openFileDialog.SafeFileName);
-            using var formContent = new MultipartFormDataContent();
+            ControllerBase.UserController.EditMyProfilePhoto(fileToBytes);
             
-            formContent.Headers.ContentType!.MediaType = "multipart/form-data";
-            var fileStream = new StreamContent(File.OpenRead(openFileDialog.FileName));
-            var mimeType = MimeMapping.MimeUtility.GetMimeMapping(openFileDialog.SafeFileName);
-            fileStream.Headers.ContentType = MediaTypeHeaderValue.Parse(mimeType);
-            formContent.Add(fileStream, "file", openFileDialog.SafeFileName);
-            
-            ControllerBase.UserController.EditMyProfilePhoto(formContent);
+            ProfilePhotoProfilePage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
+            App.ProfilePhotoDefaultPage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
         }
     }
 }
