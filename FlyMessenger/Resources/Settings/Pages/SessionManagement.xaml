@@ -4,9 +4,49 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages"
-      mc:Ignorable="d"
-      Title="SessionManagement" Height="450" Width="800">
+      xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
+      xmlns:languages="clr-namespace:FlyMessenger.Resources.Languages"
+      mc:Ignorable="d" Height="360">
+
+    <Page.DataContext>
+        <viewModels:MainViewModel />
+    </Page.DataContext>
+
     <Grid>
-        <TextBlock>SessionManagement</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="10 0 0 14">
+            <TextBlock FontSize="14"
+                       FontFamily="{StaticResource Alata}"
+                       Foreground="{DynamicResource Normal-Stroke}">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="SessionsCount" />
+                        <Binding Source="{x:Static languages:lang.sessions}" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Stretch">
+                    <ListView ItemsSource="{Binding MyProfile.Sessions}"
+                              ItemContainerStyle="{StaticResource SessionBox}"
+                              BorderBrush="Transparent"
+                              HorizontalAlignment="Stretch"
+                              BorderThickness="0"
+                              Margin="10 0 4 0"
+                              Padding="0">
+                        <ListView.Template>
+                            <ControlTemplate>
+                                <ItemsPresenter />
+                            </ControlTemplate>
+                        </ListView.Template>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

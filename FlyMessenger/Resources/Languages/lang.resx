@@ -161,4 +161,46 @@
     <data name="not-yet" xml:space="preserve">
         <value>Mitte praegu</value>
     </data>
+    <data name="lastAction" xml:space="preserve">
+        <value>Viimane tegevus</value>
+    </data>
+    <data name="nobody" xml:space="preserve">
+        <value>Mitte keegi</value>
+    </data>
+    <data name="anyone" xml:space="preserve">
+        <value>Igaüks saab</value>
+    </data>
+    <data name="message-forwarding" xml:space="preserve">
+        <value>Sõnumite edastamine</value>
+    </data>
+    <data name="unabled" xml:space="preserve">
+        <value>Võimatu</value>
+    </data>
+    <data name="g-and-c" xml:space="preserve">
+        <value>Rühmad ja vestlused</value>
+    </data>
+    <data name="session-management" xml:space="preserve">
+        <value>Seansi juhtimine</value>
+    </data>
+    <data name="two-step" xml:space="preserve">
+        <value>Kahefaktoriline autentimine</value>
+    </data>
+    <data name="autostart" xml:space="preserve">
+        <value>Automaatkäivitus</value>
+    </data>
+    <data name="sessions" xml:space="preserve">
+        <value>seansi</value>
+    </data>
+    <data name="sessions-page" xml:space="preserve">
+        <value>Seansid</value>
+    </data>
+    <data name="blacklist" xml:space="preserve">
+        <value>Must nimekiri</value>
+    </data>
+    <data name="blocked-users-second" xml:space="preserve">
+        <value>Blokeeritud kasutajaid</value>
+    </data>
+    <data name="select-chat" xml:space="preserve">
+        <value>Valige vestlus</value>
+    </data>
 </root>

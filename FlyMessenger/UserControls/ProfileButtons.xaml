@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:FlyMessenger.UserControls"
              mc:Ignorable="d"
              Name="ProfileMenuButton">
-    <Button Style="{DynamicResource ProfileModalButton}" Width="400" Height="46" Cursor="Hand">
+    <Button Style="{DynamicResource UcButton}" Width="400" Height="46" Cursor="Hand">
         <Grid>
             <Border CornerRadius="5" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left"
                     Margin="16 0 0 0">

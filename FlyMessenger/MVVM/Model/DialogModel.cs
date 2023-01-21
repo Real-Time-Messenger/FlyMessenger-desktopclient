@@ -16,16 +16,6 @@
         public Sender Sender { get; set; }
     }
     
-    public class MessageModel
-    {
-        public string Id { get; set; }
-        public Sender Sender { get; set; }
-        public string? Text { get; set; }
-        public string? File { get; set; }
-        public bool IsRead { get; set; }
-        public string SentAt { get; set; }
-    }
-    
     public class DialogModel
     {
         public string Id { get; set; }

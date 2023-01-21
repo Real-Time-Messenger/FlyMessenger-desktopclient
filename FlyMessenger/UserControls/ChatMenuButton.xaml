@@ -8,7 +8,7 @@
              d:DesignHeight="34" d:DesignWidth="34"
              Name="chatMenuButton">
     <!-- Template for Sidebar button -->
-    <Button Style="{DynamicResource SideBarButton}" Width="280" Height="48" Cursor="Hand">
+    <Button Style="{DynamicResource UcButton}" Width="280" Height="48" Cursor="Hand">
         <Grid>
             <Border CornerRadius="10" Width="34" Height="34" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8 0 0 0">
                 <Border.Background>

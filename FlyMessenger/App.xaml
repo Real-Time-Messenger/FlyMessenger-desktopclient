@@ -12,7 +12,6 @@
         <ObjectDataProvider x:Key="UserFirstNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
         <ObjectDataProvider x:Key="UserLastNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
         <ObjectDataProvider x:Key="UserEmailDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
-        <ObjectDataProvider x:Key="UserPhotoDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
 
         <!-- Resources -->
         <converters:MessagesCountConverter x:Key="MessagesCountConverter" />
@@ -20,6 +19,8 @@
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <converters:IntToStringConverter x:Key="IntToString" />
         <converters:ChatBoxNameConverter x:Key="ChatBoxNameConverter" />
+        <converters:ImageToSourceConverter x:Key="ImageToSourceConverter" />
+        <converters:FistLetterToUpperConverter x:Key="FistLetterToUpperConverter" />
 
         <ResourceDictionary x:Key="Icons">
             <ResourceDictionary.MergedDictionaries>
@@ -32,49 +33,7 @@
         </FontFamily>
 
         <!-- Sidebar Buttons Resources -->
-        <Style x:Key="SideBarButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Name="Border" BorderThickness="0" Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource Background-Element}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Settings Buttons Resources -->
-        <Style x:Key="SettingsModalButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Name="Border" BorderThickness="0" Background="{TemplateBinding Background}">
-                            <ContentPresenter VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource Background-Element}" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Profile Buttons Resources -->
-        <Style x:Key="ProfileModalButton" TargetType="Button">
+        <Style x:Key="UcButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Template">
@@ -135,6 +94,94 @@
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
                     <Setter Property="Background" Value="{DynamicResource ModalCloseButton-Selected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- Modal Close Button Resources -->
+        <Style x:Key="NotificationCloseButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalCloseButton-MouseOver}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource ModalCloseButton-Selected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Session Close Button Resources -->
+        <Style x:Key="SessionCloseButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Margin" Value="0 0 10 0" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" BorderThickness="0" CornerRadius="15"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SessionCloseButton-MouseOver}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SessionCloseButton-Selected}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- UnblockUser Button Resources -->
+        <Style x:Key="UnblockUserButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource Unblock}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Margin" Value="0 0 10 0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Name="Border" Padding="4" BorderThickness="0" CornerRadius="5"
+                                Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SessionCloseButton-MouseOver}" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource SessionCloseButton-Selected}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -312,8 +359,8 @@
                                     <!-- Full circled Image 48x48 -->
                                     <Ellipse Width="48" Height="48">
                                         <Ellipse.Fill>
-                                            <ImageBrush
-                                                ImageSource="{Binding User.PhotoUrl}" />
+                                            <ImageBrush Stretch="UniformToFill"
+                                                        ImageSource="{Binding User.PhotoUrl}" />
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Grid>
@@ -379,7 +426,7 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition MaxWidth="220" Width="*" />
                                                 <ColumnDefinition MaxWidth="28" Width="*" />
-                                                <ColumnDefinition Width="36" />
+                                                <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="0">
                                                 <TextBlock x:Name="MessageText"
@@ -483,6 +530,133 @@
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
                         </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- SessionBox Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="SessionBox">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                                CornerRadius="5"
+                                Background="{DynamicResource SessionBox-Normal}"
+                                Margin="0 0 0 10"
+                                Height="80">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Column="0">
+                                    <Image
+                                        Source="{Binding Path=Type,
+                                           Converter={StaticResource ImageToSourceConverter}}"
+                                        Width="50"
+                                        Height="50"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right" />
+                                </Grid>
+                                <Grid Column="1" Margin="10 10 0 0">
+                                    <StackPanel Grid.Row="0">
+                                        <DockPanel>
+                                            <TextBlock
+                                                Text="{Binding Type, Converter={StaticResource FistLetterToUpperConverter}}"
+                                                FontFamily="{StaticResource Alata}"
+                                                FontSize="14"
+                                                Foreground="{DynamicResource Stronger-Stroke}"
+                                                HorizontalAlignment="Left" />
+                                            <Button DockPanel.Dock="Right"
+                                                    x:Name="BtnCloseSession"
+                                                    Style="{DynamicResource SessionCloseButton}"
+                                                    Click="OnCloseSessionClick">
+                                                <Image Width="14" Height="14"
+                                                       Source="{DynamicResource CloseModalWindow}" />
+                                            </Button>
+                                        </DockPanel>
+                                        <TextBlock Text="{Binding Label}"
+                                                   FontFamily="{StaticResource Alata}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource Normal-Stroke}" />
+                                        <TextBlock Text="{Binding Location}"
+                                                   FontFamily="{StaticResource Alata}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource Litest-Stroke}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- BlackListBox Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="BlackListBox">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                                CornerRadius="5"
+                                Background="{DynamicResource SessionBox-Normal}"
+                                Margin="0 0 0 10"
+                                Height="80">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Column="0">
+                                    <Ellipse Grid.Column="0"
+                                             Width="50"
+                                             Height="50"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Right">
+                                        <Ellipse.Fill>
+                                            <ImageBrush x:Name="BlockedUserPhoto"
+                                                        Stretch="UniformToFill"
+                                                        ImageSource="{Binding PhotoUrl}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
+                                <Grid Column="1" Margin="10 0 0 0">
+                                    <StackPanel Grid.Row="0" VerticalAlignment="Center">
+                                        <TextBlock FontFamily="{StaticResource Alata}"
+                                                   FontSize="14"
+                                                   Foreground="{DynamicResource Stronger-Stroke}"
+                                                   Margin="0 0 0 2">
+                                            <Run Text="{Binding FirstName}" />
+                                            <Run Text="{Binding LastName}" />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Username, StringFormat='@{0}'}"
+                                                   FontFamily="{StaticResource Alata}"
+                                                   FontSize="12"
+                                                   Foreground="{DynamicResource Normal-Stroke}" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <Button x:Name="BtnUnblockUser"
+                                            Style="{DynamicResource UnblockUserButton}"
+                                            FontFamily="{StaticResource Alata}"
+                                            FontSize="12"
+                                            Click="OnUnblockUserClick"
+                                            VerticalAlignment="Center"
+                                            Content="{x:Static language:lang.unblock_user}">
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -636,7 +810,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <!-- ConfirmGreenButton Resource -->
         <Style x:Key="ConfirmGreenButton" TargetType="Button">
             <Setter Property="Background" Value="{DynamicResource Confirm-Green}" />

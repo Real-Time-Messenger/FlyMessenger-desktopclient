@@ -27,7 +27,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Width="116">
-            <!-- TODO: Create photo uploading -->
             <Ellipse Width="100" Height="100"
                      HorizontalAlignment="Center"
                      VerticalAlignment="Center">
@@ -122,7 +121,6 @@
         <Border Grid.Row="2" Background="{DynamicResource Background-Element}" />
         <StackPanel Grid.Row="3" Margin="0 6 0 0" HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <!-- TODO: Создать открытие более малых окон -->
             <userControls:ProfileButtons Title="{x:Static language:lang.name}"
                                          Icon="{DynamicResource Settings-Profile}"
                                          PreviewMouseLeftButtonUp="OpenNameEditModalWindow">

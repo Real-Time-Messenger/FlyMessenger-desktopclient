@@ -3,33 +3,90 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages"
       xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
-      mc:Ignorable="d"
-      Title="Privacy" Height="450" Width="800">
+      xmlns:languages="clr-namespace:FlyMessenger.Resources.Languages"
+      xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:MainViewModel />
+    </Page.DataContext>
+
     <Grid>
-        <TextBlock>Privacy</TextBlock>
-        
-        <StackPanel HorizontalAlignment="Left"
-                    VerticalAlignment="Center">
-            <userControls:SettingsButton Title="Session Management"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Margin="0 0 0 10">
+            <userControls:ProfileButtons Title="{x:Static languages:lang.lastAction}"
+                                         x:Name="LastActivityTextData"
+                                         Icon="{DynamicResource Profile-LastAction}"
+                                         TextData="{Binding CheckedAction}"
+                                         PreviewMouseLeftButtonUp="OpenLastActivityModalWindow">
+                <userControls:ProfileButtons.Style>
+                    <Style TargetType="userControls:ProfileButtons">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Profile}" />
+                    </Style>
+                </userControls:ProfileButtons.Style>
+            </userControls:ProfileButtons>
+            <userControls:ProfileButtons Title="{x:Static languages:lang.message_forwarding}"
+                                         Icon="{DynamicResource Privacy-Forwarding}"
+                                         TextData="{x:Static languages:lang.unabled}">
+                <userControls:ProfileButtons.Style>
+                    <Style TargetType="userControls:ProfileButtons">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Notifications}" />
+                    </Style>
+                </userControls:ProfileButtons.Style>
+            </userControls:ProfileButtons>
+            <userControls:ProfileButtons Title="{x:Static languages:lang.g_and_c}"
+                                         Icon="{DynamicResource Privacy-GAndC}"
+                                         TextData="{x:Static languages:lang.unabled}">
+                <userControls:ProfileButtons.Style>
+                    <Style TargetType="userControls:ProfileButtons">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-BlockUsers}" />
+                    </Style>
+                </userControls:ProfileButtons.Style>
+            </userControls:ProfileButtons>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="{DynamicResource Background-Element}" />
+
+        <StackPanel Grid.Row="2" Margin="0 10 0 0">
+            <userControls:SettingsButton Title="{x:Static languages:lang.session_management}"
                                          Id="7"
                                          PreviousMenuId="2"
                                          ForegroundColor="{DynamicResource Normal-Stroke}"
-                                         Icon="{DynamicResource Settings-Profile}">
+                                         Icon="{DynamicResource Privacy-Session}">
                 <userControls:SettingsButton.Style>
                     <Style TargetType="userControls:SettingsButton">
                         <Setter Property="BackgroundColor"
-                                Value="{DynamicResource Settings-Icon-Profile}" />
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BackgroundColor"
-                                        Value="{DynamicResource Settings-Icon-Profile-MouseOver}" />
-                            </Trigger>
-                        </Style.Triggers>
+                                Value="{DynamicResource Settings-Icon-Privacy}" />
                     </Style>
                 </userControls:SettingsButton.Style>
             </userControls:SettingsButton>
+            <userControls:SwitcherButton Title="{x:Static languages:lang.two_step}"
+                                         Icon="{DynamicResource Two-Factor}"
+                                         CheckState="{Binding MyProfile.Settings.TwoFactorEnabled}">
+                <userControls:SwitcherButton.Style>
+                    <Style TargetType="userControls:SwitcherButton">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Authentication}" />
+                    </Style>
+                </userControls:SwitcherButton.Style>
+            </userControls:SwitcherButton>
+            <userControls:SwitcherButton Title="{x:Static languages:lang.autostart}"
+                                         Icon="{DynamicResource Privacy-Auto}">
+                <userControls:SwitcherButton.Style>
+                    <Style TargetType="userControls:SwitcherButton">
+                        <Setter Property="BackgroundColor"
+                                Value="#E86C6C" />
+                    </Style>
+                </userControls:SwitcherButton.Style>
+            </userControls:SwitcherButton>
         </StackPanel>
     </Grid>
 </Page>

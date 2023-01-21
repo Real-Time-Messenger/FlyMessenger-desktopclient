@@ -3,10 +3,40 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:uc="clr-namespace:FlyMessenger.UserControls"
       xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages"
-      mc:Ignorable="d"
-      Title="Notifications" Height="450" Width="800">
+      xmlns:languages="clr-namespace:FlyMessenger.Resources.Languages"
+      xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <viewModels:MainViewModel />
+    </Page.DataContext>
+
     <Grid>
-        <TextBlock>Notifications</TextBlock>
+        <StackPanel>
+            <uc:SwitcherButton x:Name="NotificationStateButton"
+                               Title="{x:Static languages:lang.notifications}"
+                               Icon="{DynamicResource Bell-Off}"
+                               CheckState="{Binding MyProfile.Settings.ChatsNotificationsEnabled}">
+                <uc:SwitcherButton.Style>
+                    <Style TargetType="uc:SwitcherButton">
+                        <Setter Property="BackgroundColor"
+                                Value="#E86C6C" />
+                    </Style>
+                </uc:SwitcherButton.Style>
+            </uc:SwitcherButton>
+            <uc:SwitcherButton x:Name="SoundStateButton"
+                               Title="{x:Static languages:lang.sound}"
+                               Icon="{DynamicResource Volume-Off}"
+                               CheckState="{Binding MyProfile.Settings.ChatsSoundEnabled}">
+                <uc:SwitcherButton.Style>
+                    <Style TargetType="uc:SwitcherButton">
+                        <Setter Property="BackgroundColor"
+                                Value="{DynamicResource Settings-Icon-Profile}" />
+                    </Style>
+                </uc:SwitcherButton.Style>
+            </uc:SwitcherButton>
+        </StackPanel>
     </Grid>
 </Page>

@@ -1,35 +1,35 @@
-﻿using System.Net.Http;
-using System.Windows;
-using System.Windows.Media;
+﻿using System.Collections.Generic;
 using FlyMessenger.HTTP;
 using FlyMessenger.MVVM.Model;
 
 namespace FlyMessenger.Controllers
 {
-    class UserInEditName
+    internal class UserInEditName
     {
         public string FirstName { get; set; }
         public string? LastName { get; set; }
     }
 
-    class UserInEditEmail
+    internal class UserInEditEmail
     {
         public string Email { get; set; }
     }
 
-    class UserInEditPhoto
+    internal class UserInEditLastActivity
     {
-        public MultipartFormDataContent Photo { get; set; }
+        public bool LastActivityMode { get; set; }
     }
-
-    // Create dictionary of user id and user in edit
-
 
     public class UserController : HttpClientBase
     {
         public UserModel GetMyProfile()
         {
             return Get<UserModel>(Constants.ProfilesUrl + "/me");
+        }
+        
+        public IEnumerable<SessionsModel> GetMySessions()
+        {
+            return Get<SessionsModel[]>(Constants.ProfilesUrl + "/me/sessions");
         }
 
         public UserModel EditMyProfileName(string name, string surname)
@@ -48,10 +48,18 @@ namespace FlyMessenger.Controllers
         {
             return Put<UserModel, UserInEditEmail>(Constants.ProfilesUrl + "/me", new UserInEditEmail { Email = email });
         }
-        
+
         public UserModel EditMyProfilePhoto(byte[] photo)
         {
             return Put<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
+        }
+
+        public UserModel EditMyLastActivity(bool lastActivity)
+        {
+            return Put<UserModel, UserInEditLastActivity>(
+                Constants.ProfilesUrl + "/me",
+                new UserInEditLastActivity { LastActivityMode = lastActivity }
+            );
         }
     }
 }

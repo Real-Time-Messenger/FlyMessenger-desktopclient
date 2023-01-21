@@ -267,4 +267,46 @@
   <data name="not-yet" xml:space="preserve">
     <value>Not now</value>
   </data>
+  <data name="lastAction" xml:space="preserve">
+    <value>Last action</value>
+  </data>
+  <data name="nobody" xml:space="preserve">
+    <value>Nobody</value>
+  </data>
+  <data name="anyone" xml:space="preserve">
+    <value>Anyone</value>
+  </data>
+  <data name="message-forwarding" xml:space="preserve">
+    <value>Message forwarding</value>
+  </data>
+  <data name="unabled" xml:space="preserve">
+    <value>Unabled</value>
+  </data>
+  <data name="g-and-c" xml:space="preserve">
+    <value>Groups and conservations</value>
+  </data>
+  <data name="session-management" xml:space="preserve">
+    <value>Session management</value>
+  </data>
+  <data name="two-step" xml:space="preserve">
+    <value>Two-factor authentication</value>
+  </data>
+  <data name="autostart" xml:space="preserve">
+    <value>App Startup</value>
+  </data>
+  <data name="sessions" xml:space="preserve">
+    <value>sessions</value>
+  </data>
+  <data name="sessions-page" xml:space="preserve">
+    <value>Sessions</value>
+  </data>
+  <data name="blacklist" xml:space="preserve">
+    <value>Blacklist</value>
+  </data>
+  <data name="blocked-users-second" xml:space="preserve">
+    <value>Blocked users</value>
+  </data>
+  <data name="select-chat" xml:space="preserve">
+    <value>Choose a chat</value>
+  </data>
 </root>

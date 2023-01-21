@@ -19,6 +19,7 @@ using FlyMessenger.Resources.Settings;
 using FlyMessenger.Resources.Settings.Pages;
 using FlyMessenger.UserControls;
 using Application = System.Windows.Application;
+using Button = System.Windows.Controls.Button;
 using MessageBox = System.Windows.MessageBox;
 
 namespace FlyMessenger
@@ -30,6 +31,7 @@ namespace FlyMessenger
     {
         private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
         public static ImageBrush ProfilePhotoDefaultPage { get; set; }
+        public static ProfileButtons LastActivityTextData { get; set; }
         
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -90,11 +92,16 @@ namespace FlyMessenger
                 MessageBoxButton.OK,
                 MessageBoxImage.Error
             );
-            // Show more details in debug mode
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                System.Diagnostics.Debugger.Break();
-            }
+        }
+
+        private void OnCloseSessionClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void OnUnblockUserClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

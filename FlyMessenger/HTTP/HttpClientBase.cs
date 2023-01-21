@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using RestSharp;
@@ -11,13 +12,12 @@ namespace FlyMessenger.HTTP
 
         protected HttpClientBase()
         {
-
             _client = new RestClient(Constants.ApiUrl).AddDefaultHeaders( new Dictionary<string, string>
             {
                 {"Accept", "application/json"},
                 {"Content-Type", "application/json"},
                 // TODO: Get authorization token from current session. 
-                {"Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzQxMjgxNzUuMzMyMDMsImlhdCI6MTY3MTUzNjE3NS4zMzIwMywicGF5bG9hZCI6eyJpZCI6IjYzYTE5ZTJmMjQzNDkxMTdjNjI0NWZlNCJ9fQ.w3WxanKvZ-JAfn0C1sYOsulVW2xkbll_FOFAm1iNOkQ"}
+                {"Authorization", GetToken()}
             });
         }
 
@@ -27,6 +27,26 @@ namespace FlyMessenger.HTTP
 
             var response = _client.Execute<T>(request);
             return response.Data!;
+        }
+        
+        public static string GetToken()
+        {
+            var fileStream = new FileStream("../../../Config/Token.txt", FileMode.Open, FileAccess.Read);
+            var streamReader = new StreamReader(fileStream);
+            var token = "Bearer" + " " + streamReader.ReadToEnd();
+            streamReader.Close();
+            fileStream.Close();
+            
+            return token;
+        }
+        
+        public static void SetToken(string token)
+        {
+            var fileStream = new FileStream("../../../Config/Token.txt", FileMode.Create, FileAccess.Write);
+            var streamWriter = new StreamWriter(fileStream);
+            streamWriter.Write(token);
+            streamWriter.Close();
+            fileStream.Close();
         }
 
         protected T Post<T, TK>(string url, TK data) where T : class where TK : class

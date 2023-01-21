@@ -61,11 +61,7 @@ namespace FlyMessenger.Core.Utils
             _showWindow.Text = Resources.Languages.lang.showWindow;
             _showWindow.Click += ShowWindow_Click;
 
-            // contextMenuStrip setting
-            // If current Colors resource == Light.xaml
-            contextMenu.BackColor = Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light")
-                ? Color.FromArgb(234, 237, 250)
-                : Color.FromArgb(16, 24, 43);
+            // contextMenuStrip settings
             contextMenu.ShowImageMargin = false;
             contextMenu.ShowCheckMargin = false;
             contextMenu.ShowItemToolTips = false;
@@ -148,6 +144,17 @@ namespace FlyMessenger.Core.Utils
                     e.Item.ContentRectangle
                 );
             }
+        }
+        
+        // Change background color of contextMenu
+        protected override void OnRenderToolStripBackground(Forms.ToolStripRenderEventArgs e)
+        {
+            e.Graphics.FillRectangle(
+                Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light")
+                    ? new SolidBrush(Color.FromArgb(234, 237, 250))
+                    : new SolidBrush(Color.FromArgb(16, 24, 43)),
+                e.AffectedBounds
+            );
         }
     }
 }

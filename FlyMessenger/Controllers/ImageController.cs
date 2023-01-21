@@ -11,6 +11,7 @@ namespace FlyMessenger.Controllers
             var image = new BitmapImage();
             image.BeginInit();
             image.StreamSource = new System.IO.MemoryStream(imageBytes);
+            image.DecodePixelWidth = 100;
             image.EndInit();
 
             return image;

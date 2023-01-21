@@ -1,16 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using FlyMessenger.Controllers;
 using FlyMessenger.Core;
 using FlyMessenger.MVVM.Model;
 using FlyMessenger.Properties;
+using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
 
 namespace FlyMessenger.MVVM.ViewModels
 {
     public class MainViewModel : ObservableObject
     {
-        public static ObservableCollection<DialogModel>? Dialogs { get; private set; } = null;
+        public static ObservableCollection<DialogModel>? Dialogs { get; private set; }
+        public static ObservableCollection<SessionsModel>? Sessions { get; private set; }
         public RelayCommand SendCommand { get; set; }
         public RelayCommand ClearSearchBox { get; set; }
 
@@ -39,6 +46,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private DialogModel _selectedDialog;
+
         public DialogModel SelectedDialog
         {
             get => _selectedDialog;
@@ -50,6 +58,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private SearchModel _searchResult;
+
         public SearchModel SearchResult
         {
             get => _searchResult;
@@ -70,6 +79,29 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
+        
+        private bool _activeChatVisibility = true;
+        public bool ActiveChatVisibility
+        {
+            get => _activeChatVisibility;
+            set
+            {
+                _activeChatVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private bool _activeChatVisibilityNone;
+        
+        public bool ActiveChatVisibilityNone
+        {
+            get => _activeChatVisibilityNone;
+            set
+            {
+                _activeChatVisibilityNone = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool _noMessagesVisibility = true;
         public bool NoMessagesVisibility
@@ -83,6 +115,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private bool _searchBoxClearVisibility;
+
         public bool SearchBoxClearVisibility
         {
             get => _searchBoxClearVisibility;
@@ -94,6 +127,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private int _unreadedMessagesCount;
+
         public int UnreadedMessagesCount
         {
             get => _unreadedMessagesCount;
@@ -104,7 +138,30 @@ namespace FlyMessenger.MVVM.ViewModels
             }
         }
 
+        private int _sessionsCount;
+        public int SessionsCount
+        {
+            get => _sessionsCount;
+            set
+            {
+                _sessionsCount = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        private int _blockedUsersCount;
+        public int BlockedUsersCount
+        {
+            get => _blockedUsersCount;
+            set
+            {
+                _blockedUsersCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         private UserModel _myProfile;
+
         public UserModel MyProfile
         {
             get => _myProfile;
@@ -116,6 +173,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private SettingsPage _currentPage;
+
         public SettingsPage CurrentPage
         {
             get => _currentPage;
@@ -126,7 +184,20 @@ namespace FlyMessenger.MVVM.ViewModels
             }
         }
 
+        private string _checkedAction;
+
+        public string CheckedAction
+        {
+            get => _checkedAction;
+            set
+            {
+                _checkedAction = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _canGoBack;
+
         public bool CanGoBack
         {
             get => _canGoBack;
@@ -138,6 +209,7 @@ namespace FlyMessenger.MVVM.ViewModels
         }
 
         private bool _isEstonianChecked;
+
         public bool IsEstonianChecked
         {
             get => _isEstonianChecked;
@@ -147,8 +219,9 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _isRussianChecked;
+
         public bool IsRussianChecked
         {
             get => _isRussianChecked;
@@ -158,8 +231,9 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool _isEnglishChecked;
+
         public bool IsEnglishChecked
         {
             get => _isEnglishChecked;
@@ -170,14 +244,38 @@ namespace FlyMessenger.MVVM.ViewModels
             }
         }
 
+        private bool _isAnyoneChecked;
+
+        public bool IsAnyoneChecked
+        {
+            get => _isAnyoneChecked;
+            set
+            {
+                _isAnyoneChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isNobodyChecked;
+
+        public bool IsNobodyChecked
+        {
+            get => _isNobodyChecked;
+            set
+            {
+                _isNobodyChecked = value;
+                OnPropertyChanged();
+            }
+        }
+
         public MainViewModel()
         {
             CurrentPage = SettingsManager.DefaultPage;
-            
+
             // Get all dialogs
-            if (ControllerBase.DialogController.GetDialogs().Any())
+            if (ControllerBase.DialogController.GetDialogs() is { } dialogs)
             {
-                Dialogs = new ObservableCollection<DialogModel>(ControllerBase.DialogController.GetDialogs());
+                Dialogs = new ObservableCollection<DialogModel>(dialogs);
                 NoMessagesVisibility = false;
 
                 // Sort by MessageDateTime and MessageAnchor
@@ -190,11 +288,15 @@ namespace FlyMessenger.MVVM.ViewModels
             }
             else
             {
+                NoMessagesVisibility = true;
                 UnreadedMessagesCount = 0;
             }
 
             MyProfile = ControllerBase.UserController.GetMyProfile();
-            
+            Sessions = new ObservableCollection<SessionsModel>(ControllerBase.UserController.GetMySessions());
+            SessionsCount = MyProfile.Sessions.Length;
+            BlockedUsersCount = MyProfile.BlackList.Length;
+
             switch (Settings.Default.LanguageCode)
             {
                 case "et-EE":
@@ -207,7 +309,19 @@ namespace FlyMessenger.MVVM.ViewModels
                     IsEnglishChecked = true;
                     break;
             }
-            
+
+            switch (MyProfile.Settings.LastActivityMode)
+            {
+                case true:
+                    IsAnyoneChecked = true;
+                    CheckedAction = lang.anyone;
+                    break;
+                case false:
+                    IsNobodyChecked = true;
+                    CheckedAction = lang.nobody;
+                    break;
+            }
+
             ClearSearchBox = new RelayCommand(
                 _ =>
                 {

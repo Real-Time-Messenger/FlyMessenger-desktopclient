@@ -56,12 +56,12 @@ namespace FlyMessenger.Resources.Settings
             ),
             new SettingsPage(
                 4,
-                lang.blocked_users,
+                lang.blacklist,
                 new BlockedUsersPage()
             ),
             new SettingsPage(
                 7,
-                "Session Management",
+                lang.sessions_page,
                 new SessionManagement(),
                 3
             )

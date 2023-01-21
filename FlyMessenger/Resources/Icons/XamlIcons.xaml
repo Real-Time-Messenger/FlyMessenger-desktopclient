@@ -86,6 +86,57 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="Bell-Off">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <DrawingGroup Opacity="1">
+                    <DrawingGroup.ClipGeometry>
+                        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,32,32" />
+                    </DrawingGroup.ClipGeometry>
+                    <GeometryDrawing
+                        Geometry="F1 M32,32z M0,0z M18.3067,28C18.0723,28.4041 17.7358,28.7395 17.331,28.9727 16.9262,29.2059 16.4672,29.3286 16,29.3286 15.5329,29.3286 15.0739,29.2059 14.6691,28.9727 14.2642,28.7395 13.9278,28.4041 13.6934,28">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                                 EndLineCap="Round"
+                                 LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing
+                        Geometry="F1 M32,32z M0,0z M24.8401,17.3334C24.247,15.1619,23.9641,12.9174,24.0001,10.6667">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                                 EndLineCap="Round"
+                                 LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing
+                        Geometry="F1 M32,32z M0,0z M8.34667,8.34668C8.11502,9.09816 7.99815,9.88031 8,10.6667 8,20 4,22.6667 4,22.6667L22.6667,22.6667">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                                 EndLineCap="Round"
+                                 LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing
+                        Geometry="F1 M32,32z M0,0z M24.0001,10.6667C24.0022,9.21741 23.6106,7.7948 22.8672,6.55078 22.1237,5.30676 21.0563,4.28807 19.7789,3.60351 18.5015,2.91895 17.0622,2.59425 15.6146,2.66408 14.167,2.73391 12.7656,3.19565 11.5601,3.99999">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                                 EndLineCap="Round"
+                                 LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                    <GeometryDrawing Geometry="F1 M32,32z M0,0z M1.33325,1.33331L30.6666,30.6666">
+                        <GeometryDrawing.Pen>
+                            <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                                 EndLineCap="Round"
+                                 LineJoin="Round" MiterLimit="1" />
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <!-- TODO: Implement unblock icon -->
     <DrawingImage x:Key="Unblock">
         <DrawingImage.Drawing>
@@ -227,6 +278,25 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    
+    <DrawingImage x:Key="CloseSession">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M18,6L6,18">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource SessionCloseButton-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M6,6L18,18">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource SessionCloseButton-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 
     <DrawingImage x:Key="Settings-Profile">
         <DrawingImage.Drawing>
@@ -297,100 +367,296 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
-    
+
     <DrawingImage x:Key="Settings-BlockedUsers">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,29.3333C23.3638,29.3333 29.3333,23.3638 29.3333,16 29.3333,8.63616 23.3638,2.66663 16,2.66663 8.63616,2.66663 2.66663,8.63616 2.66663,16 2.66663,23.3638 8.63616,29.3333 16,29.3333z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M16,29.3333C23.3638,29.3333 29.3333,23.3638 29.3333,16 29.3333,8.63616 23.3638,2.66663 16,2.66663 8.63616,2.66663 2.66663,8.63616 2.66663,16 2.66663,23.3638 8.63616,29.3333 16,29.3333z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
                 <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,10.6666L16,16">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
                 <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,21.3334L16.0133,21.3334">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-    
-    <DrawingImage x:Key="Settings-Language">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,29.3334C23.3638,29.3334 29.3333,23.3638 29.3333,16 29.3333,8.63622 23.3638,2.66669 16,2.66669 8.63616,2.66669 2.66663,8.63622 2.66663,16 2.66663,23.3638 8.63616,29.3334 16,29.3334z">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M2.66663,16L29.3333,16">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,2.66669C19.335,6.31782 21.2303,11.0561 21.3333,16 21.2303,20.944 19.335,25.6822 16,29.3334 12.6649,25.6822 10.7696,20.944 10.6666,16 10.7696,11.0561 12.6649,6.31782 16,2.66669L16,2.66669z">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-    
-    <DrawingImage x:Key="Settings-Delete">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M4,8L6.66667,8 28,8">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke-Red}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="F1 M32,32z M0,0z M25.3333,8.00002L25.3333,26.6667C25.3333,27.3739 25.0523,28.0522 24.5522,28.5523 24.0521,29.0524 23.3739,29.3334 22.6666,29.3334L9.33329,29.3334C8.62605,29.3334 7.94777,29.0524 7.44767,28.5523 6.94758,28.0522 6.66663,27.3739 6.66663,26.6667L6.66663,8.00002 M10.6666,8.00002L10.6666,5.33335C10.6666,4.62611 10.9476,3.94783 11.4477,3.44774 11.9478,2.94764 12.626,2.66669 13.3333,2.66669L18.6666,2.66669C19.3739,2.66669 20.0521,2.94764 20.5522,3.44774 21.0523,3.94783 21.3333,4.62611 21.3333,5.33335L21.3333,8.00002">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Settings-Icons-Stroke-Red}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-    
-    <DrawingImage x:Key="Arrow-Back">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M24,24z M0,0z M19,12L5,12">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,19L5,12 12,5">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
-    
-    <DrawingImage x:Key="Change-Photo">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
-                <GeometryDrawing Geometry="F1 M24,24z M0,0z M23,19C23,19.5304 22.7893,20.0391 22.4142,20.4142 22.0391,20.7893 21.5304,21 21,21L3,21C2.46957,21 1.96086,20.7893 1.58579,20.4142 1.21071,20.0391 1,19.5304 1,19L1,8C1,7.46957 1.21071,6.96086 1.58579,6.58579 1.96086,6.21071 2.46957,6 3,6L7,6 9,3 15,3 17,6 21,6C21.5304,6 22.0391,6.21071 22.4142,6.58579 22.7893,6.96086 23,7.46957 23,8L23,19z">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
-                    </GeometryDrawing.Pen>
-                </GeometryDrawing>
-                <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,17C14.2091,17 16,15.2091 16,13 16,10.7909 14.2091,9 12,9 9.79086,9 8,10.7909 8,13 8,15.2091 9.79086,17 12,17z">
-                    <GeometryDrawing.Pen>
-                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="Settings-Language">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M16,29.3334C23.3638,29.3334 29.3333,23.3638 29.3333,16 29.3333,8.63622 23.3638,2.66669 16,2.66669 8.63616,2.66669 2.66663,8.63622 2.66663,16 2.66663,23.3638 8.63616,29.3334 16,29.3334z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M2.66663,16L29.3333,16">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M16,2.66669C19.335,6.31782 21.2303,11.0561 21.3333,16 21.2303,20.944 19.335,25.6822 16,29.3334 12.6649,25.6822 10.7696,20.944 10.6666,16 10.7696,11.0561 12.6649,6.31782 16,2.66669L16,2.66669z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Settings-Delete">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M4,8L6.66667,8 28,8">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke-Red}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M25.3333,8.00002L25.3333,26.6667C25.3333,27.3739 25.0523,28.0522 24.5522,28.5523 24.0521,29.0524 23.3739,29.3334 22.6666,29.3334L9.33329,29.3334C8.62605,29.3334 7.94777,29.0524 7.44767,28.5523 6.94758,28.0522 6.66663,27.3739 6.66663,26.6667L6.66663,8.00002 M10.6666,8.00002L10.6666,5.33335C10.6666,4.62611 10.9476,3.94783 11.4477,3.44774 11.9478,2.94764 12.626,2.66669 13.3333,2.66669L18.6666,2.66669C19.3739,2.66669 20.0521,2.94764 20.5522,3.44774 21.0523,3.94783 21.3333,4.62611 21.3333,5.33335L21.3333,8.00002">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke-Red}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Arrow-Back">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M19,12L5,12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,19L5,12 12,5">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Change-Photo">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M24,24z M0,0z M23,19C23,19.5304 22.7893,20.0391 22.4142,20.4142 22.0391,20.7893 21.5304,21 21,21L3,21C2.46957,21 1.96086,20.7893 1.58579,20.4142 1.21071,20.0391 1,19.5304 1,19L1,8C1,7.46957 1.21071,6.96086 1.58579,6.58579 1.96086,6.21071 2.46957,6 3,6L7,6 9,3 15,3 17,6 21,6C21.5304,6 22.0391,6.21071 22.4142,6.58579 22.7893,6.96086 23,7.46957 23,8L23,19z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing
+                    Geometry="F1 M24,24z M0,0z M12,17C14.2091,17 16,15.2091 16,13 16,10.7909 14.2091,9 12,9 9.79086,9 8,10.7909 8,13 8,15.2091 9.79086,17 12,17z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Stronger-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Volume-Off">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M14.6667,6.66669L8.00008,12 2.66675,12 2.66675,20 8.00008,20 14.6667,25.3334 14.6667,6.66669z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M30.6667,12L22.6667,20">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M22.6667,12L30.6667,20">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Profile-LastAction">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M19.2534,25.4L21.2801,27.4267 25.3334,23.3733 M15.9867,29.08C13.5601,29.08 11.1467,28.4667 9.30672,27.24 6.08005,25.08 6.08005,21.56 9.30672,19.4133 12.9734,16.96 18.9867,16.96 22.6534,19.4133 M16.2134,14.4933C16.0801,14.48 15.9201,14.48 15.7734,14.4933 14.243,14.4414 12.7929,13.7958 11.7302,12.6933 10.6675,11.5908 10.0757,10.1179 10.0801,8.58666 10.0779,7.80976 10.2292,7.04009 10.5251,6.32176 10.821,5.60344 11.2558,4.95058 11.8046,4.40061 12.3533,3.85064 13.0052,3.41438 13.7228,3.11683 14.4405,2.81928 15.2098,2.6663 15.9867,2.66666 19.2534,2.66666 21.9067,5.31999 21.9067,8.58666 21.9067,11.7867 19.3734,14.3867 16.2134,14.4933L16.2134,14.4933z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Privacy-Forwarding">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M23.04,13.9333L28,8.97334 23.04,4.01334 M4,8.97334L28,8.97334 M8.96,18.0667L4,23.0267 8.96,27.9867 M28,23.0267L4,23.0267">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Privacy-GAndC">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M22.6266,19.2533C24.4533,19.56 26.4666,19.24 27.8799,18.2933 29.7599,17.04 29.7599,14.9867 27.8799,13.7333 26.4533,12.7867 24.4133,12.4667 22.5866,12.7867 M9.33326,19.2533C7.50659,19.56 5.49326,19.24 4.07992,18.2933 2.19992,17.04 2.19992,14.9867 4.07992,13.7333 5.50659,12.7867 7.54659,12.4667 9.37326,12.7867 M23.9999,9.54666C23.916,9.53331 23.8305,9.53331 23.7466,9.54666 22.8568,9.51448 22.0143,9.1376 21.3973,8.49567 20.7802,7.85374 20.4369,6.99706 20.4399,6.10666 20.4399,4.19999 21.9733,2.66666 23.8799,2.66666 24.7923,2.66666 25.6672,3.02908 26.3124,3.67421 26.9575,4.31933 27.3199,5.19431 27.3199,6.10666 27.3175,6.99769 26.9706,7.85326 26.3518,8.49441 25.733,9.13555 24.8903,9.51259 23.9999,9.54666L23.9999,9.54666z M7.95992,9.54666C8.03992,9.53332 8.13326,9.53332 8.21326,9.54666 9.10308,9.51448 9.94553,9.1376 10.5626,8.49567 11.1796,7.85374 11.5229,6.99706 11.5199,6.10666 11.5199,4.19999 9.98659,2.66666 8.07992,2.66666 7.16758,2.66666 6.2926,3.02908 5.64747,3.67421 5.00235,4.31933 4.63992,5.19431 4.63992,6.10666 4.65326,7.97332 6.11992,9.47999 7.95992,9.54666z M15.9999,19.5067C15.916,19.4933 15.8305,19.4933 15.7466,19.5067 14.8568,19.4745 14.0143,19.0976 13.3973,18.4557 12.7802,17.8137 12.4369,16.9571 12.4399,16.0667 12.4399,14.16 13.9733,12.6267 15.8799,12.6267 16.7923,12.6267 17.6672,12.9891 18.3124,13.6342 18.9575,14.2793 19.3199,15.1543 19.3199,16.0667 19.3066,17.9333 17.8399,19.4533 15.9999,19.5067z M12.1199,23.7067C10.2399,24.96 10.2399,27.0133 12.1199,28.2667 14.2533,29.6933 17.7466,29.6933 19.8799,28.2667 21.7599,27.0133 21.7599,24.96 19.8799,23.7067 17.7599,22.2933 14.2533,22.2933 12.1199,23.7067z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Privacy-Session">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M16.0001,22.96L16.0001,29.3333 M2.66675,17.3333L29.3334,17.3333 M10.0001,29.3333L22.0001,29.3333 M8.58675,2.66667L23.4001,2.66667C28.1467,2.66667,29.3334,3.85334,29.3334,8.58667L29.3334,17.0267C29.3334,21.7733,28.1467,22.9467,23.4134,22.9467L8.58675,22.9467C3.85341,22.96,2.66675,21.7733,2.66675,17.04L2.66675,8.58667C2.66675,3.85334,3.85341,2.66667,8.58675,2.66667z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Two-Factor">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M12.0001,29.3333L20.0001,29.3333C26.6667,29.3333,29.3334,26.6667,29.3334,20L29.3334,12C29.3334,5.33334,26.6667,2.66667,20.0001,2.66667L12.0001,2.66667C5.33341,2.66667,2.66675,5.33334,2.66675,12L2.66675,20C2.66675,26.6667,5.33341,29.3333,12.0001,29.3333z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M13.9334,21.7067L12.8001,20.56 M21.7068,18.1467C20.9925,18.8638 20.095,19.371 19.1123,19.6132 18.1295,19.8553 17.0991,19.8231 16.1334,19.52L12.6801,22.96C12.4401,23.2133,11.9468,23.3733,11.5868,23.32L9.98677,23.1067C9.45343,23.04,8.97343,22.5333,8.89343,22.0133L8.6801,20.4133C8.62677,20.0667,8.8001,19.5733,9.0401,19.32L12.4801,15.88C11.8934,13.9733 12.3468,11.8133 13.8534,10.3067 16.0134,8.14666 19.5334,8.14666 21.7068,10.3067 23.8668,12.4533 23.8668,15.9733 21.7068,18.1467z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="10" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M17.8601,14.2667L17.8708,14.2667">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round"
+                             EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Privacy-Auto">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                <GeometryDrawing
+                    Geometry="F1 M32,32z M0,0z M16.0001,29.3333C23.3639,29.3333 29.3334,23.3638 29.3334,16 29.3334,8.6362 23.3639,2.66666 16.0001,2.66666 8.63628,2.66666 2.66675,8.6362 2.66675,16 2.66675,23.3638 8.63628,29.3333 16.0001,29.3333z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M32,32z M0,0z M16,8L16,16 21.3333,18.6667">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="{DynamicResource Settings-Icons-Stroke}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round"
+                             MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="Sessions-Desktop">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V40 H40 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M33.3333,5L6.66659,5C4.82564,5,3.33325,6.49238,3.33325,8.33333L3.33325,25C3.33325,26.841,4.82564,28.3333,6.66659,28.3333L33.3333,28.3333C35.1742,28.3333,36.6666,26.841,36.6666,25L36.6666,8.33333C36.6666,6.49238,35.1742,5,33.3333,5z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M13.3333,35L26.6666,35">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M20,28.3333L20,35">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
+    <DrawingImage x:Key="Sessions-Web">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V40 H40 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M19.9999,36.6667C29.2047,36.6667 36.6666,29.2047 36.6666,20 36.6666,10.7953 29.2047,3.33334 19.9999,3.33334 10.7952,3.33334 3.33325,10.7953 3.33325,20 3.33325,29.2047 10.7952,36.6667 19.9999,36.6667z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M3.33325,20L36.6666,20">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+                <GeometryDrawing Geometry="F1 M40,40z M0,0z M19.9999,3.33334C24.1687,7.89726 26.5378,13.8201 26.6666,20 26.5378,26.1799 24.1687,32.1027 19.9999,36.6667 15.8311,32.1027 13.462,26.1799 13.3333,20 13.462,13.8201 15.8311,7.89726 19.9999,3.33334L19.9999,3.33334z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
 </ResourceDictionary>

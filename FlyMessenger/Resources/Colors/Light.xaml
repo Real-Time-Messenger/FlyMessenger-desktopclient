@@ -47,6 +47,8 @@
     <SolidColorBrush x:Key="Paperclip-Selected" Color="#B0B0B0" />
     <SolidColorBrush x:Key="ModalCloseButton-MouseOver" Color="#CFD0D4" />
     <SolidColorBrush x:Key="ModalCloseButton-Selected" Color="#B0B0B0" />
+    <SolidColorBrush x:Key="SessionCloseButton-MouseOver" Color="#C4D2F0" />
+    <SolidColorBrush x:Key="SessionCloseButton-Selected" Color="#A2ABC5" />
     <SolidColorBrush x:Key="ModalBackButton-MouseOver" Color="#CFD0D4" />
     <SolidColorBrush x:Key="ModalBackButton-Selected" Color="#B0B0B0" />
     <SolidColorBrush x:Key="Anchor-Selected" Color="#7B7B7B" />
@@ -55,6 +57,7 @@
     <SolidColorBrush x:Key="XamlIcons-Greed" Color="#69A55B" />
     <SolidColorBrush x:Key="XamlIcons-Blue" Color="#5B9BD9" />
     <SolidColorBrush x:Key="XamlIcons-Blue-MouseOver" Color="#5B9BD9" Opacity="0.5" />
+    <SolidColorBrush x:Key="SessionCloseButton-Stroke" Color="#303030" />
     <!--
     <SolidColorBrush x:Key="Lite-Stroke" Color="#A2A3A7" />
     -->
@@ -69,24 +72,19 @@
     <SolidColorBrush x:Key="Stroke-Darkened" Color="#696969" />
     <SolidColorBrush x:Key="ContextMenu-Green-Stroke" Color="#69A55B" />
     <Color x:Key="Settings-Icon-Profile">#70A7DD</Color>
-    <Color x:Key="Settings-Icon-Profile-MouseOver">#3A94EC</Color>
     <Color x:Key="Settings-Icon-Notifications">#DAB24D</Color>
-    <Color x:Key="Settings-Icon-Notifications-MouseOver">#EAB225</Color>
     <Color x:Key="Settings-Icon-Privacy">#3EBF6E</Color>
-    <Color x:Key="Settings-Icon-Privacy-MouseOver">#1BCB5D</Color>
     <Color x:Key="Settings-Icon-BlockUsers">#9974E8</Color>
-    <Color x:Key="Settings-Icon-BlockUsers-MouseOver">#7A4AE1</Color>
     <Color x:Key="Settings-Icon-Language">#698AF0</Color>
-    <Color x:Key="Settings-Icon-Language-MouseOver">#466FEC</Color>
     <Color x:Key="Settings-Icon-Delete">#EFCBCF</Color>
-    <Color x:Key="Settings-Icon-Delete-MouseOver">#FFA8B2</Color>
+    <Color x:Key="Settings-Icon-Authentication">#839CE9</Color>
     <SolidColorBrush x:Key="Settings-Change-Photo" Color="#70A7DD" />
     <SolidColorBrush x:Key="Settings-Status" Color="#70A7DD" />
     <SolidColorBrush x:Key="Profile-DataText" Color="#70A7DD" />
     <SolidColorBrush x:Key="Settings-Monitor" Color="#AFC4EC" />
-    <SolidColorBrush x:Key="Settings-Icon-Authentication" Color="#839CE9" />
     <SolidColorBrush x:Key="Settings-Icons-Stroke" Color="#303030" />
     <SolidColorBrush x:Key="Settings-Icons-Stroke-Red" Color="#E86C6C" />
+    <SolidColorBrush x:Key="SessionBox-Normal" Color="#98BDE7" />
     <SolidColorBrush x:Key="Green-Switcher" Color="#45CA24" />
     <SolidColorBrush x:Key="Red-Switcher" Color="#E86C6C" />
     <SolidColorBrush x:Key="Unblock" Color="#1D4ED8" />
@@ -96,7 +94,8 @@
     <SolidColorBrush x:Key="Confirm-Red-MouseOver" Color="#FFBCC4" />
     <SolidColorBrush x:Key="Confirm-Blue" Color="#CAD5F2" />
     <SolidColorBrush x:Key="Confirm-Blue-MouseOver" Color="#ACBFF1" />
-    <SolidColorBrush x:Key="Confirm-Green" Color="#AFDED0" />
-    <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#86CAB5" />
+    <SolidColorBrush x:Key="Confirm-Green" Color="#B3C4EE" />
+    <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#9EB2E8" />
     <Color x:Key="NotifyIcon-Background" R="234" G="237" B="250" />
+    <SolidColorBrush x:Key="NotifySwitcher-BorderBrush" Color="#EAEDFA" />
 </ResourceDictionary>

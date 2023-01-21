@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              Name="SettingsMenuButton">
     <!-- Template for settings button -->
-    <Button Style="{DynamicResource SettingsModalButton}" Width="400" Height="46" Cursor="Hand" PreviewMouseLeftButtonUp="OpenPage">
+    <Button Style="{DynamicResource UcButton}" Width="400" Height="46" Cursor="Hand" PreviewMouseLeftButtonUp="OpenPage">
         <Grid>
             <Border CornerRadius="5" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16 0 0 0">
                 <Border.Background>

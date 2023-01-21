@@ -1,0 +1,64 @@
+<Window x:Class="FlyMessenger.Resources.Windows.NotificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:FlyMessenger.Resources.Windows"
+        mc:Ignorable="d"
+        Name="NotificationDesktopWindow" WindowStyle="None"
+        WindowStartupLocation="Manual" AllowsTransparency="True"
+        Background="Transparent"
+        Width="320" Height="80">
+    <Grid>
+        <Border Background="{DynamicResource Main}" CornerRadius="5">
+            <!-- Notification area -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="34" />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" VerticalAlignment="Center" Margin="10 0 0 0">
+                    <!-- Icon -->
+                    <Ellipse Width="60" Height="60">
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="ProfilePhotoProfilePage"
+                                        Stretch="UniformToFill"
+                                        ImageSource="{Binding ElementName=NotificationDesktopWindow,
+                                            Path=photoUrl}" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+                </Grid>
+                <Grid Grid.Column="1" VerticalAlignment="Top" Margin="10 10 10 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition MaxHeight="38" Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- Title -->
+                    <TextBlock Grid.Row="0"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource Stronger-Stroke}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="14"
+                               Text="{Binding ElementName=NotificationDesktopWindow, Path=userFirstAndLastName}" />
+                    <!-- Message -->
+                    <TextBlock Grid.Row="1" Margin="0,2,0,0"
+                               MaxHeight="38"
+                               TextWrapping="Wrap"
+                               TextTrimming="CharacterEllipsis"
+                               Foreground="{DynamicResource Normal-Stroke}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               Text="{Binding ElementName=NotificationDesktopWindow, Path=messageTitle}" />
+                </Grid>
+                <Grid Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,10,0">
+                    <Button Style="{StaticResource NotificationCloseButton}"
+                            Click="Button_Click_Close">
+                        <Image Width="12" Height="12" Source="{DynamicResource CloseModalWindow}" />
+                    </Button>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

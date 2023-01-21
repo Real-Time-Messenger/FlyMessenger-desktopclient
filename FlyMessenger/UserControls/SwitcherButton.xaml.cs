@@ -2,14 +2,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using FlyMessenger.MVVM.ViewModels;
-using FlyMessenger.Resources.Settings;
 
 namespace FlyMessenger.UserControls
 {
-    public partial class ProfileButtons : UserControl
+    public partial class SwitcherButton : UserControl
     {
-        public ProfileButtons()
+        public SwitcherButton()
         {
             InitializeComponent();
         }
@@ -22,17 +20,7 @@ namespace FlyMessenger.UserControls
         }
 
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register(nameof(Title), typeof(string), typeof(ProfileButtons));
-
-        // Text Data for button
-        public string TextData
-        {
-            get => (string)GetValue(TextDataProperty);
-            set => SetValue(TextDataProperty, value);
-        }
-
-        public static readonly DependencyProperty TextDataProperty =
-            DependencyProperty.Register(nameof(TextData), typeof(string), typeof(ProfileButtons));
+            DependencyProperty.Register(nameof(Title), typeof(string), typeof(SwitcherButton));
 
         // Button background color
         public Color BackgroundColor
@@ -42,7 +30,7 @@ namespace FlyMessenger.UserControls
         }
 
         public static readonly DependencyProperty BackgroundColorProperty =
-            DependencyProperty.Register(nameof(BackgroundColor), typeof(Color), typeof(ProfileButtons));
+            DependencyProperty.Register(nameof(BackgroundColor), typeof(Color), typeof(SwitcherButton));
 
         // Button icon
         public DrawingImage Icon
@@ -53,9 +41,23 @@ namespace FlyMessenger.UserControls
 
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register(
-                nameof(Icon),
+                nameof(System.Drawing.Icon),
                 typeof(DrawingImage),
-                typeof(ProfileButtons)
+                typeof(SwitcherButton)
             );
+        
+        public bool CheckState
+        {
+            get => (bool)GetValue(CheckStateProperty);
+            set => SetValue(CheckStateProperty, value);
+        }
+        
+        public static readonly DependencyProperty CheckStateProperty =
+            DependencyProperty.Register(nameof(CheckState), typeof(bool), typeof(SwitcherButton));
+
+        private void OnIsCheckedChanged(object sender, MouseButtonEventArgs e)
+        {
+            UcCheckBox.IsChecked = !UcCheckBox.IsChecked;
+        }
     }
 }

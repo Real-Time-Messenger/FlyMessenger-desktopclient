@@ -1,28 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Net.Mime;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Threading;
-using FlyMessenger.Controllers;
+using FlyMessenger.Core;
+using FlyMessenger.Core.Models;
 using FlyMessenger.Core.Utils;
+using FlyMessenger.HTTP;
 using FlyMessenger.MVVM.ViewModels;
-using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
-using FlyMessenger.Resources.Settings.Pages;
-using FlyMessenger.UserControls;
+using Microsoft.VisualBasic.ApplicationServices;
+using Newtonsoft.Json;
 using Application = System.Windows.Application;
-using Button = System.Windows.Controls.Button;
-using Clipboard = System.Windows.Clipboard;
-using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MessageBox = System.Windows.MessageBox;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
@@ -36,6 +27,7 @@ namespace FlyMessenger
     {
         // NotifyIconManager handler
         private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
+        private readonly WebSockets _webSocketClient = new WebSockets();
         private bool _light = true;
         public string LangSwitch { get; set; } = "";
 
@@ -43,15 +35,28 @@ namespace FlyMessenger
         {
             var langCode = Properties.Settings.Default.LanguageCode;
             Thread.CurrentThread.CurrentUICulture = langCode != "" ? new CultureInfo(langCode) : new CultureInfo("");
-            
+
             InitializeComponent();
             PreviewKeyDown += MainWindowPreviewKeyDown;
 
             Closed += App.ToggleLanguage;
-            
+            Loaded += MainWindow_Loaded;
+
             DataContext = new MainViewModel();
         }
-        
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((MainViewModel)DataContext).ActiveChatVisibilityNone = true;
+            ((MainViewModel)DataContext).ActiveChatVisibility = false;
+            
+            await _webSocketClient.ConnectAsync(new Uri("ws://localhost:8000/ws?token=" + HttpClientBase.GetToken()));
+
+            var result = _webSocketClient.ReceiveAsync();
+
+            MessageBox.Show(result.Result);
+        }
+
         private static void MainWindowPreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key is Key.Tab or Key.LeftAlt)
@@ -197,7 +202,6 @@ namespace FlyMessenger
 
                 _light = true;
             }
-            _notifyIconManager.InitializeNotifyIcon();
         }
 
         private void ActiveChat_Search_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -215,13 +219,20 @@ namespace FlyMessenger
             animation.Completed += (o, args) =>
             {
                 ModalWindow.IsOpen = false;
-                
+
                 SettingsManager.GoBack();
             };
-            
+
             ModalWindow.BeginAnimation(OpacityProperty, animation);
-            
-            
+        }
+
+        private void OnCloseLanguageModalClick(object sender, RoutedEventArgs e)
+        {
+            var animation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
+
+            animation.Completed += (o, args) => { LanguageModalWindow.IsOpen = false; };
+
+            LanguageModalWindow.BeginAnimation(OpacityProperty, animation);
         }
 
         private void Settings_Profile(object sender, MouseButtonEventArgs e)
@@ -264,6 +275,59 @@ namespace FlyMessenger
         private void GoBack(object sender, RoutedEventArgs e)
         {
             SettingsManager.GoBack();
+        }
+
+        private void OnCloseLastActivityModalClick(object sender, RoutedEventArgs e)
+        {
+            var animation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
+
+            animation.Completed += (o, args) => { LastActivityModalWindow.IsOpen = false; };
+
+            LastActivityModalWindow.BeginAnimation(OpacityProperty, animation);
+        }
+
+        private async void OnReleaseKeyUp(object? sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+
+            var text = ActiveChatMessage.Text;
+            ActiveChatMessage.Text = string.Empty;
+
+            if (string.IsNullOrEmpty(text)) return;
+
+            var message = new SendMessageModel
+            {
+                type = "SEND_MESSAGE",
+                file = null,
+                dialogId = ((MainViewModel)DataContext).SelectedDialog.Id,
+                text = text
+            };
+            
+            for (var i = 0; i < 10000; i++)
+            {
+                await _webSocketClient.SendAsync(JsonConvert.SerializeObject(message));
+            }
+            // await _webSocketClient.SendAsync(JsonConvert.SerializeObject(message));
+        }
+
+        private async void OnPressKeyDown(object sender, KeyEventArgs e)
+        {
+            var message = new SendMessageModel
+            {
+                type = "TYPING",
+                dialogId = ((MainViewModel)DataContext).SelectedDialog.Id,
+            };
+            
+            await _webSocketClient.SendAsync(JsonConvert.SerializeObject(message));
+        }
+
+        private void OnSelectedChat(object sender, RoutedEventArgs e)
+        {
+            var activeChatVisibilityNone = ((MainViewModel)DataContext).ActiveChatVisibilityNone;
+
+            if (!activeChatVisibilityNone) return;
+            ((MainViewModel)DataContext).ActiveChatVisibilityNone = false;
+            ((MainViewModel)DataContext).ActiveChatVisibility = true;
         }
     }
 }
