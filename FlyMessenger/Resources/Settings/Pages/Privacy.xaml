@@ -33,7 +33,7 @@
             </userControls:ProfileButtons>
             <userControls:ProfileButtons Title="{x:Static languages:lang.message_forwarding}"
                                          Icon="{DynamicResource Privacy-Forwarding}"
-                                         TextData="{x:Static languages:lang.unabled}">
+                                         TextData="{x:Static languages:lang.unable}">
                 <userControls:ProfileButtons.Style>
                     <Style TargetType="userControls:ProfileButtons">
                         <Setter Property="BackgroundColor"
@@ -43,7 +43,7 @@
             </userControls:ProfileButtons>
             <userControls:ProfileButtons Title="{x:Static languages:lang.g_and_c}"
                                          Icon="{DynamicResource Privacy-GAndC}"
-                                         TextData="{x:Static languages:lang.unabled}">
+                                         TextData="{x:Static languages:lang.unable}">
                 <userControls:ProfileButtons.Style>
                     <Style TargetType="userControls:ProfileButtons">
                         <Setter Property="BackgroundColor"
@@ -68,9 +68,11 @@
                     </Style>
                 </userControls:SettingsButton.Style>
             </userControls:SettingsButton>
-            <userControls:SwitcherButton Title="{x:Static languages:lang.two_step}"
+            <userControls:SwitcherButton x:Name="TwoFactorButton"
+                                         Title="{x:Static languages:lang.two_step}"
                                          Icon="{DynamicResource Two-Factor}"
-                                         CheckState="{Binding MyProfile.Settings.TwoFactorEnabled}">
+                                         CheckState="{Binding MyProfile.Settings.TwoFactorEnabled}"
+                                         PreviewMouseLeftButtonUp="TwoFactorStateChanged">
                 <userControls:SwitcherButton.Style>
                     <Style TargetType="userControls:SwitcherButton">
                         <Setter Property="BackgroundColor"
@@ -78,8 +80,11 @@
                     </Style>
                 </userControls:SwitcherButton.Style>
             </userControls:SwitcherButton>
-            <userControls:SwitcherButton Title="{x:Static languages:lang.autostart}"
-                                         Icon="{DynamicResource Privacy-Auto}">
+            <userControls:SwitcherButton x:Name="AutoStartButton"
+                                         Title="{x:Static languages:lang.autostart}"
+                                         Icon="{DynamicResource Privacy-Auto}"
+                                         CheckState="{Binding AutoStartupEnabled}"
+                                         PreviewMouseLeftButtonUp="AutoStartStateChanged">
                 <userControls:SwitcherButton.Style>
                     <Style TargetType="userControls:SwitcherButton">
                         <Setter Property="BackgroundColor"

@@ -123,20 +123,20 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ei saa olla tühi.
+        /// </summary>
+        public static string cannotBeNull {
+            get {
+                return ResourceManager.GetString("cannotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chatt.
         /// </summary>
         public static string chat {
             get {
                 return ResourceManager.GetString("chat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chattid.
-        /// </summary>
-        public static string chats {
-            get {
-                return ResourceManager.GetString("chats", resourceCulture);
             }
         }
         
@@ -200,6 +200,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string delete_chat {
             get {
                 return ResourceManager.GetString("delete-chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dialoogid.
+        /// </summary>
+        public static string dialogues {
+            get {
+                return ResourceManager.GetString("dialogues", resourceCulture);
             }
         }
         
@@ -285,11 +294,38 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to tund tagasi.
+        /// </summary>
+        public static string hour_ago {
+            get {
+                return ResourceManager.GetString("hour-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to tundi tagasi.
+        /// </summary>
+        public static string hours_ago {
+            get {
+                return ResourceManager.GetString("hours-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keel.
         /// </summary>
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viimati nähtud.
+        /// </summary>
+        public static string last_seen {
+            get {
+                return ResourceManager.GetString("last-seen", resourceCulture);
             }
         }
         
@@ -330,6 +366,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to kaua aega tagasi.
+        /// </summary>
+        public static string long_time_ago {
+            get {
+                return ResourceManager.GetString("long-time-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sõnumite edastamine.
         /// </summary>
         public static string message_forwarding {
@@ -341,9 +386,27 @@ namespace FlyMessenger.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Sõnumid.
         /// </summary>
+        public static string messages {
+            get {
+                return ResourceManager.GetString("messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sõnumid.
+        /// </summary>
         public static string messagesCount {
             get {
                 return ResourceManager.GetString("messagesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutit tagasi.
+        /// </summary>
+        public static string minutes_ago {
+            get {
+                return ResourceManager.GetString("minutes-ago", resourceCulture);
             }
         }
         
@@ -375,20 +438,29 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dialoogi ei leitud.
+        /// </summary>
+        public static string noDialogs {
+            get {
+                return ResourceManager.GetString("noDialogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sõnumeid ei leitud.
+        /// </summary>
+        public static string noMessagesFound {
+            get {
+                return ResourceManager.GetString("noMessagesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mitte praegu.
         /// </summary>
         public static string not_yet {
             get {
                 return ResourceManager.GetString("not-yet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teade.
-        /// </summary>
-        public static string notification {
-            get {
-                return ResourceManager.GetString("notification", resourceCulture);
             }
         }
         
@@ -420,6 +492,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kasutajaid ei leitud.
+        /// </summary>
+        public static string noUsers {
+            get {
+                return ResourceManager.GetString("noUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Võrgus.
+        /// </summary>
+        public static string online {
+            get {
+                return ResourceManager.GetString("online", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kinnitada.
         /// </summary>
         public static string pin {
@@ -443,6 +533,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string profile {
             get {
                 return ResourceManager.GetString("profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hiljuti.
+        /// </summary>
+        public static string recently {
+            get {
+                return ResourceManager.GetString("recently", resourceCulture);
             }
         }
         
@@ -497,6 +596,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string select_chat {
             get {
                 return ResourceManager.GetString("select-chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saada esimene sõnum.
+        /// </summary>
+        public static string send_first_message {
+            get {
+                return ResourceManager.GetString("send-first-message", resourceCulture);
             }
         }
         
@@ -591,6 +699,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to sellel nädalal.
+        /// </summary>
+        public static string this_week {
+            get {
+                return ResourceManager.GetString("this-week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Täna.
+        /// </summary>
+        public static string today {
+            get {
+                return ResourceManager.GetString("today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kahefaktoriline autentimine.
         /// </summary>
         public static string two_step {
@@ -602,9 +728,9 @@ namespace FlyMessenger.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Võimatu.
         /// </summary>
-        public static string unabled {
+        public static string unable {
             get {
-                return ResourceManager.GetString("unabled", resourceCulture);
+                return ResourceManager.GetString("unable", resourceCulture);
             }
         }
         
@@ -627,11 +753,29 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kasutajad.
+        /// </summary>
+        public static string users {
+            get {
+                return ResourceManager.GetString("users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kirjuta sõnumi....
         /// </summary>
         public static string writeMessage {
             get {
                 return ResourceManager.GetString("writeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eile.
+        /// </summary>
+        public static string yesterday {
+            get {
+                return ResourceManager.GetString("yesterday", resourceCulture);
             }
         }
     }

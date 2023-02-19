@@ -2,18 +2,19 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
-    public partial class NameEditPage : Page
+    public partial class NameEditPage
     {
         public NameEditPage()
         {
             InitializeComponent();
         }
-        
+
         private void NameSetActive(object sender, MouseButtonEventArgs e)
         {
             // Set animation
@@ -29,7 +30,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
                 new Thickness(0, 0, 0, 1),
                 TimeSpan.FromSeconds(0.1)
             );
-            
+
             // Start animation
             NameEditLabel.BeginAnimation(OpacityProperty, animation);
             NameEditTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorder);
@@ -52,7 +53,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
                 new Thickness(0, 0, 0, 1),
                 TimeSpan.FromSeconds(0.1)
             );
-            
+
             // Start animation
             SurnameEditLabel.BeginAnimation(OpacityProperty, animation);
             SurnameEditTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorder);
@@ -63,13 +64,10 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         private void OnNameEditCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
-            var mainWindow = (MainWindow) Application.Current.MainWindow;
-            
-            closeAnimation.Completed += (o, args) =>
-            {
-                mainWindow.NameEditModalWindow.IsOpen = false;
-            };
-            
+            if (Application.Current.MainWindow is not MainWindow mainWindow) return;
+
+            closeAnimation.Completed += (_, _) => { mainWindow.NameEditModalWindow.IsOpen = false; };
+
             mainWindow.NameEditModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
@@ -82,4 +80,3 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         }
     }
 }
-

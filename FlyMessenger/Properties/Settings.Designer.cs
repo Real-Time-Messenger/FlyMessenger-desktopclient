@@ -33,5 +33,29 @@ namespace FlyMessenger.Properties {
                 this["LanguageCode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Light")]
+        public string CurrentTheme {
+            get {
+                return ((string)(this["CurrentTheme"]));
+            }
+            set {
+                this["CurrentTheme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RunOnStartupAllowed {
+            get {
+                return ((bool)(this["RunOnStartupAllowed"]));
+            }
+            set {
+                this["RunOnStartupAllowed"] = value;
+            }
+        }
     }
 }

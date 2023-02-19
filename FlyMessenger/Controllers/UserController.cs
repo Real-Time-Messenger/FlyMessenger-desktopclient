@@ -4,39 +4,23 @@ using FlyMessenger.MVVM.Model;
 
 namespace FlyMessenger.Controllers
 {
-    internal class UserInEditName
-    {
-        public string FirstName { get; set; }
-        public string? LastName { get; set; }
-    }
-
-    internal class UserInEditEmail
-    {
-        public string Email { get; set; }
-    }
-
-    internal class UserInEditLastActivity
-    {
-        public bool LastActivityMode { get; set; }
-    }
-
     public class UserController : HttpClientBase
     {
         public UserModel GetMyProfile()
         {
             return Get<UserModel>(Constants.ProfilesUrl + "/me");
         }
-        
+
         public IEnumerable<SessionsModel> GetMySessions()
         {
             return Get<SessionsModel[]>(Constants.ProfilesUrl + "/me/sessions");
         }
 
-        public UserModel EditMyProfileName(string name, string surname)
+        public void EditMyProfileName(string? name, string? surname)
         {
-            return Put<UserModel, UserInEditName>(
+            Put<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
-                new UserInEditName
+                new
                 {
                     FirstName = name,
                     LastName = surname
@@ -44,21 +28,67 @@ namespace FlyMessenger.Controllers
             );
         }
 
-        public UserModel EditMyProfileEmail(string email)
+        public void EditMyProfileEmail(string? email)
         {
-            return Put<UserModel, UserInEditEmail>(Constants.ProfilesUrl + "/me", new UserInEditEmail { Email = email });
-        }
-
-        public UserModel EditMyProfilePhoto(byte[] photo)
-        {
-            return Put<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
-        }
-
-        public UserModel EditMyLastActivity(bool lastActivity)
-        {
-            return Put<UserModel, UserInEditLastActivity>(
+            Put<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
-                new UserInEditLastActivity { LastActivityMode = lastActivity }
+                new
+                {
+                    Email = email
+                }
+            );
+        }
+
+        public void EditMyProfilePhoto(byte[] photo)
+        {
+            Put<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
+        }
+
+        public void EditMyLastActivity(bool lastActivity)
+        {
+            Put<UserModel, object>(
+                Constants.ProfilesUrl + "/me",
+                new { LastActivityMode = lastActivity }
+            );
+        }
+
+        public void EditMyChatsNotifications(bool chatsNotifications)
+        {
+            Put<UserModel, object>(
+                Constants.ProfilesUrl + "/me",
+                new { ChatsNotificationsEnabled = chatsNotifications }
+            );
+        }
+
+        public void EditMyChatsSound(bool chatsSound)
+        {
+            Put<UserModel, object>(
+                Constants.ProfilesUrl + "/me",
+                new { ChatsSoundEnabled = chatsSound }
+            );
+        }
+
+        public void EditMyTwoFactorAuth(object twoFactor)
+        {
+            Put<UserModel, object>(
+                Constants.ProfilesUrl + "/me",
+                new { TwoFactorAuthEnabled = twoFactor }
+            );
+        }
+
+        public void EditMyAutoStart(bool autoStart)
+        {
+            Put<UserModel, object>(
+                Constants.ProfilesUrl + "/me",
+                new { AutoStartEnabled = autoStart }
+            );
+        }
+
+        public BlackListResponseModel BlockOrUnblockUser(string userId)
+        {
+            return Post<BlackListResponseModel, object>(
+                Constants.ProfilesUrl + "/blacklist",
+                new { BlacklistedUserId = userId }
             );
         }
     }

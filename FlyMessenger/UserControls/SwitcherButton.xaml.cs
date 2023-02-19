@@ -58,6 +58,16 @@ namespace FlyMessenger.UserControls
         private void OnIsCheckedChanged(object sender, MouseButtonEventArgs e)
         {
             UcCheckBox.IsChecked = !UcCheckBox.IsChecked;
+            
+            if (UcCheckBox.IsChecked == true)
+            {
+                
+            }
+            else
+            {
+                UcCheckBox.Background = new SolidColorBrush(Colors.Black);
+                UcCheckBox.Foreground = new SolidColorBrush(Colors.White);
+            }
         }
     }
 }

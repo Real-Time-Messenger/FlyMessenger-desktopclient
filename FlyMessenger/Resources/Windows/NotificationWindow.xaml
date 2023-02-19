@@ -10,7 +10,9 @@
         Background="Transparent"
         Width="320" Height="80">
     <Grid>
-        <Border Background="{DynamicResource Main}" CornerRadius="5">
+        <Border Background="{DynamicResource Main}" CornerRadius="5"
+                BorderBrush="{DynamicResource NotifyIcon-BorderBrush}" BorderThickness="1.5"
+                PreviewMouseLeftButtonUp="NotificationWindow_Click">
             <!-- Notification area -->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -23,6 +25,7 @@
                     <Ellipse Width="60" Height="60">
                         <Ellipse.Fill>
                             <ImageBrush x:Name="ProfilePhotoProfilePage"
+                                        RenderOptions.BitmapScalingMode="Fant"
                                         Stretch="UniformToFill"
                                         ImageSource="{Binding ElementName=NotificationDesktopWindow,
                                             Path=photoUrl}" />
@@ -53,7 +56,8 @@
                                Text="{Binding ElementName=NotificationDesktopWindow, Path=messageTitle}" />
                 </Grid>
                 <Grid Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,10,0">
-                    <Button Style="{StaticResource NotificationCloseButton}"
+                    <Button x:Name="NotificationCloseButton"
+                            Style="{StaticResource NotificationCloseButton}"
                             Click="Button_Click_Close">
                         <Image Width="12" Height="12" Source="{DynamicResource CloseModalWindow}" />
                     </Button>

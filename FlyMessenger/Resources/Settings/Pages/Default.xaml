@@ -10,7 +10,7 @@
       xmlns:converters="clr-namespace:FlyMessenger.Converters"
       mc:Ignorable="d"
       Title="Default">
-
+    
     <Page.DataContext>
         <viewModels:MainViewModel />
     </Page.DataContext>
@@ -31,9 +31,11 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Ellipse Grid.Column="0" Width="60" Height="60" Margin="24 0 0 0">
+            <Ellipse Grid.Column="0" Width="60" Height="60" Margin="24 0 0 0"
+                     VerticalAlignment="Center">
                 <Ellipse.Fill>
-                    <ImageBrush x:Name="ProfilePhotoDefaultPage"
+                    <ImageBrush x:Name="ProfilePhoto"
+                                RenderOptions.BitmapScalingMode="Fant"
                                 Stretch="UniformToFill"
                                 ImageSource="{Binding MyProfile.PhotoUrl}" />
                 </Ellipse.Fill>
@@ -128,28 +130,28 @@
                     </Style>
                 </userControls:SettingsButton.Style>
             </userControls:SettingsButton>
-            <userControls:SettingsButton Title="{x:Static language:lang.language}"
+            <userControls:SecondSettingsButton Title="{x:Static language:lang.language}"
                                          ForegroundColor="{DynamicResource Normal-Stroke}"
                                          Icon="{DynamicResource Settings-Language}"
                                          PreviewMouseLeftButtonUp="OpenLanguage_ModalWindow">
-                <userControls:SettingsButton.Style>
-                    <Style TargetType="userControls:SettingsButton">
+                <userControls:SecondSettingsButton.Style>
+                    <Style TargetType="userControls:SecondSettingsButton">
                         <Setter Property="BackgroundColor"
                                 Value="{DynamicResource Settings-Icon-Language}" />
                     </Style>
-                </userControls:SettingsButton.Style>
-            </userControls:SettingsButton>
-            <userControls:SettingsButton Title="{x:Static language:lang.delete_acc}"
+                </userControls:SecondSettingsButton.Style>
+            </userControls:SecondSettingsButton>
+            <userControls:SecondSettingsButton Title="{x:Static language:lang.delete_acc}"
                                          ForegroundColor="{DynamicResource Normal-Stroke}"
                                          Icon="{DynamicResource Settings-Delete}"
                                          PreviewMouseLeftButtonUp="OpenDeleteAccount_ModalWindow">
-                <userControls:SettingsButton.Style>
-                    <Style TargetType="userControls:SettingsButton">
+                <userControls:SecondSettingsButton.Style>
+                    <Style TargetType="userControls:SecondSettingsButton">
                         <Setter Property="BackgroundColor"
                                 Value="{DynamicResource Settings-Icon-Delete}" />
                     </Style>
-                </userControls:SettingsButton.Style>
-            </userControls:SettingsButton>
+                </userControls:SecondSettingsButton.Style>
+            </userControls:SecondSettingsButton>
         </StackPanel>
     </Grid>
 </Page>

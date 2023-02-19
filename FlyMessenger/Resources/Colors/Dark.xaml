@@ -25,6 +25,8 @@
     <SolidColorBrush x:Key="Background-Element" Color="#252C42" />
     <SolidColorBrush x:Key="ScrollBar-Stroke" Color="#686868" />
     <SolidColorBrush x:Key="ScrollBar-Background" Color="#2E3443" />
+    <SolidColorBrush x:Key="Messages-ScrollBar-Stroke" Color="#686868" />
+    <SolidColorBrush x:Key="Messages-ScrollBar-Background" Color="#2E3443" />
     <SolidColorBrush x:Key="MessagesCount-Border" Color="#416D9C" />
     <SolidColorBrush x:Key="MessagesCount-Border-Selected" Color="#151F38" />
     <SolidColorBrush x:Key="MessagesCount-Foreground" Color="#FFFFFF" />
@@ -97,5 +99,8 @@
     <SolidColorBrush x:Key="Confirm-Green" Color="#1B2847" />
     <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#1D2C52" />
     <Color x:Key="NotifyIcon-Background" R="16" G="24" B="43" />
+    <SolidColorBrush x:Key="NotifyIcon-BorderBrush" Color="#B8BAF2" Opacity="0.25" />
     <SolidColorBrush x:Key="NotifySwitcher-BorderBrush" Color="#10182B" />
+    <SolidColorBrush x:Key="ScrollDownButton-Icon" Color="#E3E3FA" />
+    <SolidColorBrush x:Key="NewDate-Color" Color="#525252" Opacity="0.4" />
 </ResourceDictionary>

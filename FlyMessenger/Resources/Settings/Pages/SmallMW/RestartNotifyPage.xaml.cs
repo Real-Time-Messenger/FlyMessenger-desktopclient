@@ -14,7 +14,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 
         private void OnRestartCancelClick(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)Application.Current.MainWindow!;
+            if (Application.Current.MainWindow is not MainWindow window) return;
             var closeAnimation = new DoubleAnimation(0, TimeSpan.FromSeconds(0.2));
             
             closeAnimation.Completed += (s, _) => window.RestartNotifyModalWindow.IsOpen = false;

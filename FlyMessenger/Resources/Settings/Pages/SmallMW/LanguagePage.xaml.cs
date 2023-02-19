@@ -14,7 +14,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         
         private void OnEstonianRadioButtonClick(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)Application.Current.MainWindow!;
+            if (Application.Current.MainWindow is not MainWindow window) return;
             var animation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
             window.RestartNotifyModalWindow.IsOpen = true;
             
@@ -28,7 +28,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         
         private void OnRussianRadioButtonClick(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)Application.Current.MainWindow!;
+            if (Application.Current.MainWindow is not MainWindow window) return;
             var animation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
             window.RestartNotifyModalWindow.IsOpen = true;
             
@@ -42,7 +42,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         
         private void OnEnglishRadioButtonClick(object sender, RoutedEventArgs e)
         {
-            var window = (MainWindow)Application.Current.MainWindow!;
+            if (Application.Current.MainWindow is not MainWindow window) return;
             var animation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
             window.RestartNotifyModalWindow.IsOpen = true;
             

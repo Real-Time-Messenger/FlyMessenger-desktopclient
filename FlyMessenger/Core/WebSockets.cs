@@ -1,114 +1,137 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Linq;
+using WebSocket4Net;
 using FlyMessenger.Core.Utils;
 using FlyMessenger.HTTP;
-using FlyMessenger.MVVM.Model;
 using Newtonsoft.Json;
+using Application = System.Windows.Application;
 
 namespace FlyMessenger.Core
 {
     public class WebSockets
     {
-        private readonly ClientWebSocket _clientWebSocket;
+        private WebSocket _webSocket;
+        private bool _isConnected;
+        private bool _isReconnecting;
 
         public WebSockets()
         {
-            _clientWebSocket = new ClientWebSocket();
+            Connect();
         }
 
-        public async Task ConnectAsync(Uri uri)
+        private void Connect()
         {
-            if (_clientWebSocket.State == WebSocketState.Open)
+            if (_webSocket != null && _webSocket.State == WebSocketState.Open && _isConnected) return;
+
+            _webSocket = new WebSocket("ws://localhost:8000/ws?token=" + HttpClientBase.GetToken())
             {
-                await CloseAsync();
-            }
-            await _clientWebSocket.ConnectAsync(uri, CancellationToken.None);
-            await ListenAsync();
+                EnableAutoSendPing = true,
+                AutoSendPingInterval = 10,
+            };
+            _webSocket.Opened += OnWebSocketOpened;
+            _webSocket.Closed += OnWebSocketClosed;
+            _webSocket.Error += OnWebSocketError;
+            _webSocket.MessageReceived += OnWebSocketMessageReceived;
+            _webSocket.Open();
         }
 
-        private async Task ListenAsync()
+        private void OnWebSocketOpened(object? sender, EventArgs e)
+        {
+            _isConnected = true;
+            _isReconnecting = false;
+        }
+
+        private void OnWebSocketClosed(object? sender, EventArgs e)
+        {
+            _isConnected = false;
+            if (_isReconnecting) return;
+            _isReconnecting = true;
+            Reconnect();
+        }
+
+        private void OnWebSocketError(object? sender, EventArgs e)
+        {
+            _isReconnecting = true;
+            Reconnect();
+        }
+
+        private void OnWebSocketMessageReceived(object? sender, MessageReceivedEventArgs e)
+        {
+            if (!_isConnected || _isReconnecting || _webSocket.State == WebSocketState.Closed) return;
+
+            dynamic json = JsonConvert.DeserializeObject(e.Message)!;
+            if (json == null) return;
+
+            var type = (string)json.type;
+            if (string.IsNullOrEmpty(type)) return;
+            // Handle message based on message type
+            switch (type)
+            {
+                case "RECEIVE_MESSAGE":
+                    if (MainWindow.MainViewModel.MyProfile.Settings
+                        .ChatsNotificationsEnabled)
+                    {
+                        if ((string)json.dialog.isNotificationsEnabled == "false") return;
+                        NotificationsManager.SendNotification(json);
+                    }
+                    Application.Current.Dispatcher.Invoke(
+                        () => { MainWindow.MainViewModel.SendMessage(json.message, (string)json.message.dialogId, json.dialog); }
+                    );
+                    break;
+                case "READ_MESSAGE":
+                    Application.Current.Dispatcher.Invoke(
+                        () => { MainWindow.MainViewModel.ReadMessage((string)json.messageId, (string)json.dialogId); }
+                    );
+                    break;
+                case "TOGGLE_ONLINE_STATUS":
+                    var dialog = MainWindow.MainViewModel.Dialogs.FirstOrDefault(x => x.User.Id == (string)json.userId);
+                    if (dialog == null) return;
+                    dialog.User.IsOnline = (bool)json.status;
+                    dialog.User.LastActivity = (string)json.lastActivity;
+                    break;
+                case "USER_BLOCKED":
+                    MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !(bool)json.isBlocked;
+                    break;
+                case "USER_LOGOUT":
+                    if (json.success == null)
+                    {
+                        HttpClientBase.SetToken("");
+                        Application.Current.Dispatcher.Invoke(
+                            () =>
+                            {
+                                if (Application.Current.MainWindow is not MainWindow window) return;
+                                window.CloseWindow();
+                            }
+                        );
+                        return;
+                    }
+                    break;
+            }
+        }
+
+        public void Send(string message)
         {
             while (true)
             {
-                // Handle incoming close frame and send close frame
-                if (_clientWebSocket.State == WebSocketState.CloseReceived)
+                if (_isConnected && _webSocket.State == WebSocketState.Open)
                 {
-                    await Task.Delay(1000);
-                    await ConnectAsync(new Uri("ws://localhost:8000/ws?token=" + HttpClientBase.GetToken()));
-                    break;
+                    if (_isReconnecting) return;
+                    _webSocket.Send(message);
                 }
-                
-                var buffer = new byte[1024 * 4];
-                var result = await _clientWebSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                
-                // var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                // dynamic json = JsonConvert.DeserializeObject(message)!;
-                // var type = json.type;
-                // if (type == null) continue;
-                // if (type == "RECEIVE_MESSAGE")
-                // {
-                //     NotificationsManager.SendNotification(json);
-                // }
-                // else if (type == "SEND_MESSAGE")
-                // {
-                //     MessageBox.Show("I sent a message");
-                // }
-                // else if (type == "READ_MESSAGE")
-                // {
-                //     MessageBox.Show("I read a message");
-                // }
-                // else if (type == "TOGGLE_ONLINE_STATUS")
-                // {
-                //     MessageBox.Show("I toggled my online status");
-                // }
-                // else if (type == "TYPING")
-                // {
-                //     MessageBox.Show("I'm typing");
-                // }
-                // else if (type == "UNTYPING")
-                // {
-                //     MessageBox.Show("I'm untyping");
-                // }
-                // else if (type == "DESTROY_SESSION")
-                // {
-                //     MessageBox.Show("I destroyed a session");
-                // }
-                // else if (type == "USER_BLOCKED")
-                // {
-                //     MessageBox.Show("I blocked a user");
-                // }
-                // else if (type == "USER_LOGOUT")
-                // {
-                //     MessageBox.Show("I logged out a user");
-                // }
+                else
+                {
+                    continue;
+                }
+                break;
             }
         }
 
-        public async Task SendAsync(string message)
+        private void Reconnect(Action? callback = null)
         {
-            var buffer = Encoding.UTF8.GetBytes(message);
-            var segment = new ArraySegment<byte>(buffer);
-            await _clientWebSocket.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);
-        }
-
-        public async Task<string> ReceiveAsync()
-        {
-            var buffer = new byte[1024 * 4];
-            var segment = new ArraySegment<byte>(buffer);
-            var result = await _clientWebSocket.ReceiveAsync(segment, CancellationToken.None);
-            return Encoding.UTF8.GetString(buffer, 0, result.Count);
-        }
-
-        private async Task CloseAsync()
-        {
-            await _clientWebSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+            // Task.Delay(1000).ContinueWith(t => Connect());
+            _isReconnecting = true;
+            Connect();
+            callback?.Invoke();
         }
     }
 }

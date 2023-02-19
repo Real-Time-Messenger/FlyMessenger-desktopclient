@@ -8,6 +8,11 @@
         <UseWindowsForms>true</UseWindowsForms>
         <ApplicationIcon>Public/Icons/Logo32.ico</ApplicationIcon>
         <LangVersion>10</LangVersion>
+        <Company />
+        <AssemblyVersion>0.9.0</AssemblyVersion>
+        <FileVersion>0.9.0</FileVersion>
+        <PublicSign>false</PublicSign>
+        <Version>0.9.0</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -25,6 +30,7 @@
     <ItemGroup>
         <Folder Include="MVVM\View" />
         <Folder Include="Public\Images" />
+        <Folder Include="Public\Sounds" />
     </ItemGroup>
 
     <ItemGroup>
@@ -115,12 +121,14 @@
         <Resource Include="Resources\Colors\Light.xaml">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Resource>
+        <None Remove="Public\Sounds\Pop-Ding.wav" />
     </ItemGroup>
     
     <ItemGroup>
       <PackageReference Include="MimeMapping" Version="1.0.1.50" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
       <PackageReference Include="RestSharp" Version="109.0.0-preview.1" />
+      <PackageReference Include="WebSocket4Net" Version="0.15.2" />
     </ItemGroup>
 
 </Project>

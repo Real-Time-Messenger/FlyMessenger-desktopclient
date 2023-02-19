@@ -15,8 +15,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         private void OnDeleteCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
-            var mainWindow = (MainWindow)Application.Current.MainWindow;
-            
+            if (Application.Current.MainWindow is not MainWindow mainWindow) return;
             closeAnimation.Completed += (o, args) =>
             {
                 mainWindow.DeleteAccountModalWindow.IsOpen = false;

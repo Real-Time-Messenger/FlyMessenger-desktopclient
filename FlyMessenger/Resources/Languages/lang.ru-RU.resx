@@ -27,9 +27,6 @@
     <data name="chat" xml:space="preserve">
         <value>Чат</value>
     </data>
-    <data name="chats" xml:space="preserve">
-        <value>Чаты</value>
-    </data>
     <data name="conservations" xml:space="preserve">
         <value>Беседы</value>
     </data>
@@ -53,9 +50,6 @@
     </data>
     <data name="logout" xml:space="preserve">
         <value>Выйти</value>
-    </data>
-    <data name="notification" xml:space="preserve">
-        <value>Уведомление</value>
     </data>
     <data name="notifications" xml:space="preserve">
         <value>Уведомления</value>
@@ -186,7 +180,7 @@
     <data name="message-forwarding" xml:space="preserve">
         <value>Пересылка сообщений</value>
     </data>
-    <data name="unabled" xml:space="preserve">
+    <data name="unable" xml:space="preserve">
         <value>Недоступно</value>
     </data>
     <data name="g-and-c" xml:space="preserve">
@@ -215,5 +209,59 @@
     </data>
     <data name="select-chat" xml:space="preserve">
         <value>Выберите чат</value>
+    </data>
+    <data name="today" xml:space="preserve">
+        <value>Сегодня</value>
+    </data>
+    <data name="yesterday" xml:space="preserve">
+        <value>Вчера</value>
+    </data>
+    <data name="last-seen" xml:space="preserve">
+        <value>Был(-а) в сети</value>
+    </data>
+    <data name="minutes-ago" xml:space="preserve">
+        <value>минут назад</value>
+    </data>
+    <data name="hour-ago" xml:space="preserve">
+        <value>час назад</value>
+    </data>
+    <data name="hours-ago" xml:space="preserve">
+        <value>часа(-ов) назад</value>
+    </data>
+    <data name="this-week" xml:space="preserve">
+        <value>на этой неделе</value>
+    </data>
+    <data name="recently" xml:space="preserve">
+        <value>недавно</value>
+    </data>
+    <data name="long-time-ago" xml:space="preserve">
+        <value>давно</value>
+    </data>
+    <data name="cannotBeNull" xml:space="preserve">
+        <value>Не может быть пустым</value>
+    </data>
+    <data name="send-first-message" xml:space="preserve">
+        <value>Отправь первое сообщение</value>
+    </data>
+    <data name="online" xml:space="preserve">
+        <value>В сети</value>
+    </data>
+    <data name="dialogues" xml:space="preserve">
+        <value>Диалоги</value>
+    </data>
+    <data name="users" xml:space="preserve">
+        <value>Пользователи</value>
+    </data>
+    <data name="messages" xml:space="preserve">
+        <value>Сообщения</value>
+    </data>
+    <data name="noDialogs" xml:space="preserve">
+        <value>Диалоги не найдены</value>
+    </data>
+    <data name="noMessagesFound" xml:space="preserve">
+        <value>Сообщения не найдены</value>
+    </data>
+    <data name="noUsers" xml:space="preserve">
+        <value>Пользователи не найдены</value>
     </data>
 </root>

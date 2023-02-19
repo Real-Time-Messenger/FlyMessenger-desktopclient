@@ -3,35 +3,32 @@ using System.Windows.Media.Animation;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms.VisualStyles;
-using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings.Pages;
-using MessageBox = System.Windows.Forms.MessageBox;
 using Application = System.Windows.Application;
 
 namespace FlyMessenger.Resources.Settings
 {
     public class SettingsPage
     {
-        public int? Id { get; set; }
-        public string? Title { get; set; }
-        public Page? Page { get; set; }
-        public int? PreviousPageId { get; } = null;
+        public int? Id { get; }
+        public string? Title { get; }
+        public Page? Page { get; }
+        public int? PreviousPageId { get; }
 
         public SettingsPage(int? id, string? title, Page? page, int? previousPageId = null)
         {
             Id = id;
             Title = title;
             Page = page;
-            
+
             if (previousPageId != null) PreviousPageId = previousPageId;
         }
     }
 
-    public class SettingsManager
+    public abstract class SettingsManager
     {
-        // Set array of settings pages
+        // Array of settings pages
         private static readonly SettingsPage[] Pages =
         {
             new SettingsPage(
@@ -74,32 +71,68 @@ namespace FlyMessenger.Resources.Settings
         public static void OpenPage(int id)
         {
             CurrentPage = Pages.FirstOrDefault(x => x.Id == id);
-            if (CurrentPage == null || CurrentPage.Page == null) return;
-            
-            TogglePage(CurrentPage.Page);
+            if (CurrentPage?.Page == null) return;
+
+            if (Application.Current.MainWindow is not MainWindow window) return;
+            var slideAnimation = new ThicknessAnimation(
+                new Thickness(0),
+                new Thickness(0, 0, -150, 0),
+                TimeSpan.FromSeconds(0.1)
+            );
+            var opacityAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
+
+            slideAnimation.Completed += (s, _) => TogglePage(CurrentPage.Page);
+
+            window.Page.BeginAnimation(FrameworkElement.MarginProperty, slideAnimation);
+            window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
         }
 
         public static void GoBack()
         {
+            var slideAnimation = new ThicknessAnimation(
+                new Thickness(0),
+                new Thickness(-150, 0, 0, 0),
+                TimeSpan.FromSeconds(0.1)
+            );
+            var opacityAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
+
+            if (Application.Current.MainWindow is not MainWindow window) return;
+
             if (CurrentPage.PreviousPageId != null)
             {
                 CurrentPage = Pages.FirstOrDefault(x => x.Id == CurrentPage.PreviousPageId);
-                if (CurrentPage == null || CurrentPage.Page == null) return;
-                
-                TogglePage(CurrentPage.Page);
+                if (CurrentPage?.Page == null) return;
+
+                slideAnimation.Completed += (s, _) => TogglePage(CurrentPage.Page, true);
+                window.Page.BeginAnimation(FrameworkElement.MarginProperty, slideAnimation);
+                window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
                 return;
             }
-            
+
             CurrentPage = Pages[0];
             if (CurrentPage.Page == null) return;
-            
-            TogglePage(CurrentPage.Page);
+
+            slideAnimation.Completed += (s, _) => TogglePage(CurrentPage.Page, true);
+            window.Page.BeginAnimation(FrameworkElement.MarginProperty, slideAnimation);
+            window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
         }
 
-        private static void TogglePage(Page page)
+        private static void TogglePage(Page page, bool isBack = false)
         {
-            var window = Application.Current.MainWindow as MainWindow;
-            if (window == null) return;
+            if (Application.Current.MainWindow is not MainWindow window) return;
+
+            var targetThickness = isBack
+                ? new Thickness(0, 0, -150, 0)
+                : new Thickness(-150, 0, 0, 0);
+            var slideAnimation = new ThicknessAnimation(
+                targetThickness,
+                new Thickness(0),
+                TimeSpan.FromSeconds(0.1)
+            );
+            var opacityAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.1));
+
+            window.Page.BeginAnimation(FrameworkElement.MarginProperty, slideAnimation);
+            window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
 
             window.ModalFrame.Content = page;
             window.SettingsWindowTitle.Text = CurrentPage.Title;

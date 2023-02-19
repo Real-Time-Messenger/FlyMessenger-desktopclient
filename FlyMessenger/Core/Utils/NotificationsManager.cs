@@ -1,36 +1,60 @@
-using System.IO;
-using System.Windows.Forms;
-using FlyMessenger.MVVM.Model;
 using FlyMessenger.Resources.Windows;
-using Newtonsoft.Json;
+using Application = System.Windows.Application;
 
 namespace FlyMessenger.Core.Utils
 {
-    public class NotificationsManager
+    public static class NotificationsManager
     {
         public static void SendNotification(dynamic json)
         {
-            var sender = json.message.sender;
-            var message = json.message;
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    var sender = json.message.sender;
+                    if ((string)sender.id == MainWindow.MainViewModel.MyProfile.Id) return;
 
-            var userFirstAndLastName = (string)sender.firstName + " " + (string)sender.LastName;
-            var photoUrl = (string)sender.photoURL;
-            if (message.file != null)
+                    var message = json.message;
+                    var userFirstAndLastName = (string)sender.firstName + " " + (string)sender.LastName;
+                    var photoUrl = (string)sender.photoURL;
+                    var dialogId = (string)message.dialogId;
+
+                    if (message.file != null)
+                    {
+                        var messageTitle = (string)message.file;
+                        ShowNotification(userFirstAndLastName, messageTitle, photoUrl, dialogId);
+                    }
+                    else
+                    {
+                        var messageTitle = (string)message.text;
+                        ShowNotification(userFirstAndLastName, messageTitle, photoUrl, dialogId);
+                    }
+                }
+            );
+        }
+
+        public static void CloseAllNotifications()
+        {
+            foreach (var notificationWindow in Application.Current.Windows)
             {
-                var messageTitle = (string)message.file;
-                ShowNotification(userFirstAndLastName, messageTitle, photoUrl);
-            }
-            else
-            {
-                var messageTitle = (string)message.text;
-                ShowNotification(userFirstAndLastName, messageTitle, photoUrl);
+                if (notificationWindow is not NotificationWindow window) return;
+                window.Close();
             }
         }
 
-        private static void ShowNotification(string userFirstAndLastName, string messageTitle, string photoUrl)
+        private static void ShowNotification(string userFirstAndLastName, string messageTitle, string photoUrl, string dialogId)
         {
-            var notification = new NotificationWindow(userFirstAndLastName, messageTitle, photoUrl);
-            notification.Show();
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    var notificationWindow = new NotificationWindow(
+                        userFirstAndLastName,
+                        messageTitle,
+                        photoUrl,
+                        dialogId
+                    );
+                    notificationWindow.Show();
+                }
+            );
         }
     }
 }

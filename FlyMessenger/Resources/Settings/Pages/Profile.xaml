@@ -32,6 +32,7 @@
                      VerticalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush x:Name="ProfilePhotoProfilePage"
+                                RenderOptions.BitmapScalingMode="Fant"
                                 Stretch="UniformToFill"
                                 ImageSource="{Binding MyProfile.PhotoUrl}" />
                 </Ellipse.Fill>

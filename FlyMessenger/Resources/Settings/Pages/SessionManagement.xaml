@@ -18,21 +18,18 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="10 0 0 14">
-            <TextBlock FontSize="14"
-                       FontFamily="{StaticResource Alata}"
-                       Foreground="{DynamicResource Normal-Stroke}">
-                <TextBlock.Text>
-                    <MultiBinding StringFormat="{}{0} {1}">
-                        <Binding Path="SessionsCount" />
-                        <Binding Source="{x:Static languages:lang.sessions}" />
-                    </MultiBinding>
-                </TextBlock.Text>
+            <TextBlock
+                x:Name="SessionsCountTextBlock"
+                FontSize="14"
+                FontFamily="{StaticResource Alata}"
+                Foreground="{DynamicResource Normal-Stroke}">
             </TextBlock>
         </Grid>
         <Grid Grid.Row="1">
             <ScrollViewer>
                 <StackPanel HorizontalAlignment="Stretch">
-                    <ListView ItemsSource="{Binding MyProfile.Sessions}"
+                    <ListView x:Name="SessionsList"
+                              ItemsSource="{Binding MyProfile.Sessions}"
                               ItemContainerStyle="{StaticResource SessionBox}"
                               BorderBrush="Transparent"
                               HorizontalAlignment="Stretch"

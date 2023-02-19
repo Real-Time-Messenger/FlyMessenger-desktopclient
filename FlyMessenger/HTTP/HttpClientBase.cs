@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using System.Windows;
 using RestSharp;
 
 namespace FlyMessenger.HTTP
@@ -15,7 +16,7 @@ namespace FlyMessenger.HTTP
             _client = new RestClient(Constants.ApiUrl).AddDefaultHeaders( new Dictionary<string, string>
             {
                 {"Accept", "application/json"},
-                {"Content-Type", "application/json"},
+                {"Content-type", "application/json"},
                 // TODO: Get authorization token from current session. 
                 {"Authorization", GetToken()}
             });
@@ -24,7 +25,7 @@ namespace FlyMessenger.HTTP
         protected T Get<T>(string url)
         {
             var request = new RestRequest(url);
-
+            
             var response = _client.Execute<T>(request);
             return response.Data!;
         }
@@ -73,7 +74,7 @@ namespace FlyMessenger.HTTP
         {
             var request = new RestRequest(url, Method.Put);
 
-            request.AddHeader("Content-Type", "multipart/form-data");
+            request.AddHeader("Content-type", "multipart/form-data");
             request.AddFile("file", file, "image.jpg");
 
             var response = _client.Execute<T>(request);

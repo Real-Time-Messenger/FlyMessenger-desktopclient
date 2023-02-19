@@ -3,10 +3,12 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using FlyMessenger.Controllers;
 using Application = System.Windows.Application;
 using Color = System.Drawing.Color;
 using FontStyle = System.Drawing.FontStyle;
 using Forms = System.Windows.Forms;
+using Pen = System.Drawing.Pen;
 
 namespace FlyMessenger.Core.Utils
 {
@@ -55,7 +57,9 @@ namespace FlyMessenger.Core.Utils
             _exit.Text = Resources.Languages.lang.exit;
             _exit.Click += Exit_Click;
 
-            _notifications.Text = Resources.Languages.lang.notifications;
+            _notifications.Text = MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled
+                ? Resources.Languages.lang.notifications_off
+                : Resources.Languages.lang.notifications_on;
             _notifications.Click += Notifications_Click;
 
             _showWindow.Text = Resources.Languages.lang.showWindow;
@@ -83,18 +87,45 @@ namespace FlyMessenger.Core.Utils
             // Dispose the notify icon
             _notifyIcon.Dispose();
         }
+        
+        public void DisposeNotifyIcon()
+        {
+            _notifyIcon.Dispose();
+        }
 
         // OFF/ON notifications
         private static void Notifications_Click(object? sender, EventArgs e)
         {
-            // TODO: Create notification logic
+            // ControllerBase.UserController.EditMyChatsNotifications();
+
+            // If notifications are off
+            if (MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled)
+            {
+                ControllerBase.UserController.EditMyChatsNotifications(false);
+                MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled = false;
+                ((Forms.ToolStripMenuItem)sender!).Text = Resources.Languages.lang.notifications_on;
+            }
+            else
+            {
+                ControllerBase.UserController.EditMyChatsNotifications(true);
+                MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled = true;
+                ((Forms.ToolStripMenuItem)sender!).Text = Resources.Languages.lang.notifications_off;
+            }
         }
 
         // Open/close FlyMessenger
         private static void ShowWindow_Click(object? sender, EventArgs e)
         {
-            Application.Current.MainWindow?.Show();
-            Application.Current.MainWindow?.Activate();
+            var window = (MainWindow?)Application.Current.MainWindow;
+            if (window == null) return;
+            window.Show();
+            window.Activate();
+
+            // WindowState
+            if (window.WindowState == WindowState.Minimized)
+            {
+                window.WindowState = WindowState.Normal;
+            }
         }
 
         // Logic for click to NotifyIcon
@@ -145,7 +176,7 @@ namespace FlyMessenger.Core.Utils
                 );
             }
         }
-        
+
         // Change background color of contextMenu
         protected override void OnRenderToolStripBackground(Forms.ToolStripRenderEventArgs e)
         {
@@ -154,6 +185,16 @@ namespace FlyMessenger.Core.Utils
                     ? new SolidBrush(Color.FromArgb(234, 237, 250))
                     : new SolidBrush(Color.FromArgb(16, 24, 43)),
                 e.AffectedBounds
+            );
+
+            // Border
+            e.Graphics.DrawRectangle(
+                new Pen(
+                    Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light")
+                        ? Color.FromArgb(76, 76, 76)
+                        : Color.FromArgb(184, 186, 242)
+                ),
+                new Rectangle(0, 0, e.ToolStrip.Width - 1, e.ToolStrip.Height - 1)
             );
         }
     }

@@ -4,7 +4,6 @@
              xmlns:converters="clr-namespace:FlyMessenger.Converters"
              xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
              xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
-             xmlns:system="clr-namespace:System;assembly=System.Runtime"
              xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -12,6 +11,7 @@
         <ObjectDataProvider x:Key="UserFirstNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
         <ObjectDataProvider x:Key="UserLastNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
         <ObjectDataProvider x:Key="UserEmailDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
+        <ObjectDataProvider x:Key="DataProviderToMainViewModel" ObjectType="{x:Type viewModels:MainViewModel}" />
 
         <!-- Resources -->
         <converters:MessagesCountConverter x:Key="MessagesCountConverter" />
@@ -21,6 +21,14 @@
         <converters:ChatBoxNameConverter x:Key="ChatBoxNameConverter" />
         <converters:ImageToSourceConverter x:Key="ImageToSourceConverter" />
         <converters:FistLetterToUpperConverter x:Key="FistLetterToUpperConverter" />
+        <converters:DateToDateConverter x:Key="DateToDateConverter" />
+        <converters:PinConverter x:Key="PinConverter" />
+        <converters:NotificationsConverter x:Key="NotificationsConverter" />
+        <converters:NotificationsIconConverter x:Key="NotificationsIconConverter" />
+        <converters:SoundConverter x:Key="SoundConverter" />
+        <converters:SoundIconConverter x:Key="SoundIconConverter" />
+        <converters:BlockConverter x:Key="BlockConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
         <ResourceDictionary x:Key="Icons">
             <ResourceDictionary.MergedDictionaries>
@@ -97,7 +105,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <!-- Modal Close Button Resources -->
         <Style x:Key="NotificationCloseButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -157,7 +165,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <!-- UnblockUser Button Resources -->
         <Style x:Key="UnblockUserButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -241,9 +249,23 @@
             <Style.Triggers>
                 <Trigger Property="Orientation" Value="Vertical">
                     <Setter Property="Width" Value="4" />
-                    <Setter Property="Margin" Value="0 0 8 10" />
+                    <Setter Property="Margin" Value="0 10 8 10" />
                     <Setter Property="Template" Value="{DynamicResource VerticalScrollBar}" />
                 </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="UnreadMessagesBorderStyle" TargetType="Border">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="{DynamicResource MessagesCount-Border}" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="Visibility" Value="Visible" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding UnreadMessagesCount}" Value="0">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
 
@@ -355,14 +377,27 @@
                                     <ColumnDefinition Width="64" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Grid Column="0">
+                                <Grid Column="0" Width="54" Height="54">
                                     <!-- Full circled Image 48x48 -->
                                     <Ellipse Width="48" Height="48">
                                         <Ellipse.Fill>
                                             <ImageBrush Stretch="UniformToFill"
+                                                        RenderOptions.BitmapScalingMode="Fant"
                                                         ImageSource="{Binding User.PhotoUrl}" />
                                         </Ellipse.Fill>
                                     </Ellipse>
+                                    <Border x:Name="OnlineBorder"
+                                            Width="12"
+                                            Height="12"
+                                            BorderBrush="{DynamicResource ChatBox-Normal}"
+                                            BorderThickness="2"
+                                            CornerRadius="6"
+                                            Background="{DynamicResource Settings-Change-Photo}"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 3 3"
+                                            Visibility="{Binding User.IsOnline, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 </Grid>
                                 <Grid Column="1">
                                     <Grid.RowDefinitions>
@@ -395,9 +430,9 @@
                                         <Grid Grid.Column="2" HorizontalAlignment="Right">
                                             <StackPanel Orientation="Horizontal">
                                                 <Grid Margin="0 0 6 0">
-                                                    <Border x:Name="MessagesCountBorder" CornerRadius="7"
-                                                            MaxHeight="14"
-                                                            MaxWidth="36"
+                                                    <Border x:Name="MessagesCountBorder" CornerRadius="8"
+                                                            MaxHeight="18"
+                                                            MaxWidth="38"
                                                             Background="{DynamicResource MessagesCount-Border}"
                                                             Visibility="Collapsed">
                                                         <TextBlock
@@ -406,7 +441,8 @@
                                                             FontFamily="{StaticResource Alata}"
                                                             FontWeight="Regular"
                                                             Foreground="{DynamicResource MessagesCount-Foreground}"
-                                                            Margin="4,0,4,2" />
+                                                            TextTrimming="CharacterEllipsis"
+                                                            Padding="6,2" />
                                                     </Border>
                                                 </Grid>
                                                 <Grid Height="14" Width="14" Margin="0 0 6 0"
@@ -430,7 +466,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Grid Grid.Column="0">
                                                 <TextBlock x:Name="MessageText"
-                                                           Text="{Binding LastMessage.Text}"
+                                                           Text="{Binding LastMessage.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                            FontFamily="{StaticResource Alata}"
                                                            Foreground="{DynamicResource ChatBox-Foreground}"
                                                            FontWeight="Regular"
@@ -445,7 +481,8 @@
                                             </Grid>
                                             <Grid Grid.Column="2" HorizontalAlignment="Right">
                                                 <TextBlock
-                                                    Text="{Binding LastMessage.SentAt, Converter={StaticResource DateTimeConverter}}"
+                                                    Text="{Binding LastMessage.SentAt, Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeConverter}}"
                                                     FontSize="10"
                                                     FontFamily="{StaticResource Alata}"
                                                     FontWeight="Regular"
@@ -457,25 +494,49 @@
                                 </Grid>
                             </Grid>
                             <Border.ContextMenu>
-                                <ContextMenu Resources="{StaticResource Icons}">
-                                    <MenuItem Header="{x:Static language:lang.pin}">
+                                <ContextMenu>
+                                    <MenuItem Header="{Binding IsPinned, Converter={StaticResource PinConverter}}"
+                                              PreviewMouseLeftButtonUp="DialogPinState">
                                         <MenuItem.Icon>
-                                            <Image Source="{StaticResource AnchorIcon}" />
+                                            <Image x:Name="Image" Source="{DynamicResource AnchorIcon}" Width="16"
+                                                   Height="16" />
                                         </MenuItem.Icon>
                                     </MenuItem>
-                                    <MenuItem Header="{x:Static language:lang.notifications_off}">
+                                    <MenuItem x:Name="NotificationsMenuItem"
+                                              Header="{Binding IsNotificationsEnabled, 
+                                              Converter={StaticResource NotificationsConverter}}"
+                                              PreviewMouseLeftButtonUp="DialogNotificationsState">
                                         <MenuItem.Icon>
-                                            <Image Source="{StaticResource Bell}" Width="16" Height="16" />
+                                            <Image
+                                                Source="{Binding IsNotificationsEnabled, 
+                                                Converter={StaticResource NotificationsIconConverter}}"
+                                                Width="16" Height="16" />
                                         </MenuItem.Icon>
                                     </MenuItem>
-                                    <MenuItem Header="{x:Static language:lang.block_user}">
+                                    <MenuItem x:Name="SoundMenuItem"
+                                              Header="{Binding IsSoundEnabled, 
+                                              Converter={StaticResource SoundConverter}}"
+                                              PreviewMouseLeftButtonUp="DialogSoundState">
                                         <MenuItem.Icon>
-                                            <Image Source="{StaticResource Block}" Width="16" Height="16" />
+                                            <Image
+                                                Source="{Binding IsSoundEnabled, 
+                                                Converter={StaticResource SoundIconConverter}}"
+                                                Width="16" Height="16" />
                                         </MenuItem.Icon>
                                     </MenuItem>
-                                    <MenuItem Header="{x:Static language:lang.delete_chat}">
+                                    <MenuItem x:Name="BlockMenuItem"
+                                              Header="{Binding User.IsBlocked, 
+                                              Converter={StaticResource BlockConverter}}"
+                                              PreviewMouseLeftButtonUp="DialogBlockState">
                                         <MenuItem.Icon>
-                                            <Image Source="{StaticResource Trash}" Width="16" Height="16" />
+                                            <Image Source="{DynamicResource Block}" Width="16" Height="16" />
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                    <MenuItem x:Name="DeleteMenuItem"
+                                              Header="{x:Static language:lang.delete_chat}"
+                                              PreviewMouseLeftButtonUp="DialogDelete">
+                                        <MenuItem.Icon>
+                                            <Image Source="{DynamicResource Trash}" Width="16" Height="16" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </ContextMenu>
@@ -483,7 +544,9 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <DataTrigger
-                                Binding="{Binding UnreadMessages, Converter={StaticResource MessagesCountConverter}}">
+                                Binding="{Binding UnreadMessages, 
+                                Converter={StaticResource MessagesCountConverter}, 
+                                UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <DataTrigger.Value>True</DataTrigger.Value>
                                 <Setter TargetName="MessagesCountBorder" Property="Visibility" Value="Visible" />
                             </DataTrigger>
@@ -501,6 +564,8 @@
                                             Value="{DynamicResource MessagesCount-Border-Selected}" />
                                     <Setter Property="Foreground" TargetName="MessageText"
                                             Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
                             <MultiTrigger>
@@ -516,6 +581,137 @@
                                     <Setter Property="Background" TargetName="MessagesCountBorder"
                                             Value="{DynamicResource MessagesCount-Border-Selected}" />
                                     <Setter Property="Foreground" TargetName="MessageText"
+                                            Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="UIElement.IsMouseOver" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- UserBox Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="UserBox">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="MaxWidth" Value="350" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                                CornerRadius="5"
+                                Background="{DynamicResource ChatBox-Normal}"
+                                MinWidth="200"
+                                MaxWidth="350"
+                                Margin="0 0 0 10"
+                                Height="78">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Column="0">
+                                    <!-- Full circled Image 48x48 -->
+                                    <Ellipse Width="48" Height="48">
+                                        <Ellipse.Fill>
+                                            <ImageBrush Stretch="UniformToFill"
+                                                        RenderOptions.BitmapScalingMode="Fant"
+                                                        ImageSource="{Binding PhotoUrl}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Border x:Name="OnlineBorder"
+                                            Width="12"
+                                            Height="12"
+                                            BorderBrush="{DynamicResource ChatBox-Normal}"
+                                            BorderThickness="2"
+                                            CornerRadius="6"
+                                            Background="{DynamicResource Settings-Change-Photo}"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 3 3"
+                                            Visibility="{Binding IsOnline, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                                <Grid Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" FontFamily="{StaticResource Alata}"
+                                                   FontWeight="Regular"
+                                                   Foreground="{DynamicResource Strongest-Stroke}"
+                                                   MaxHeight="19"
+                                                   MaxWidth="274"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   HorizontalAlignment="Left"
+                                                   Margin="2,11,0,0">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
+                                                    <Binding Path="FirstName" />
+                                                    <Binding Path="LastName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <TextBlock x:Name="UsernameTextBlock"
+                                                   Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                    StringFormat=@{0}}"
+                                                   FontFamily="{StaticResource Alata}"
+                                                   Foreground="{DynamicResource ChatBox-Foreground}"
+                                                   FontWeight="Regular"
+                                                   TextWrapping="Wrap"
+                                                   TextTrimming="WordEllipsis"
+                                                   FontSize="12"
+                                                   MaxHeight="34"
+                                                   MaxWidth="220"
+                                                   HorizontalAlignment="Left"
+                                                   VerticalAlignment="Top"
+                                                   Margin="2,0,0,0" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="Foreground" TargetName="UsernameTextBlock"
+                                            Value="{DynamicResource Strongest-Stroke}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="Foreground" TargetName="UsernameTextBlock"
                                             Value="{DynamicResource Strongest-Stroke}" />
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
@@ -533,6 +729,584 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- UserBox Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="CurrentUserBox">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="MaxWidth" Value="350" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                                CornerRadius="5"
+                                Background="{DynamicResource ChatBox-Normal}"
+                                MinWidth="200"
+                                MaxWidth="350"
+                                Margin="0 0 0 10"
+                                Height="78">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Column="0">
+                                    <!-- Full circled Image 48x48 -->
+                                    <Ellipse Width="48" Height="48">
+                                        <Ellipse.Fill>
+                                            <ImageBrush Stretch="UniformToFill"
+                                                        RenderOptions.BitmapScalingMode="Fant"
+                                                        ImageSource="{Binding PhotoUrl}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Border x:Name="OnlineBorder"
+                                            Width="12"
+                                            Height="12"
+                                            BorderBrush="{DynamicResource ChatBox-Normal}"
+                                            BorderThickness="2"
+                                            CornerRadius="6"
+                                            Background="{DynamicResource Settings-Change-Photo}"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 3 3"
+                                            Visibility="{Binding IsOnline, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                                <Grid Column="1" HorizontalAlignment="Left">
+                                    <TextBlock FontSize="14" FontFamily="{StaticResource Alata}"
+                                               FontWeight="Regular"
+                                               Foreground="{DynamicResource Strongest-Stroke}"
+                                               MaxHeight="19"
+                                               MaxWidth="274"
+                                               TextTrimming="CharacterEllipsis"
+                                               HorizontalAlignment="Left"
+                                               Margin="2,11,0,0">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
+                                                <Binding Path="FirstName" />
+                                                <Binding Path="LastName" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <Button x:Name="CloseButton"
+                                            Width="20"
+                                            Height="20"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Margin="0,0,0,0"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0"
+                                            Command="{Binding CloseCommand}"
+                                            CommandParameter="{Binding}">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="border"
+                                                        CornerRadius="10"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent"
+                                                        BorderThickness="0">
+                                                    <Path Fill="{DynamicResource ChatBox-Foreground}"
+                                                          Data="M 10,10 L 20,20 M 20,10 L 10,20" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="UIElement.IsMouseOver" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- MessagesInSearchStyle Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="MessagesInSearchStyle">
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="MinWidth" Value="200" />
+            <Setter Property="MaxWidth" Value="350" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="border"
+                                CornerRadius="5"
+                                Background="{DynamicResource ChatBox-Normal}"
+                                MinWidth="200"
+                                MaxWidth="350"
+                                Margin="0 0 0 10"
+                                Height="78">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="64" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid Column="0">
+                                    <!-- Full circled Image 48x48 -->
+                                    <Ellipse Width="48" Height="48">
+                                        <Ellipse.Fill>
+                                            <ImageBrush Stretch="UniformToFill"
+                                                        RenderOptions.BitmapScalingMode="Fant"
+                                                        ImageSource="{Binding LastMessage.Sender.PhotoUrl}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <Border x:Name="OnlineBorder"
+                                            Width="12"
+                                            Height="12"
+                                            BorderBrush="{DynamicResource ChatBox-Normal}"
+                                            BorderThickness="2"
+                                            CornerRadius="6"
+                                            Background="{DynamicResource Settings-Change-Photo}"
+                                            VerticalAlignment="Bottom"
+                                            HorizontalAlignment="Right"
+                                            Margin="0 0 3 3"
+                                            Visibility="{Binding User.IsOnline, 
+                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                </Grid>
+                                <Grid Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0" HorizontalAlignment="Left">
+                                        <TextBlock FontSize="14" FontFamily="{StaticResource Alata}"
+                                                   FontWeight="Regular"
+                                                   Foreground="{DynamicResource Strongest-Stroke}"
+                                                   MaxHeight="19"
+                                                   MaxWidth="274"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   HorizontalAlignment="Left"
+                                                   Margin="2,11,0,0">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
+                                                    <Binding Path="User.FirstName" />
+                                                    <Binding Path="User.LastName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition MaxWidth="220" Width="*" />
+                                                <ColumnDefinition MaxWidth="28" Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid Grid.Column="0">
+                                                <TextBlock x:Name="MessageText"
+                                                           Text="{Binding LastMessage.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           Foreground="{DynamicResource ChatBox-Foreground}"
+                                                           FontWeight="Regular"
+                                                           TextWrapping="Wrap"
+                                                           TextTrimming="WordEllipsis"
+                                                           FontSize="12"
+                                                           MaxHeight="34"
+                                                           MaxWidth="220"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Top"
+                                                           Margin="2,0,0,0" />
+                                            </Grid>
+                                            <Grid Grid.Column="2" HorizontalAlignment="Right">
+                                                <TextBlock
+                                                    Text="{Binding LastMessage.SentAt, Mode=TwoWay,
+                                                    UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeConverter}}"
+                                                    FontSize="10"
+                                                    FontFamily="{StaticResource Alata}"
+                                                    FontWeight="Regular"
+                                                    Foreground="{DynamicResource Litest-Stroke-Second}"
+                                                    Margin="0 19 10 0" />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="Foreground" TargetName="MessageText"
+                                            Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                    <Setter Property="Foreground" TargetName="MessageText"
+                                            Value="{DynamicResource Strongest-Stroke}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-Selected}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="UIElement.IsMouseOver" Value="True" />
+                                    <Condition Property="Selector.IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Background" TargetName="border"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
+                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DialogMessagesStyle Resources -->
+        <Style TargetType="{x:Type ListViewItem}" x:Key="DialogMessagesStyle">
+            <Setter Property="Margin" Value="20 0 20 0" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Grid x:Name="ListBoxItemGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0"
+                                    x:Name="NewDateBorder"
+                                    Background="{DynamicResource NewDate-Color}"
+                                    CornerRadius="13"
+                                    HorizontalAlignment="Center"
+                                    Visibility="Collapsed"
+                                    Margin="0 0 0 10">
+                                <TextBlock Text="{Binding SentAt, Converter={StaticResource DateToDateConverter}}"
+                                           FontSize="14"
+                                           FontFamily="{StaticResource Alata}"
+                                           FontWeight="Regular"
+                                           Foreground="{DynamicResource Stronger-Stroke}"
+                                           Margin="10 4"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Row="1"
+                                        x:Name="MessageStackPanel"
+                                        Orientation="Horizontal" HorizontalAlignment="Left"
+                                        Margin="0 0 0 4">
+                                <Border x:Name="border"
+                                        CornerRadius="5"
+                                        Background="{DynamicResource ActiveChat-CompanionMessage}"
+                                        MinWidth="61"
+                                        MaxWidth="680"
+                                        Margin="50 0 0 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MaxWidth="630" Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox Grid.Column="0" Text="{Binding Text}"
+                                                 IsReadOnly="True"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 Padding="-2 0 0 0"
+                                                 TextWrapping="Wrap"
+                                                 Foreground="{DynamicResource Strongest-Stroke}"
+                                                 FontSize="14"
+                                                 Margin="10 10 10 10" />
+                                        <TextBlock Grid.Column="1"
+                                                   x:Name="SentAtTextBlock"
+                                                   Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
+                                                   Foreground="{DynamicResource Liter-Stroke-Second}"
+                                                   FontSize="12"
+                                                   Margin="0 0 5 3"
+                                                   VerticalAlignment="Bottom" />
+                                        <Image Grid.Column="2"
+                                               x:Name="NonReadMessageImage"
+                                               Resources="{StaticResource Icons}"
+                                               Source="{DynamicResource NonReadMessageIcon}"
+                                               Width="12"
+                                               Height="10"
+                                               Margin="0 0 8 6"
+                                               VerticalAlignment="Bottom"
+                                               Visibility="Collapsed" />
+                                        <Image Grid.Column="2"
+                                               x:Name="ReadMessageImage"
+                                               Resources="{StaticResource Icons}"
+                                               Source="{DynamicResource ReadMessageIcon}"
+                                               Width="16"
+                                               Height="10"
+                                               Margin="0 0 4 6"
+                                               VerticalAlignment="Bottom"
+                                               Visibility="Collapsed" />
+                                    </Grid>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding NewDate}" Value="true">
+                                <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsMyMessage, UpdateSourceTrigger=PropertyChanged}"
+                                         Value="True">
+                                <Setter TargetName="border" Property="Background"
+                                        Value="{DynamicResource ActiveChat-OwnerMessage}" />
+                                <Setter TargetName="border" Property="Margin" Value="0 0 50 0" />
+                                <Setter TargetName="MessageStackPanel" Property="HorizontalAlignment" Value="Right" />
+                                <Setter TargetName="SentAtTextBlock" Property="Foreground"
+                                        Value="{DynamicResource Litest-Stroke-Second}" />
+                                <Setter TargetName="NonReadMessageImage" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMyMessage, UpdateSourceTrigger=PropertyChanged}"
+                                               Value="True" />
+                                    <Condition Binding="{Binding IsRead, UpdateSourceTrigger=PropertyChanged}"
+                                               Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter TargetName="border" Property="Background"
+                                            Value="{DynamicResource ActiveChat-OwnerMessage}" />
+                                    <Setter TargetName="border" Property="Margin" Value="0 0 50 0" />
+                                    <Setter TargetName="MessageStackPanel" Property="HorizontalAlignment" Value="Right" />
+                                    <Setter TargetName="SentAtTextBlock" Property="Foreground"
+                                            Value="{DynamicResource Litest-Stroke-Second}" />
+                                    <Setter TargetName="ReadMessageImage" Property="Visibility" Value="Visible" />
+                                    <Setter TargetName="NonReadMessageImage" Property="Visibility" Value="Collapsed" />
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Resources>
+                <ControlTemplate x:Key="FirstMyMessageTemplate">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+                                x:Name="NewDateBorder"
+                                Background="{DynamicResource NewDate-Color}"
+                                CornerRadius="13"
+                                HorizontalAlignment="Center"
+                                Visibility="Collapsed">
+                            <TextBlock Text="{Binding SentAt, Converter={StaticResource DateToDateConverter}}"
+                                       FontSize="14"
+                                       FontFamily="{StaticResource Alata}"
+                                       FontWeight="Regular"
+                                       Foreground="{DynamicResource Stronger-Stroke}"
+                                       Margin="10 4"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Margin="0 0 0 10">
+                            <Border x:Name="border"
+                                    CornerRadius="5"
+                                    Background="{DynamicResource ActiveChat-OwnerMessage}"
+                                    MinWidth="61"
+                                    MaxWidth="680">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MaxWidth="630" Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding Text}"
+                                             IsReadOnly="True"
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             Padding="-2 0 0 0"
+                                             TextWrapping="Wrap"
+                                             Foreground="{DynamicResource Strongest-Stroke}"
+                                             FontSize="14"
+                                             Margin="10 10 10 10" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
+                                               Foreground="{DynamicResource Litest-Stroke-Second}"
+                                               FontSize="12"
+                                               Margin="0 0 5 3"
+                                               VerticalAlignment="Bottom" />
+                                    <Image Grid.Column="2"
+                                           x:Name="NonReadMessageImage"
+                                           Resources="{StaticResource Icons}"
+                                           Source="{DynamicResource NonReadMessageIcon}"
+                                           Width="12"
+                                           Height="10"
+                                           Margin="0 0 8 6"
+                                           VerticalAlignment="Bottom"
+                                           Visibility="Visible" />
+                                    <Image Grid.Column="2"
+                                           x:Name="ReadMessageImage"
+                                           Resources="{StaticResource Icons}"
+                                           Source="{DynamicResource ReadMessageIcon}"
+                                           Width="16"
+                                           Height="10"
+                                           Margin="0 0 4 6"
+                                           VerticalAlignment="Bottom"
+                                           Visibility="Collapsed" />
+                                </Grid>
+                            </Border>
+
+                            <Ellipse x:Name="SenderPhoto"
+                                     Width="40"
+                                     Height="40"
+                                     Margin="10 0 0 0"
+                                     VerticalAlignment="Bottom">
+                                <Ellipse.Fill>
+                                    <ImageBrush RenderOptions.BitmapScalingMode="Fant"
+                                                ImageSource="{Binding Sender.PhotoUrl}" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding NewDate}" Value="true">
+                            <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsRead, UpdateSourceTrigger=PropertyChanged}"
+                                     Value="True">
+                            <Setter TargetName="ReadMessageImage" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="NonReadMessageImage" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+                <ControlTemplate x:Key="FirstOpponentMessageTemplate">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0"
+                                x:Name="NewDateBorder"
+                                Background="{DynamicResource NewDate-Color}"
+                                CornerRadius="13"
+                                HorizontalAlignment="Center"
+                                Visibility="Collapsed">
+                            <TextBlock Text="{Binding SentAt, Converter={StaticResource DateToDateConverter}}"
+                                       FontSize="14"
+                                       FontFamily="{StaticResource Alata}"
+                                       FontWeight="Regular"
+                                       Foreground="{DynamicResource Stronger-Stroke}"
+                                       Margin="10 4"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left"
+                                    Margin="0 0 0 10">
+                            <Ellipse x:Name="SenderPhoto"
+                                     Width="40"
+                                     Height="40"
+                                     Margin="0 0 10 0"
+                                     VerticalAlignment="Bottom">
+                                <Ellipse.Fill>
+                                    <ImageBrush RenderOptions.BitmapScalingMode="Fant"
+                                                ImageSource="{Binding Sender.PhotoUrl}" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <Border x:Name="border"
+                                    CornerRadius="5"
+                                    Background="{DynamicResource ActiveChat-CompanionMessage}"
+                                    MinWidth="61">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition MaxWidth="630" Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0" Text="{Binding Text}"
+                                             IsReadOnly="True"
+                                             BorderThickness="0"
+                                             Background="Transparent"
+                                             Padding="-2 0 0 0"
+                                             TextWrapping="Wrap"
+                                             Foreground="{DynamicResource Strongest-Stroke}"
+                                             FontSize="14"
+                                             Margin="10 10 10 10" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
+                                               Foreground="{DynamicResource Liter-Stroke-Second}"
+                                               FontSize="12"
+                                               Margin="0 0 5 3"
+                                               VerticalAlignment="Bottom" />
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding NewDate}" Value="true">
+                            <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Style.Resources>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsMyPhotoVisible, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                    <Setter Property="Template" Value="{StaticResource FirstMyMessageTemplate}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsCompanionPhotoVisible, UpdateSourceTrigger=PropertyChanged}"
+                             Value="True">
+                    <Setter Property="Template" Value="{StaticResource FirstOpponentMessageTemplate}" />
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
 
         <!-- SessionBox Resources -->
@@ -560,6 +1334,7 @@
                                            Converter={StaticResource ImageToSourceConverter}}"
                                         Width="50"
                                         Height="50"
+                                        RenderOptions.BitmapScalingMode="Fant"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right" />
                                 </Grid>
@@ -625,6 +1400,7 @@
                                              HorizontalAlignment="Right">
                                         <Ellipse.Fill>
                                             <ImageBrush x:Name="BlockedUserPhoto"
+                                                        RenderOptions.BitmapScalingMode="Fant"
                                                         Stretch="UniformToFill"
                                                         ImageSource="{Binding PhotoUrl}" />
                                         </Ellipse.Fill>
@@ -722,9 +1498,6 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
-                        <ControlTemplate.Resources>
-                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-                        </ControlTemplate.Resources>
                         <Grid Background="{TemplateBinding Background}"
                               Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Border UseLayoutRounding="True" HorizontalAlignment="Center"
@@ -747,9 +1520,6 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type userControls:ModalWindow}">
-                        <ControlTemplate.Resources>
-                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-                        </ControlTemplate.Resources>
                         <Grid Background="{TemplateBinding Background}"
                               Visibility="{TemplateBinding IsOpen, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Border UseLayoutRounding="True" HorizontalAlignment="Center"
@@ -894,6 +1664,78 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="BulletDecorator" Property="Background"
                                         Value="{DynamicResource Background-Element}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- LoadingSpinner Style -->
+        <Style TargetType="{x:Type userControls:LoadingSpinner}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type userControls:LoadingSpinner}">
+                        <Ellipse x:Name="Ellipse"
+                                 Width="40"
+                                 Height="40"
+                                 RenderTransformOrigin="0.5,0.5"
+                                 Stroke="{DynamicResource ChatBox-MouseOver}"
+                                 StrokeThickness="4"
+                                 StrokeDashArray="12, 8"
+                                 StrokeDashCap="Round">
+                            <Ellipse.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform x:Name="EllipseRotation" Angle="0" />
+                                </TransformGroup>
+                            </Ellipse.RenderTransform>
+                            <Ellipse.Triggers>
+                                <EventTrigger RoutedEvent="Ellipse.Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="EllipseRotation"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             From="0"
+                                                             To="360"
+                                                             Duration="0:0:1"
+                                                             RepeatBehavior="Forever" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Ellipse.Triggers>
+                        </Ellipse>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- ScrollDownButton Style -->
+        <Style TargetType="Button" x:Key="ScrollDownButtonStyle">
+            <Setter Property="Background" Value="{DynamicResource ChatBox-MouseOver}" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="30"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background"
+                                        Value="{DynamicResource ChatBox-Selected}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background"
+                                        Value="{DynamicResource MessagesCount-Border}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

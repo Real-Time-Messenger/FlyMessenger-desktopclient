@@ -6,12 +6,9 @@ namespace FlyMessenger.Converters
 {
     public class DateTimeConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (string.IsNullOrEmpty(value.ToString()))
-                return DateTime.Now;
-
-            return DateTime.Parse(value.ToString()!).ToString("hh:mm");
+            return value == null ? null : DateTime.Parse(value.ToString()!).ToString("HH:mm");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

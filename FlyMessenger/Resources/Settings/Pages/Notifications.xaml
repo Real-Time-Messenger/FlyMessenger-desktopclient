@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:uc="clr-namespace:FlyMessenger.UserControls"
-      xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages"
       xmlns:languages="clr-namespace:FlyMessenger.Resources.Languages"
       xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
       mc:Ignorable="d">
@@ -18,7 +17,8 @@
             <uc:SwitcherButton x:Name="NotificationStateButton"
                                Title="{x:Static languages:lang.notifications}"
                                Icon="{DynamicResource Bell-Off}"
-                               CheckState="{Binding MyProfile.Settings.ChatsNotificationsEnabled}">
+                               CheckState="{Binding MyProfile.Settings.ChatsNotificationsEnabled}"
+                               PreviewMouseLeftButtonUp="NotificationStateChanged">
                 <uc:SwitcherButton.Style>
                     <Style TargetType="uc:SwitcherButton">
                         <Setter Property="BackgroundColor"
@@ -29,7 +29,8 @@
             <uc:SwitcherButton x:Name="SoundStateButton"
                                Title="{x:Static languages:lang.sound}"
                                Icon="{DynamicResource Volume-Off}"
-                               CheckState="{Binding MyProfile.Settings.ChatsSoundEnabled}">
+                               CheckState="{Binding MyProfile.Settings.ChatsSoundEnabled}"
+                               PreviewMouseLeftButtonUp="SoundStateChanged">
                 <uc:SwitcherButton.Style>
                     <Style TargetType="uc:SwitcherButton">
                         <Setter Property="BackgroundColor"

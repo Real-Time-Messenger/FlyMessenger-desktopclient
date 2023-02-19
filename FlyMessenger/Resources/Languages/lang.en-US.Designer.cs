@@ -123,20 +123,20 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot be empty.
+        /// </summary>
+        public static string cannotBeNull {
+            get {
+                return ResourceManager.GetString("cannotBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chat.
         /// </summary>
         public static string chat {
             get {
                 return ResourceManager.GetString("chat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Chats.
-        /// </summary>
-        public static string chats {
-            get {
-                return ResourceManager.GetString("chats", resourceCulture);
             }
         }
         
@@ -200,6 +200,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string delete_chat {
             get {
                 return ResourceManager.GetString("delete-chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dialogues.
+        /// </summary>
+        public static string dialogues {
+            get {
+                return ResourceManager.GetString("dialogues", resourceCulture);
             }
         }
         
@@ -285,11 +294,38 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to hour ago.
+        /// </summary>
+        public static string hour_ago {
+            get {
+                return ResourceManager.GetString("hour-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hours ago.
+        /// </summary>
+        public static string hours_ago {
+            get {
+                return ResourceManager.GetString("hours-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
             get {
                 return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last seen.
+        /// </summary>
+        public static string last_seen {
+            get {
+                return ResourceManager.GetString("last-seen", resourceCulture);
             }
         }
         
@@ -330,6 +366,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to long time ago.
+        /// </summary>
+        public static string long_time_ago {
+            get {
+                return ResourceManager.GetString("long-time-ago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message forwarding.
         /// </summary>
         public static string message_forwarding {
@@ -341,9 +386,27 @@ namespace FlyMessenger.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Messages.
         /// </summary>
+        public static string messages {
+            get {
+                return ResourceManager.GetString("messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
         public static string messagesCount {
             get {
                 return ResourceManager.GetString("messagesCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes ago.
+        /// </summary>
+        public static string minutes_ago {
+            get {
+                return ResourceManager.GetString("minutes-ago", resourceCulture);
             }
         }
         
@@ -375,20 +438,29 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dialogs not found.
+        /// </summary>
+        public static string noDialogs {
+            get {
+                return ResourceManager.GetString("noDialogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages not found.
+        /// </summary>
+        public static string noMessagesFound {
+            get {
+                return ResourceManager.GetString("noMessagesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not now.
         /// </summary>
         public static string not_yet {
             get {
                 return ResourceManager.GetString("not-yet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notification.
-        /// </summary>
-        public static string notification {
-            get {
-                return ResourceManager.GetString("notification", resourceCulture);
             }
         }
         
@@ -420,6 +492,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users not found.
+        /// </summary>
+        public static string noUsers {
+            get {
+                return ResourceManager.GetString("noUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        public static string online {
+            get {
+                return ResourceManager.GetString("online", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pin.
         /// </summary>
         public static string pin {
@@ -443,6 +533,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string profile {
             get {
                 return ResourceManager.GetString("profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to recently.
+        /// </summary>
+        public static string recently {
+            get {
+                return ResourceManager.GetString("recently", resourceCulture);
             }
         }
         
@@ -497,6 +596,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string select_chat {
             get {
                 return ResourceManager.GetString("select-chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send first message.
+        /// </summary>
+        public static string send_first_message {
+            get {
+                return ResourceManager.GetString("send-first-message", resourceCulture);
             }
         }
         
@@ -591,6 +699,24 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to on this week.
+        /// </summary>
+        public static string this_week {
+            get {
+                return ResourceManager.GetString("this-week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string today {
+            get {
+                return ResourceManager.GetString("today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Two-factor authentication.
         /// </summary>
         public static string two_step {
@@ -602,9 +728,9 @@ namespace FlyMessenger.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Unabled.
         /// </summary>
-        public static string unabled {
+        public static string unable {
             get {
-                return ResourceManager.GetString("unabled", resourceCulture);
+                return ResourceManager.GetString("unable", resourceCulture);
             }
         }
         
@@ -627,11 +753,29 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        public static string users {
+            get {
+                return ResourceManager.GetString("users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write message....
         /// </summary>
         public static string writeMessage {
             get {
                 return ResourceManager.GetString("writeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        public static string yesterday {
+            get {
+                return ResourceManager.GetString("yesterday", resourceCulture);
             }
         }
     }

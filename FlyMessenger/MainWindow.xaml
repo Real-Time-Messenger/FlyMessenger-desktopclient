@@ -18,12 +18,14 @@
         <WindowChrome CaptionHeight="0" UseAeroCaptionButtons="False" />
     </WindowChrome.WindowChrome>
 
+    <!-- Resources -->
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <converters:WidthConverter x:Key="WidthConverter" />
+        <converters:LastActivityConverter x:Key="LastActivityConverter" />
     </Window.Resources>
 
-    <!-- Front end -->
+    <!-- Main Code -->
     <Grid>
         <Grid.Style>
             <Style TargetType="{x:Type Grid}">
@@ -62,7 +64,6 @@
                                 </Style>
                             </uc:TopBarButton.Style>
                         </uc:TopBarButton>
-                        <!-- TODO: Implement new minimize icon -->
                         <uc:TopBarButton
                             TopBarData="M25.4444 10H14.5556C13.6964 10 13 10.4975 13 11.1111V18.8889C13 19.5025 13.6964 20 14.5556 20H25.4444C26.3036 20 27 19.5025 27 18.8889V11.1111C27 10.4975 26.3036 10 25.4444 10Z"
                             PreviewMouseLeftButtonDown="TopBarMaximizeButton_OnMouseUp">
@@ -154,16 +155,34 @@
             <!-- Username copied Tip -->
             <uc:ModalWindow x:Name="UsernameCopiedTip"
                             Style="{StaticResource UsernameCopiedTipStyle}"
-                            Panel.ZIndex="5">
+                            Panel.ZIndex="9">
                 <Frame x:Name="UsernameCopiedTipFrame"
                        NavigationUIVisibility="Hidden"
                        Source="Resources/Settings/Pages/SmallMW/UsernameCopiedTip.xaml" />
             </uc:ModalWindow>
 
+            <!-- Not implemented Tip -->
+            <uc:ModalWindow x:Name="NotImplementedTip"
+                            Style="{StaticResource UsernameCopiedTipStyle}"
+                            Panel.ZIndex="9">
+                <Frame x:Name="NotImplementedTipFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/NotImplementedTip.xaml" />
+            </uc:ModalWindow>
+
+            <!-- Cannot Be Null Tip -->
+            <uc:ModalWindow x:Name="CannotBeNullTip"
+                            Style="{StaticResource UsernameCopiedTipStyle}"
+                            Panel.ZIndex="9">
+                <Frame x:Name="CannotBeNullTipFrame"
+                       NavigationUIVisibility="Hidden"
+                       Source="Resources/Settings/Pages/SmallMW/CannotBeNullTip.xaml" />
+            </uc:ModalWindow>
+
             <!-- Delete account modal window -->
             <uc:ModalWindow x:Name="DeleteAccountModalWindow"
                             Style="{StaticResource ModalWindowStyle}"
-                            Panel.ZIndex="6">
+                            Panel.ZIndex="10">
                 <uc:ModalWindow.Background>
                     <SolidColorBrush Color="Black" Opacity="0.5" />
                 </uc:ModalWindow.Background>
@@ -293,19 +312,28 @@
                 <Grid>
 
                     <!-- Logo -->
-                    <Path
-                        Data="M28.75 3.75C27.553 4.59434 26.2276 5.24013 24.825 5.6625C24.0722 4.79689 23.0717 4.18336 21.9588 3.9049C20.8459 3.62645 19.6744 3.69649 18.6026 4.10556C17.5308 4.51464 16.6106 5.243 15.9662 6.19214C15.3219 7.14129 14.9846 8.26542 15 9.4125V10.6625C12.8033 10.7195 10.6266 10.2323 8.66376 9.24431C6.70093 8.25635 5.0129 6.79829 3.75 5C3.75 5 -1.25 16.25 10 21.25C7.42566 22.9975 4.35895 23.8737 1.25 23.75C12.5 30 26.25 23.75 26.25 9.375C26.2488 9.02681 26.2154 8.67949 26.15 8.3375C27.4258 7.07936 28.326 5.49089 28.75 3.75V3.75Z"
-                        Stroke="{DynamicResource Strongest-Stroke}" StrokeThickness="2" StrokeStartLineCap="round"
-                        StrokeEndLineCap="Round"
-                        StrokeLineJoin="round" Width="30" Height="30" VerticalAlignment="Top" Margin="0 20 0 0" />
+                    <Grid>
+                        <Path
+                            Data="M28.75 3.75C27.553 4.59434 26.2276 5.24013 24.825 5.6625C24.0722 4.79689 23.0717 4.18336 21.9588 3.9049C20.8459 3.62645 19.6744 3.69649 18.6026 4.10556C17.5308 4.51464 16.6106 5.243 15.9662 6.19214C15.3219 7.14129 14.9846 8.26542 15 9.4125V10.6625C12.8033 10.7195 10.6266 10.2323 8.66376 9.24431C6.70093 8.25635 5.0129 6.79829 3.75 5C3.75 5 -1.25 16.25 10 21.25C7.42566 22.9975 4.35895 23.8737 1.25 23.75C12.5 30 26.25 23.75 26.25 9.375C26.2488 9.02681 26.2154 8.67949 26.15 8.3375C27.4258 7.07936 28.326 5.49089 28.75 3.75V3.75Z"
+                            Stroke="{DynamicResource Strongest-Stroke}" StrokeThickness="2" StrokeStartLineCap="round"
+                            StrokeEndLineCap="Round"
+                            StrokeLineJoin="round" Width="30" Height="30" VerticalAlignment="Top"
+                            HorizontalAlignment="Left" Margin="10 20 0 0" />
+                        <TextBlock Text="Fly Messenger"
+                                   FontFamily="{StaticResource Alata}"
+                                   FontSize="24"
+                                   Foreground="{DynamicResource Stronger-Stroke}"
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                                   Margin="63 18 0 0" />
+                    </Grid>
 
                     <!-- Menu buttons -->
                     <StackPanel Height="334">
                         <uc:ChatMenuButton Title="{x:Static language:lang.chat}"
                                            x:Name="ChatChatMenuButton"
                                            Data="M17.5 9.58333C17.5029 10.6832 17.2459 11.7682 16.75 12.75C16.162 13.9265 15.2581 14.916 14.1395 15.6077C13.021 16.2995 11.7319 16.6662 10.4167 16.6667C9.31678 16.6695 8.23176 16.4126 7.25 15.9167L2.5 17.5L4.08333 12.75C3.58744 11.7682 3.33047 10.6832 3.33333 9.58333C3.33384 8.26813 3.70051 6.97904 4.39227 5.86046C5.08402 4.74188 6.07355 3.83797 7.25 3.25C8.23176 2.75411 9.31678 2.49713 10.4167 2.5H10.8333C12.5703 2.59583 14.2109 3.32897 15.441 4.55905C16.671 5.78913 17.4042 7.42971 17.5 9.16667V9.58333Z"
-                                           ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="ChatChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           ForegroundColor="{DynamicResource Normal-Stroke}">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -442,6 +470,38 @@
                             </uc:ChatMenuButton.Style>
                         </uc:ChatMenuButton>
                     </StackPanel>
+
+                    <Button Style="{DynamicResource UcButton}"
+                            Width="280" Height="48" Cursor="Hand"
+                            VerticalAlignment="Bottom"
+                            PreviewMouseLeftButtonUp="Settings_Profile">
+                        <Grid>
+                            <Ellipse Width="34"
+                                     Height="34"
+                                     Margin="8 0 0 0"
+                                     VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Ellipse.Fill>
+                                    <ImageBrush x:Name="ProfilePhoto"
+                                                RenderOptions.BitmapScalingMode="Fant"
+                                                Stretch="UniformToFill"
+                                                ImageSource="{Binding MyProfile.PhotoUrl}" />
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock FontFamily="{StaticResource Alata}"
+                                       FontSize="16"
+                                       FontWeight="Regular"
+                                       Foreground="{DynamicResource Normal-Stroke}"
+                                       VerticalAlignment="Center"
+                                       Margin="62 0 0 0">
+                                <Run
+                                    Text="{Binding Source={StaticResource UserFirstNameDataProvider},
+                                     Path=MyProfile.FirstName}" />
+                                <Run
+                                    Text="{Binding Source={StaticResource UserLastNameDataProvider},
+                                     Path=MyProfile.LastName}" />
+                            </TextBlock>
+                        </Grid>
+                    </Button>
                 </Grid>
 
                 <!-- Triggers for SideBar -->
@@ -525,10 +585,9 @@
                                                HorizontalAlignment="Stretch" />
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="15 0 0 0" HorizontalAlignment="Right">
-                                    <Border Width="40" Height="40" Background="{DynamicResource MessagesCount-Border}"
-                                            CornerRadius="20">
+                                    <Border Style="{StaticResource UnreadMessagesBorderStyle}">
                                         <TextBlock
-                                            Text="{Binding UnreadedMessagesCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                            Text="{Binding UnreadMessagesCount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                             FontFamily="{StaticResource Alata}"
                                             FontSize="20" FontWeight="Regular" VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
@@ -564,7 +623,8 @@
                                              Converter={StaticResource WidthConverter}, 
                                              ElementName=HeaderPanel}"
                                              CaretBrush="{DynamicResource SearchBar-Foreground}"
-                                             Text="{Binding SearchBoxText}">
+                                             PreviewKeyUp="SearchBox_PreviewKeyUp"
+                                             Visibility="Visible">
                                         <TextBox.InputBindings>
                                             <KeyBinding Key="Escape" Command="{Binding ClearSearchBox}" />
                                         </TextBox.InputBindings>
@@ -599,39 +659,97 @@
                                             </Style>
                                         </TextBox.Style>
                                     </TextBox>
-                                    <Button Grid.Column="1" Margin="0 0 14 0" Padding="0 0 0 0"
+                                    <TextBox Grid.Column="1"
+                                             x:Name="SearchBoxSecond"
+                                             Foreground="{DynamicResource SearchBar-Foreground}"
+                                             BorderThickness="0"
+                                             FontFamily="{StaticResource Alata}"
+                                             FontSize="14" FontWeight="Regular"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Stretch"
+                                             Margin="0 0 0 0" Padding="0 0 38 0"
+                                             MaxWidth="{Binding ActualWidth, 
+                                             Converter={StaticResource WidthConverter}, 
+                                             ElementName=HeaderPanel}"
+                                             CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                             PreviewKeyUp="SearchBoxSecond_PreviewKeyUp"
+                                             Visibility="Collapsed">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Key="Escape" Command="{Binding ClearSearchBox}" />
+                                        </TextBox.InputBindings>
+                                        <TextBox.Style>
+                                            <Style TargetType="TextBox">
+                                                <Setter Property="Background" Value="{DynamicResource SearchBar}" />
+                                                <Style.Resources>
+                                                    <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                                 AlignmentY="Center" Stretch="None">
+                                                        <VisualBrush.Visual>
+                                                            <Label x:Name="HintLabel"
+                                                                   Content="{x:Static language:lang.search}"
+                                                                   FontFamily="{StaticResource Alata}"
+                                                                   FontSize="14" FontWeight="Regular"
+                                                                   Foreground="{DynamicResource SearchBar-Hint-Foreground}"
+                                                                   VerticalAlignment="Center"
+                                                                   VerticalContentAlignment="Center"
+                                                                   Margin="0 0 0 0" Padding="4 0 0 0" />
+                                                        </VisualBrush.Visual>
+                                                    </VisualBrush>
+                                                </Style.Resources>
+                                                <Style.Triggers>
+                                                    <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                        <Setter Property="Background"
+                                                                Value="{StaticResource CueBannerBrush}" />
+                                                    </Trigger>
+                                                    <Trigger Property="Text" Value="{x:Null}">
+                                                        <Setter Property="Background"
+                                                                Value="{StaticResource CueBannerBrush}" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBox.Style>
+                                    </TextBox>
+                                    <Button Grid.Column="1" x:Name="ClearSearchBoxButton"
+                                            Margin="0 0 14 0" Padding="0 0 0 0"
                                             VerticalAlignment="Center" HorizontalAlignment="Right"
                                             OverridesDefaultStyle="True"
+                                            Cursor="Hand"
                                             Command="{Binding ClearSearchBox}">
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="Transparent" />
                                                 <Setter Property="BorderBrush" Value="Transparent" />
                                                 <Setter Property="BorderThickness" Value="0" />
-                                                <Setter Property="Visibility" Value="Visible" />
+                                                <Setter Property="Visibility" Value="Collapsed" />
                                                 <Setter Property="Padding" Value="0" />
                                                 <Setter Property="Margin" Value="0" />
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="Button">
-                                                            <Border Background="Transparent"
+                                                            <Border x:Name="border"
+                                                                    Background="Transparent"
                                                                     BorderBrush="Transparent"
                                                                     BorderThickness="0"
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    CornerRadius="16"
                                                                     Padding="0"
                                                                     Margin="0">
                                                                 <Path Data="M 0,0 10,10 M 10,0 0,10"
+                                                                      VerticalAlignment="Center"
+                                                                      HorizontalAlignment="Center"
                                                                       Stroke="{DynamicResource SearchBar-Foreground}"
-                                                                      StrokeThickness="2" />
+                                                                      StrokeThickness="2"
+                                                                      Margin="6" />
                                                             </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" TargetName="border"
+                                                                            Value="{DynamicResource ChatBox-MouseOver}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
                                                         </ControlTemplate>
                                                     </Setter.Value>
                                                 </Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}"
-                                                                 Value="">
-                                                        <Setter Property="Visibility" Value="Collapsed" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
                                             </Style>
                                         </Button.Style>
                                     </Button>
@@ -646,37 +764,300 @@
                             </Border>
                         </StackPanel>
                     </Border>
-                    <ScrollViewer Grid.Row="1" Margin="0 0 0 0">
-                        <StackPanel HorizontalAlignment="Stretch">
-                            <ListView ItemsSource="{Binding Dialogs}"
-                                      ItemContainerStyle="{StaticResource ChatBox}"
-                                      SelectedItem="{Binding SelectedDialog}"
-                                      PreviewMouseLeftButtonUp="OnSelectedChat"
-                                      BorderBrush="Transparent"
-                                      HorizontalAlignment="Stretch"
-                                      BorderThickness="0"
-                                      MinWidth="200"
-                                      MaxWidth="350"
-                                      Margin="20 0 8 0"
-                                      Padding="0">
-                                <ListView.Template>
-                                    <ControlTemplate>
-                                        <ItemsPresenter />
-                                    </ControlTemplate>
-                                </ListView.Template>
-                            </ListView>
-                            <TextBlock
-                                Text="{x:Static language:lang.noChats}"
-                                FontFamily="{StaticResource Alata}"
-                                FontSize="14" FontWeight="Regular"
-                                Foreground="{DynamicResource Normal-Stroke}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="Wrap"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                Visibility="{Binding NoMessagesVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                Margin="0 20 0 0" Padding="0" />
-                        </StackPanel>
+                    <ScrollViewer x:Name="DialogsScroll" Grid.Row="1" Margin="0 0 0 0">
+                        <Grid>
+                            <StackPanel x:Name="DialogsPanel"
+                                        HorizontalAlignment="Stretch"
+                                        Visibility="Visible">
+                                <ListView x:Name="ChatBoxListView"
+                                          ItemsSource="{Binding Dialogs}"
+                                          ItemContainerStyle="{StaticResource ChatBox}"
+                                          SelectedItem="{Binding SelectedDialog}"
+                                          PreviewMouseLeftButtonUp="OnSelectedChat"
+                                          BorderBrush="Transparent"
+                                          HorizontalAlignment="Stretch"
+                                          BorderThickness="0"
+                                          MinWidth="200"
+                                          MaxWidth="350"
+                                          Margin="20 0 8 0"
+                                          Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noChats}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding NoMessagesVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 20 0 0" Padding="0" />
+                            </StackPanel>
+                            <StackPanel x:Name="SearchAllPanel"
+                                        HorizontalAlignment="Stretch"
+                                        Visibility="Collapsed">
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.dialogues}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding DialogsInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource ChatBox}"
+                                    SelectedItem="{Binding SelectedDialog}"
+                                    PreviewMouseLeftButtonUp="OnSelectedChat"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noDialogs}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding DialogsNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.users}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding UsersInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource UserBox}"
+                                    SelectedItem="{Binding SelectedUser}"
+                                    PreviewMouseLeftButtonUp="OnSelectedUser"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noUsers}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding UsersNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.messages}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding MessagesInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
+                                    SelectedItem="{Binding SelectedDialog}"
+                                    PreviewMouseLeftButtonUp="OnSelectedMessage"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noMessagesFound}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding MessagesNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                            </StackPanel>
+                            <StackPanel x:Name="SearchInChatPanel"
+                                        HorizontalAlignment="Stretch"
+                                        Visibility="Collapsed">
+                                <Border Background="{DynamicResource Main}"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.users}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <Grid Height="60" VerticalAlignment="Center" Margin="0 0 10 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Ellipse Grid.Column="0"
+                                             Width="34"
+                                             Height="34"
+                                             Margin="8 0 0 0"
+                                             VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Ellipse.Fill>
+                                            <ImageBrush RenderOptions.BitmapScalingMode="Fant"
+                                                        Stretch="UniformToFill"
+                                                        ImageSource="{Binding SelectedDialogInSearch.PhotoUrl}" />
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                    <TextBlock Grid.Column="1"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="8 0 0 0" Padding="0 6">
+                                        <Run Text="{Binding SelectedDialogInSearch.FirstName}" />
+                                        <Run Text=" " />
+                                        <Run Text="{Binding SelectedDialogInSearch.LastName}" />
+                                    </TextBlock>
+                                    <Button Grid.Column="2"
+                                            OverridesDefaultStyle="True"
+                                            Margin="8 0 0 0"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Right"
+                                            Cursor="Hand"
+                                            Command="{Binding ClearSearchBox}">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Border x:Name="border"
+                                                                    Background="Transparent"
+                                                                    BorderBrush="Transparent"
+                                                                    BorderThickness="1"
+                                                                    Width="30"
+                                                                    Height="30"
+                                                                    CornerRadius="20">
+                                                                <Path Data="M 0,0 10,10 M 10,0 0,10"
+                                                                      Stroke="{DynamicResource Normal-Stroke}"
+                                                                      StrokeThickness="2"
+                                                                      Stretch="Uniform"
+                                                                      HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"
+                                                                      Margin="6" />
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter TargetName="border" Property="Background"
+                                                                            Value="{DynamicResource ActiveChat-Search-MouseOver}" />
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.messages}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding MessagesInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
+                                    SelectedItem="{Binding SelectedDialog}"
+                                    PreviewMouseLeftButtonUp="OnSelectedMessage"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noMessagesFound}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding MessagesNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                            </StackPanel>
+                        </Grid>
                     </ScrollViewer>
                 </Grid>
 
@@ -731,6 +1112,7 @@
                                     <Ellipse Grid.Column="0" Width="50" Height="50">
                                         <Ellipse.Fill>
                                             <ImageBrush Stretch="UniformToFill"
+                                                        RenderOptions.BitmapScalingMode="Fant"
                                                         ImageSource="{Binding SelectedDialog.User.PhotoUrl}" />
                                         </Ellipse.Fill>
                                     </Ellipse>
@@ -747,12 +1129,31 @@
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
-                                        <TextBlock Text="{Binding SelectedDialog.User.LastActivity}"
-                                                   FontFamily="{StaticResource Alata}"
-                                                   Foreground="{DynamicResource Strong-Stroke}"
-                                                   FontSize="10"
-                                                   FontWeight="Regular" VerticalAlignment="Center"
-                                                   HorizontalAlignment="Stretch" />
+                                        <TextBlock
+                                            x:Name="LastActivityTextBlock"
+                                            FontFamily="{StaticResource Alata}"
+                                            Foreground="{DynamicResource Strong-Stroke}"
+                                            FontSize="10"
+                                            FontWeight="Regular" VerticalAlignment="Center"
+                                            HorizontalAlignment="Stretch">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding SelectedDialog.User.IsOnline}"
+                                                                     Value="True">
+                                                            <Setter Property="Text"
+                                                                    Value="{x:Static language:lang.online}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding SelectedDialog.User.IsOnline}"
+                                                                     Value="False">
+                                                            <Setter Property="Text"
+                                                                    Value="{Binding SelectedDialog.User.LastActivity, 
+                                                                    Converter={StaticResource LastActivityConverter}}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="0 0 20 0" HorizontalAlignment="Right">
@@ -801,14 +1202,62 @@
                         <Border Grid.Row="1"
                                 Background="{DynamicResource Main}">
                             <Grid>
-
+                                <!-- Messages inside Dialog -->
+                                <ScrollViewer x:Name="MessagesScrollViewer"
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Disabled"
+                                              VerticalAlignment="Stretch"
+                                              HorizontalAlignment="Stretch"
+                                              ScrollChanged="HandleScrollChanged">
+                                    <StackPanel HorizontalAlignment="Stretch"
+                                                Margin="0 10 0 0">
+                                        <uc:LoadingSpinner
+                                            Visibility="{Binding MessagesLoadingVisibility,
+                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                                        Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            Margin="0 10"
+                                            HorizontalAlignment="Center" />
+                                        <ListView x:Name="MessagesListView"
+                                                  ItemsSource="{Binding SelectedDialog.Messages}"
+                                                  ItemContainerStyle="{StaticResource DialogMessagesStyle}"
+                                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                                  BorderBrush="Transparent"
+                                                  HorizontalAlignment="Stretch"
+                                                  BorderThickness="0"
+                                                  Padding="0">
+                                            <ListView.Template>
+                                                <ControlTemplate>
+                                                    <ItemsPresenter />
+                                                </ControlTemplate>
+                                            </ListView.Template>
+                                        </ListView>
+                                    </StackPanel>
+                                </ScrollViewer>
+                                <!-- Button anchor for getting down -->
+                                <Button x:Name="ScrollDownButton"
+                                        Style="{StaticResource ScrollDownButtonStyle}"
+                                        Visibility="{Binding ScrollDownButtonVisibility, 
+                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                                        Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Width="50" Height="50"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"
+                                        Margin="0 0 10 10"
+                                        Cursor="Hand"
+                                        PreviewMouseLeftButtonUp="ScrollDownButton_OnPreviewMouseLeftButtonUp">
+                                    <Image Width="16" Height="16"
+                                           Source="{DynamicResource ActiveChat-ScrollDown}" />
+                                </Button>
                             </Grid>
                         </Border>
                         <Border Grid.Row="2"
                                 Background="{DynamicResource ThemeColor}"
                                 BorderBrush="{DynamicResource Main}"
                                 BorderThickness="1 0 0 0"
-                                Padding="0 6 0 6">
+                                Padding="0 6 0 6"
+                                Visibility="{Binding SelectedDialogTextBoxVisibility, 
+                                        UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
+                                        Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
@@ -871,8 +1320,7 @@
                                          VerticalContentAlignment="Center"
                                          TextWrapping="Wrap"
                                          CaretBrush="{DynamicResource Strong-Stroke}"
-                                         KeyUp="OnReleaseKeyUp"
-                                         KeyDown="OnPressKeyDown">
+                                         KeyUp="OnReleaseKeyUp">
                                     <TextBox.Style>
                                         <Style TargetType="TextBox">
                                             <Setter Property="Background" Value="Transparent" />

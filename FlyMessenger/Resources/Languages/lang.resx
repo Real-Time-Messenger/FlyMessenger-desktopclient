@@ -14,9 +14,6 @@
     <data name="chat" xml:space="preserve">
         <value>Chatt</value>
     </data>
-    <data name="chats" xml:space="preserve">
-        <value>Chattid</value>
-    </data>
     <data name="conservations" xml:space="preserve">
         <value>Vestlused</value>
     </data>
@@ -40,9 +37,6 @@
     </data>
     <data name="logout" xml:space="preserve">
         <value>Logi välja</value>
-    </data>
-    <data name="notification" xml:space="preserve">
-        <value>Teade</value>
     </data>
     <data name="notifications" xml:space="preserve">
         <value>Teated</value>
@@ -173,7 +167,7 @@
     <data name="message-forwarding" xml:space="preserve">
         <value>Sõnumite edastamine</value>
     </data>
-    <data name="unabled" xml:space="preserve">
+    <data name="unable" xml:space="preserve">
         <value>Võimatu</value>
     </data>
     <data name="g-and-c" xml:space="preserve">
@@ -202,5 +196,59 @@
     </data>
     <data name="select-chat" xml:space="preserve">
         <value>Valige vestlus</value>
+    </data>
+    <data name="today" xml:space="preserve">
+        <value>Täna</value>
+    </data>
+    <data name="yesterday" xml:space="preserve">
+        <value>Eile</value>
+    </data>
+    <data name="last-seen" xml:space="preserve">
+        <value>Viimati nähtud</value>
+    </data>
+    <data name="minutes-ago" xml:space="preserve">
+        <value>minutit tagasi</value>
+    </data>
+    <data name="hour-ago" xml:space="preserve">
+        <value>tund tagasi</value>
+    </data>
+    <data name="hours-ago" xml:space="preserve">
+        <value>tundi tagasi</value>
+    </data>
+    <data name="this-week" xml:space="preserve">
+        <value>sellel nädalal</value>
+    </data>
+    <data name="recently" xml:space="preserve">
+        <value>hiljuti</value>
+    </data>
+    <data name="long-time-ago" xml:space="preserve">
+        <value>kaua aega tagasi</value>
+    </data>
+    <data name="cannotBeNull" xml:space="preserve">
+        <value>Ei saa olla tühi</value>
+    </data>
+    <data name="send-first-message" xml:space="preserve">
+        <value>Saada esimene sõnum</value>
+    </data>
+    <data name="online" xml:space="preserve">
+        <value>Võrgus</value>
+    </data>
+    <data name="dialogues" xml:space="preserve">
+        <value>Dialoogid</value>
+    </data>
+    <data name="users" xml:space="preserve">
+        <value>Kasutajad</value>
+    </data>
+    <data name="messages" xml:space="preserve">
+        <value>Sõnumid</value>
+    </data>
+    <data name="noDialogs" xml:space="preserve">
+        <value>Dialoogi ei leitud</value>
+    </data>
+    <data name="noMessagesFound" xml:space="preserve">
+        <value>Sõnumeid ei leitud</value>
+    </data>
+    <data name="noUsers" xml:space="preserve">
+        <value>Kasutajaid ei leitud</value>
     </data>
 </root>

@@ -7,7 +7,7 @@ using FlyMessenger.Controllers;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
-    public partial class EmailEditPage : Page
+    public partial class EmailEditPage
     {
         public EmailEditPage()
         {
@@ -32,9 +32,9 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         private void OnEmailEditCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
-            var mainWindow = (MainWindow) Application.Current.MainWindow;
+            if (Application.Current.MainWindow is not MainWindow mainWindow) return;
             
-            closeAnimation.Completed += (o, args) =>
+            closeAnimation.Completed += (_, _) =>
             {
                 mainWindow.EmailEditModalWindow.IsOpen = false;
             };
@@ -45,6 +45,31 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         private void OnEmailEditSaveClick(object sender, RoutedEventArgs e)
         {
             var email = EmailEditTextBox.Text;
+            
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                var mainWindow = (MainWindow) Application.Current.MainWindow;
+                if (mainWindow == null) return;
+                if (mainWindow.CannotBeNullTip.IsOpen) return;
+
+                mainWindow.CannotBeNullTip.IsOpen = true;
+
+                var openAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
+                var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.2))
+                {
+                    BeginTime = TimeSpan.FromSeconds(2)
+                };
+
+                openAnimation.Completed += (_, _) =>
+                {
+                    mainWindow.CannotBeNullTip.BeginAnimation(OpacityProperty, closeAnimation);
+                    EmailEditTextBox.Text = ControllerBase.UserController.GetMyProfile().Email;
+                };
+                closeAnimation.Completed += (_, _) => mainWindow.CannotBeNullTip.IsOpen = false;
+
+                mainWindow.CannotBeNullTip.BeginAnimation(OpacityProperty, openAnimation);
+                return;
+            }
             
             ControllerBase.UserController.EditMyProfileEmail(email);
             

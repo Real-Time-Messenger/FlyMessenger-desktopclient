@@ -1,25 +1,23 @@
 ﻿using System;
-using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Shapes;
+using FlyMessenger.Controllers;
 using FlyMessenger.Core.Utils;
-using FlyMessenger.MVVM.ViewModels;
+using FlyMessenger.MVVM.Model;
 using FlyMessenger.Properties;
+using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
 using FlyMessenger.Resources.Settings.Pages;
 using FlyMessenger.UserControls;
-using Application = System.Windows.Application;
-using Button = System.Windows.Controls.Button;
+using Newtonsoft.Json;
 using MessageBox = System.Windows.MessageBox;
 
 namespace FlyMessenger
@@ -27,51 +25,61 @@ namespace FlyMessenger
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
+        public readonly NotifyIconManager NotifyIconManager = new NotifyIconManager();
         public static ImageBrush ProfilePhotoDefaultPage { get; set; }
+        public static ImageBrush ProfilePhotoMainWindow { get; set; }
         public static ProfileButtons LastActivityTextData { get; set; }
-        
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            
-            var langCode = Settings.Default.LanguageCode;
-            Thread.CurrentThread.CurrentUICulture = langCode != "" ? new CultureInfo(langCode) : new CultureInfo("");
-            
-            var dict = new ResourceDictionary
+            var processName = Process.GetCurrentProcess().ProcessName;
+            if (Process.GetProcessesByName(processName).Length > 1)
             {
-                Source = new Uri("Resources/Colors/Light.xaml", UriKind.Relative)
-            };
-            Resources.MergedDictionaries.Add(dict);
-            ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            
-            _notifyIconManager.InitializeNotifyIcon();
+                Environment.Exit(0);
+            }
+            else
+            {
+                var langCode = Settings.Default.LanguageCode;
+                Thread.CurrentThread.CurrentUICulture = langCode != "" ? new CultureInfo(langCode) : new CultureInfo("");
 
-            // if (FlyMessenger.Properties.Settings.Default.IsFirstRun)
-            // {
-            //     var firstRunWindow = new FirstRunWindow();
-            //     firstRunWindow.ShowDialog();
-            // }
-            // else
-            // {
-            //     var loginWindow = new LoginWindow();
-            //     loginWindow.ShowDialog();
-            // }
+                var curTheme = Settings.Default.CurrentTheme;
+                var dict = new ResourceDictionary
+                {
+                    Source = new Uri("Resources/Colors/"+ curTheme +".xaml", UriKind.Relative)
+                };
+                Resources.MergedDictionaries.Add(dict);
+                ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+                NotifyIconManager.InitializeNotifyIcon();
+
+                // if (FlyMessenger.Properties.Settings.Default.IsFirstRun)
+                // {
+                //     var firstRunWindow = new FirstRunWindow();
+                //     firstRunWindow.ShowDialog();
+                // }
+                // else
+                // {
+                //     var loginWindow = new LoginWindow();
+                //     loginWindow.ShowDialog();
+                // }
+            }
+            
+            base.OnStartup(e);
         }
 
         public static void ToggleLanguage(object? sender, EventArgs e)
         {
-            var window = (MainWindow) sender;
-            if (window == null || string.IsNullOrEmpty(window.LangSwitch)) return;
-            
+            if (sender is not MainWindow window || string.IsNullOrEmpty(window.LangSwitch)) return;
+
             var language = window.LangSwitch;
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(language);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(language);
             Settings.Default.LanguageCode = language;
             Settings.Default.Save();
         }
-        
+
         public static void RestartApp()
         {
             var processName = Process.GetCurrentProcess().ProcessName;
@@ -79,29 +87,130 @@ namespace FlyMessenger
             Current.Shutdown();
         }
 
-        public App() : base()
+        public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
         }
 
-        void OnDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        private static void OnDispatcherUnhandledException(object sender,
+            System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(
-                "Unhandled exception occurred: \n" + e.Exception,
-                "Error",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error
-            );
+            if (e.Exception is not null)
+            {
+                MessageBox.Show(
+                    "Unhandled exception occurred: \n" + e.Exception,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
 
         private void OnCloseSessionClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var session = ((SessionsModel)((Button)sender).DataContext).Id;
+            var message = new DestroySessionModel
+            {
+                type = "DESTROY_SESSION",
+                sessionId = session
+            };
+
+            if (Current.MainWindow is not MainWindow window) return;
+            window.WebSocketClient.Send(JsonConvert.SerializeObject(message));
+
+            var mainViewModel = FlyMessenger.MainWindow.MainViewModel;
+            mainViewModel.SessionsCount--;
+
+            if (SettingsManager.CurrentPage.Page is not SessionManagement sessionManagement) return;
+            mainViewModel.MyProfile.Sessions.Remove(
+                mainViewModel.MyProfile.Sessions.FirstOrDefault(x => x?.Id == session)
+            );
+            sessionManagement.SessionsList.ItemsSource = mainViewModel.MyProfile.Sessions;
+            sessionManagement.SessionsCountTextBlock.Text =
+                mainViewModel.MyProfile.Sessions.Count + " " + lang.sessions;
         }
 
         private void OnUnblockUserClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var userId = ((BlackListModel)((Button)sender).DataContext).Id;
+            var result = ControllerBase.UserController.BlockOrUnblockUser(userId);
+            FlyMessenger.MainWindow.MainViewModel.MyProfile.BlackList = result.BlackList;
+            FlyMessenger.MainWindow.MainViewModel.BlockedUsersCount = result.BlackList.Count;
+            var dialog = FlyMessenger.MainWindow.MainViewModel.Dialogs.FirstOrDefault(d => d.User.Id == userId);
+            if (dialog != null)
+            {
+                dialog.User.IsBlocked = result.IsBlocked;
+                FlyMessenger.MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !result.IsBlocked;
+            }
+
+            if (Current.MainWindow is not MainWindow window) return;
+            window.ChatBoxListView.Items.Refresh();
+
+            if (SettingsManager.CurrentPage.Page is not BlockedUsersPage blockedUsersPage) return;
+            blockedUsersPage.BlackListView.ItemsSource = result.BlackList;
+            blockedUsersPage.BlockedUsersCountTextBlock.Text = result.BlackList.Count + " " + lang.blocked_users_second;
+        }
+
+        private void DialogPinState(object sender, MouseButtonEventArgs e)
+        {
+            var dialog = (DialogModel)((MenuItem)sender).DataContext;
+            ControllerBase.DialogController.EditDialog(
+                dialog.Id,
+                new DialogInEdit { IsPinned = !dialog.IsPinned }
+            );
+            dialog.IsPinned = !dialog.IsPinned;
+
+            if (Current.MainWindow is not MainWindow window) return;
+            window.ChatBoxListView.Items.Refresh();
+        }
+
+        private void DialogNotificationsState(object sender, MouseButtonEventArgs e)
+        {
+            var dialog = (DialogModel)((MenuItem)sender).DataContext;
+            ControllerBase.DialogController.EditDialog(
+                dialog.Id,
+                new DialogInEdit { IsNotificationsEnabled = !dialog.IsNotificationsEnabled }
+            );
+            dialog.IsNotificationsEnabled = !dialog.IsNotificationsEnabled;
+            if (Current.MainWindow is not MainWindow window) return;
+            window.ChatBoxListView.Items.Refresh();
+        }
+
+        private void DialogSoundState(object sender, MouseButtonEventArgs e)
+        {
+            var dialog = (DialogModel)((MenuItem)sender).DataContext;
+            ControllerBase.DialogController.EditDialog(
+                dialog.Id,
+                new DialogInEdit { IsSoundEnabled = !dialog.IsSoundEnabled }
+            );
+            dialog.IsSoundEnabled = !dialog.IsSoundEnabled;
+            if (Current.MainWindow is not MainWindow window) return;
+            window.ChatBoxListView.Items.Refresh();
+        }
+
+        private void DialogBlockState(object sender, MouseButtonEventArgs e)
+        {
+            var userId = ((DialogModel)((MenuItem)sender).DataContext).User.Id;
+            var result = ControllerBase.UserController.BlockOrUnblockUser(userId);
+            FlyMessenger.MainWindow.MainViewModel.MyProfile.BlackList = result.BlackList;
+            FlyMessenger.MainWindow.MainViewModel.BlockedUsersCount = result.BlackList.Count;
+            var dialog = FlyMessenger.MainWindow.MainViewModel.Dialogs.FirstOrDefault(d => d.User.Id == userId);
+            if (dialog != null)
+            {
+                dialog.User.IsBlocked = result.IsBlocked;
+                FlyMessenger.MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !result.IsBlocked;
+            }
+            if (Current.MainWindow is not MainWindow window) return;
+            window.ChatBoxListView.Items.Refresh();
+        }
+
+        private void DialogDelete(object sender, MouseButtonEventArgs e)
+        {
+            if (Current.MainWindow is not MainWindow window) return;
+            var listView = window.ChatBoxListView;
+            ControllerBase.DialogController.DeleteDialog(((DialogModel)((MenuItem)sender).DataContext).Id);
+            FlyMessenger.MainWindow.MainViewModel.Dialogs.Remove((DialogModel)((MenuItem)sender).DataContext);
+            listView.Items.Refresh();
         }
     }
 }

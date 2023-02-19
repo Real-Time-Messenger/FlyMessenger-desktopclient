@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="chats" xml:space="preserve">
-    <value>Chats</value>
-  </data>
   <data name="chat" xml:space="preserve">
     <value>Chat</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="notifications" xml:space="preserve">
     <value>Notifications</value>
-  </data>
-  <data name="notification" xml:space="preserve">
-    <value>Notification</value>
   </data>
   <data name="sound" xml:space="preserve">
     <value>Sound</value>
@@ -279,7 +273,7 @@
   <data name="message-forwarding" xml:space="preserve">
     <value>Message forwarding</value>
   </data>
-  <data name="unabled" xml:space="preserve">
+  <data name="unable" xml:space="preserve">
     <value>Unabled</value>
   </data>
   <data name="g-and-c" xml:space="preserve">
@@ -308,5 +302,59 @@
   </data>
   <data name="select-chat" xml:space="preserve">
     <value>Choose a chat</value>
+  </data>
+  <data name="today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="last-seen" xml:space="preserve">
+    <value>Last seen</value>
+  </data>
+  <data name="minutes-ago" xml:space="preserve">
+    <value>minutes ago</value>
+  </data>
+  <data name="hour-ago" xml:space="preserve">
+    <value>hour ago</value>
+  </data>
+  <data name="hours-ago" xml:space="preserve">
+    <value>hours ago</value>
+  </data>
+  <data name="this-week" xml:space="preserve">
+    <value>on this week</value>
+  </data>
+  <data name="recently" xml:space="preserve">
+    <value>recently</value>
+  </data>
+  <data name="long-time-ago" xml:space="preserve">
+    <value>long time ago</value>
+  </data>
+  <data name="cannotBeNull" xml:space="preserve">
+    <value>Cannot be empty</value>
+  </data>
+  <data name="send-first-message" xml:space="preserve">
+    <value>Send first message</value>
+  </data>
+  <data name="online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="dialogues" xml:space="preserve">
+    <value>Dialogues</value>
+  </data>
+  <data name="users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="noDialogs" xml:space="preserve">
+    <value>Dialogs not found</value>
+  </data>
+  <data name="noMessagesFound" xml:space="preserve">
+    <value>Messages not found</value>
+  </data>
+  <data name="noUsers" xml:space="preserve">
+    <value>Users not found</value>
   </data>
 </root>

@@ -8,7 +8,12 @@ namespace FlyMessenger.Controllers
     {
         public async Task<SearchModel> Search(string query)
         {
-            return await GetAsync<SearchModel>($"/search/{query}");
+            return await GetAsync<SearchModel>($"/search?query={query}");
+        }
+        
+        public async Task<SearchModel> SearchInDialog(string query, string id)
+        {
+            return await GetAsync<SearchModel>($"/search/{id}?query={query}");
         }
     }
 }

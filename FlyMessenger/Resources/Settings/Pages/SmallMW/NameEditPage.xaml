@@ -100,6 +100,7 @@
                   HorizontalAlignment="Right">
                 <DockPanel>
                     <Button DockPanel.Dock="Right"
+                            x:Name="NameEditSaveButton"
                             Style="{StaticResource ConfirmBlueButton}"
                             Margin="0 0 20 0"
                             Click="OnNameEditSaveClick">

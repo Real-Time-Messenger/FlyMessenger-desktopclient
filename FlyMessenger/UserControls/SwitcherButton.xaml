@@ -66,6 +66,9 @@
                             <Trigger Property="IsChecked" Value="False">
                                 <Setter TargetName="SliderBorder" Property="Background" Value="#E86C6C" />
                             </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="SliderBorder" Property="Background" Value="{DynamicResource Green-Switcher}" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>

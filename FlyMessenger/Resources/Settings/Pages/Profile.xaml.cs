@@ -22,8 +22,8 @@ namespace FlyMessenger.Resources.Settings.Pages
 
         private void OpenNameEditModalWindow(object sender, MouseButtonEventArgs e)
         {
-            var window = (MainWindow?)Application.Current.MainWindow;
-            window!.NameEditModalWindow.IsOpen = true;
+            if (Application.Current.MainWindow is not MainWindow window) return;
+            window.NameEditModalWindow.IsOpen = true;
             
             var openAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.1));
             window.NameEditModalWindow.BeginAnimation(OpacityProperty, openAnimation);
@@ -75,6 +75,7 @@ namespace FlyMessenger.Resources.Settings.Pages
             
             ProfilePhotoProfilePage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
             App.ProfilePhotoDefaultPage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
+            App.ProfilePhotoMainWindow.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
         }
     }
 }
