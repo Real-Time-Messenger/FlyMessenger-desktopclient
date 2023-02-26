@@ -22,11 +22,10 @@ namespace FlyMessenger.Core
         private void Connect()
         {
             if (_webSocket != null && _webSocket.State == WebSocketState.Open && _isConnected) return;
-
             _webSocket = new WebSocket("ws://localhost:8000/ws?token=" + HttpClientBase.GetToken())
             {
                 EnableAutoSendPing = true,
-                AutoSendPingInterval = 10,
+                AutoSendPingInterval = 30
             };
             _webSocket.Opened += OnWebSocketOpened;
             _webSocket.Closed += OnWebSocketClosed;
@@ -103,7 +102,6 @@ namespace FlyMessenger.Core
                                 window.CloseWindow();
                             }
                         );
-                        return;
                     }
                     break;
             }

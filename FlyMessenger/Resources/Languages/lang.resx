@@ -14,7 +14,7 @@
     <data name="chat" xml:space="preserve">
         <value>Chatt</value>
     </data>
-    <data name="conservations" xml:space="preserve">
+    <data name="conversations" xml:space="preserve">
         <value>Vestlused</value>
     </data>
     <data name="english" xml:space="preserve">
@@ -122,7 +122,7 @@
     <data name="email" xml:space="preserve">
         <value>E-post</value>
     </data>
-    <data name="login-Name" xml:space="preserve">
+    <data name="login-name" xml:space="preserve">
         <value>Kasutajanimi</value>
     </data>
     <data name="delete-acc-question" xml:space="preserve">
@@ -250,5 +250,143 @@
     </data>
     <data name="noUsers" xml:space="preserve">
         <value>Kasutajaid ei leitud</value>
+    </data>
+    <data name="photo" xml:space="preserve">
+        <value>Pilt</value>
+    </data>
+    <data name="close" xml:space="preserve">
+        <value>Sulge</value>
+    </data>
+    <data name="login" xml:space="preserve">
+        <value>Logi sisse</value>
+    </data>
+    <data name="username" xml:space="preserve">
+        <value>Kasutajanimi</value>
+    </data>
+    <data name="your-password" xml:space="preserve">
+        <value>Teie parool</value>
+    </data>
+    <data name="username-or-email" xml:space="preserve">
+        <value>Kasutajanimi või e-post</value>
+    </data>
+    <data name="signup" xml:space="preserve">
+        <value>Registreeru</value>
+    </data>
+    <data name="forgot-password" xml:space="preserve">
+        <value>Unustasid parooli?</value>
+    </data>
+    <data name="username_error" xml:space="preserve">
+        <value>Kasutajanimi peab olema vähemalt 3 ja mitte rohkem kui 50 tähemärki pikk.</value>
+    </data>
+    <data name="password-error" xml:space="preserve">
+        <value>Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk.</value>
+    </data>
+    <data name="userNotFound" xml:space="preserve">
+        <value>Me ei leidnud selle kasutajanime või e-posti aadressiga kontot. Palun kontrollige oma mandaate ja proovige uuesti.</value>
+    </data>
+    <data name="incorrectPassword" xml:space="preserve">
+        <value>Vale parool. Kontrollige oma mandaate ja proovige uuesti.</value>
+    </data>
+    <data name="userNotActiveCheckEmail" xml:space="preserve">
+        <value>Teie konto pole aktiivne. Kontrollige aktiveerimislingi saamiseks oma meili.</value>
+    </data>
+    <data name="usernameOrEmailIsTaken" xml:space="preserve">
+        <value>Kasutajanimi või e-posti aadress on juba hõivatud.</value>
+    </data>
+    <data name="registration" xml:space="preserve">
+        <value>Registreerimine</value>
+    </data>
+    <data name="register-for-messaging" xml:space="preserve">
+        <value>Registreeruge sõpradega vestlemiseks!</value>
+    </data>
+    <data name="email_error" xml:space="preserve">
+        <value>Meiliaadress peab olema 3–254 tähemärgi pikkune.</value>
+    </data>
+    <data name="repeat_your_password" xml:space="preserve">
+        <value>Korrake oma parooli</value>
+    </data>
+    <data name="already-have-account" xml:space="preserve">
+        <value>On juba konto?</value>
+    </data>
+    <data name="password" xml:space="preserve">
+        <value>Parool</value>
+    </data>
+    <data name="repeat-password" xml:space="preserve">
+        <value>Korda salasõna</value>
+    </data>
+    <data name="email-case-error" xml:space="preserve">
+        <value>Kehtetu meilivorming.</value>
+    </data>
+    <data name="password-case-error" xml:space="preserve">
+        <value>Salasõna ei klapi.</value>
+    </data>
+    <data name="usernameHasIncorrectLength" xml:space="preserve">
+        <value>Kasutajanimi peab olema vähemalt 3 ja mitte rohkem kui 50 tähemärki pikk.</value>
+    </data>
+    <data name="emailHasIncorrectLength" xml:space="preserve">
+        <value>Meiliaadress peab olema 3–254 tähemärgi pikkune.</value>
+    </data>
+    <data name="passwordHasIncorrectLength" xml:space="preserve">
+        <value>Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk.</value>
+    </data>
+    <data name="passwordConfirmHasIncorrectLength" xml:space="preserve">
+        <value>Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk.</value>
+    </data>
+    <data name="usernameAlreadyTaken" xml:space="preserve">
+        <value>Kasutajanimi on juba olemas.</value>
+    </data>
+    <data name="emailAlreadyTaken" xml:space="preserve">
+        <value>E-post on juba olemas.</value>
+    </data>
+    <data name="emailIsNotValid" xml:space="preserve">
+        <value>Kehtetu meilivorming.</value>
+    </data>
+    <data name="ACTIVATION_REQUIRED" xml:space="preserve">
+        <value>Palju õnne! Olete edukalt sisse loginud. Konto kinnitamiseks kontrollige oma meili.</value>
+    </data>
+    <data name="write-email" xml:space="preserve">
+        <value>Parooli taastamiseks sisestage oma e-posti aadress.</value>
+    </data>
+    <data name="send" xml:space="preserve">
+        <value>Saada</value>
+    </data>
+    <data name="CHECK_EMAIL" xml:space="preserve">
+        <value>Teie e-posti aadressile on saadetud e-kiri parooli taastamise juhistega.</value>
+    </data>
+    <data name="accountNotActivated" xml:space="preserve">
+        <value>Teie konto pole aktiveeritud. Kontrollige oma e-posti ja aktiveerige oma konto.</value>
+    </data>
+    <data name="userDoesNotExist" xml:space="preserve">
+        <value>Selle e-posti aadressiga kasutajat pole olemas.</value>
+    </data>
+    <data name="new-device-notification" xml:space="preserve">
+        <value>Olete sisse logitud uuest seadmest. Kontrollige oma e-posti aadressi.</value>
+    </data>
+    <data name="enter-code" xml:space="preserve">
+        <value>Sisestage kood, mille me teile meili teel saatsime.</value>
+    </data>
+    <data name="code" xml:space="preserve">
+        <value>Kood</value>
+    </data>
+    <data name="code_error" xml:space="preserve">
+        <value>Vale kood.</value>
+    </data>
+    <data name="twoFactorIsNotEnabled" xml:space="preserve">
+        <value>Kahefaktoriline autentimine pole lubatud.</value>
+    </data>
+    <data name="twoFactorCodeIsNotValid" xml:space="preserve">
+        <value>Kahefaktoriline kood on vale.</value>
+    </data>
+    <data name="twoFactorCodeIsRequired" xml:space="preserve">
+        <value>Väli ei tohi olla tühi.</value>
+    </data>
+    <data name="new-device" xml:space="preserve">
+        <value>Uus seade</value>
+    </data>
+    <data name="newDeviceCodeIsNotValid" xml:space="preserve">
+        <value>Uue seadme kinnituskood on vale.</value>
+    </data>
+    <data name="newDeviceCodeIsRequired" xml:space="preserve">
+        <value>Väli ei tohi olla tühi.</value>
     </data>
 </root>

@@ -14,6 +14,7 @@
     <SolidColorBrush x:Key="SearchBar" Color="#90B7E5" />
     <SolidColorBrush x:Key="SearchBar-Foreground" Color="#303030" />
     <SolidColorBrush x:Key="SearchBar-Hint-Foreground" Color="#434B54" />
+    <SolidColorBrush x:Key="Hint-Foreground" Color="#434B54" Opacity="0.5" />
     <Color x:Key="SideBar-Button">#C4D2F0</Color>
     <Color x:Key="SideBar-Button-MouseOver">#8DB8E4</Color>
     <Color x:Key="SideBar-Button-Selected">#5B9BD9</Color>
@@ -95,6 +96,7 @@
     <SolidColorBrush x:Key="Confirm-Red" Color="#EFCBCF" />
     <SolidColorBrush x:Key="Confirm-Red-MouseOver" Color="#FFBCC4" />
     <SolidColorBrush x:Key="Confirm-Blue" Color="#CAD5F2" />
+    <SolidColorBrush x:Key="Confirm-Blue-Transparent" Color="#CAD5F2" Opacity="0.65" />
     <SolidColorBrush x:Key="Confirm-Blue-MouseOver" Color="#ACBFF1" />
     <SolidColorBrush x:Key="Confirm-Green" Color="#B3C4EE" />
     <SolidColorBrush x:Key="Confirm-Green-MouseOver" Color="#9EB2E8" />
@@ -103,4 +105,6 @@
     <SolidColorBrush x:Key="NotifySwitcher-BorderBrush" Color="#EAEDFA" />
     <SolidColorBrush x:Key="ScrollDownButton-Icon" Color="#284264" />
     <SolidColorBrush x:Key="NewDate-Color" Color="#9A9A9A" Opacity="0.5" />
+    <SolidColorBrush x:Key="Background-Element-Transparency" Color="#CFD0D4" Opacity="0.25" />
+    <SolidColorBrush x:Key="Background-Element-Selected" Color="#CFD0D4" Opacity="0.5" />
 </ResourceDictionary>

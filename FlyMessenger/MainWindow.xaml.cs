@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using FlyMessenger.MVVM.Model;
 using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.Properties;
 using FlyMessenger.Resources.Settings;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Application = System.Windows.Application;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -32,9 +34,9 @@ namespace FlyMessenger
         // NotifyIconManager handler
         public WebSockets WebSocketClient;
         private MainWindow _mainWindow;
-        private bool _light = true;
         public string LangSwitch { get; set; } = "";
         public static MainViewModel MainViewModel { get; } = new MainViewModel();
+        private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
 
         public MainWindow()
         {
@@ -48,8 +50,8 @@ namespace FlyMessenger
             PreviewKeyDown += MainWindowPreviewKeyDown;
             Loaded += MainWindow_Loaded;
             Closed += App.ToggleLanguage;
-
-            DataContext = MainViewModel;
+            
+            _notifyIconManager.InitializeNotifyIcon();
         }
 
         private void MainWindow_Initialized(object? sender, EventArgs e)
@@ -59,6 +61,7 @@ namespace FlyMessenger
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            DataContext = MainViewModel;
             MainViewModel.ActiveChatVisibilityNone = true;
             MainViewModel.ActiveChatVisibility = false;
 
@@ -208,7 +211,13 @@ namespace FlyMessenger
         // Mouse left button up event to change IsActive property
         private void LogoutChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // TODO: Create logout method
+            if (LogoutModalWindow.IsOpen) return;
+            
+            LogoutModalWindow.IsOpen = true;
+            
+            var openAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
+            
+            LogoutModalWindow.BeginAnimation(OpacityProperty, openAnimation);
         }
 
         private void ConservationsChatMenuButton_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -552,19 +561,19 @@ namespace FlyMessenger
         {
             Close();
             NotificationsManager.CloseAllNotifications();
-            ((App)Application.Current).NotifyIconManager.DisposeNotifyIcon();
+            _notifyIconManager.DisposeNotifyIcon();
         }
 
-        private CancellationTokenSource _cancellationTokenSource;
-        
+        private CancellationTokenSource? _cancellationTokenSource;
+
         private async void SearchBox_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             // Delete old token
             _cancellationTokenSource?.Cancel();
-            
+
             // Create new token
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             ClearSearchBoxButton.Visibility =
                 string.IsNullOrWhiteSpace(SearchBox.Text) ? Visibility.Collapsed : Visibility.Visible;
             DialogsPanel.Visibility =
@@ -598,11 +607,11 @@ namespace FlyMessenger
         private async void SearchBoxSecond_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             // Delete old token
-            _cancellationTokenSource?.Cancel();
-            
+            _cancellationTokenSource.Cancel();
+
             // Create new token
             _cancellationTokenSource = new CancellationTokenSource();
-            
+
             ClearSearchBoxButton.Visibility =
                 string.IsNullOrWhiteSpace(SearchBoxSecond.Text) ? Visibility.Collapsed : Visibility.Visible;
             DialogsPanel.Visibility =
@@ -636,6 +645,55 @@ namespace FlyMessenger
             // Check if the key is a letter or a digit
             return key is >= Key.A and <= Key.Z or >= Key.D0 and <= Key.D9 or >= Key.NumPad0 and <= Key.NumPad9
                 or >= Key.Oem1 and <= Key.OemClear;
+        }
+
+        private void SelectFileInDialog(object sender, MouseButtonEventArgs e)
+        {
+            // Open file dialog
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.png;*.jpeg;*.jpg;*.gif)|*.png;*.jpeg;*.jpg;*.gif",
+                Multiselect = false,
+                Title = "Select a file"
+            };
+            
+            if (openFileDialog.ShowDialog() != true) return;
+            var fileName = openFileDialog.FileName;
+            if (string.IsNullOrWhiteSpace(fileName)) return;
+            var fileInfo = new FileInfo(fileName);
+            var fileSize = fileInfo.Length;
+            if (fileSize > 5242880)
+            {
+                MessageBox.Show("File size is too big. Max file size is 5MB", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+            
+            var fileExtension = Path.GetExtension(fileName);
+            var fileExtensionLower = fileExtension.ToLower();
+            if (fileExtensionLower != ".png" && fileExtensionLower != ".jpeg" && fileExtensionLower != ".jpg" && fileExtensionLower != ".gif")
+            {
+                MessageBox.Show("File type is not supported. Supported file types are: png, jpeg, jpg, gif", "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
+            }
+            
+            var fileBytes = File.ReadAllBytes(fileName);
+            var fileBase64 = Convert.ToBase64String(fileBytes);
+            var selectedDialog = MainViewModel.SelectedDialog;
+            var fileModel = new SendMessageModel
+            {
+                type = "SEND_MESSAGE",
+                dialogId = selectedDialog.Id,
+                file = new FileModel {
+                    name = Path.GetFileName(fileName),
+                    size = fileSize,
+                    type = fileExtensionLower,
+                    data = fileBase64
+                }
+            };
+            
+            WebSocketClient.Send(JsonConvert.SerializeObject(fileModel));
         }
     }
 }

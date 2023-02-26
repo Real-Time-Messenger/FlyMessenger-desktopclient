@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using FlyMessenger.Core;
 
 namespace FlyMessenger.MVVM.Model
@@ -45,20 +43,7 @@ namespace FlyMessenger.MVVM.Model
     {
         public string Id { get; set; }
         public UserInDialogModel User { get; set; }
-        public ObservableCollection<MessageModel> Messages { get; set; } = new ObservableCollection<MessageModel>();
-
-        // public MessageModel? LastMessage
-        // {
-        //     get => Messages.LastOrDefault(
-        //         defaultValue: new MessageModel
-        //         {
-        //             Text = Resources.Languages.lang.send_first_message,
-        //             IsMyMessage = false,
-        //             IsMyPhotoVisible = false,
-        //             IsCompanionPhotoVisible = false
-        //         });
-        //     set => OnPropertyChanged();
-        // }
+        public Collection<MessageModel> Messages { get; set; } = new Collection<MessageModel>();
 
         private MessageModel? _lastMessage;
         

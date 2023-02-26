@@ -1,8 +1,6 @@
 using System;
 using System.Drawing;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using FlyMessenger.Controllers;
 using Application = System.Windows.Application;
 using Color = System.Drawing.Color;
@@ -57,9 +55,10 @@ namespace FlyMessenger.Core.Utils
             _exit.Text = Resources.Languages.lang.exit;
             _exit.Click += Exit_Click;
 
-            _notifications.Text = MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled
-                ? Resources.Languages.lang.notifications_off
-                : Resources.Languages.lang.notifications_on;
+            if (MainWindow.MainViewModel.MyProfile.Settings != null)
+                _notifications.Text = MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled
+                    ? Resources.Languages.lang.notifications_off
+                    : Resources.Languages.lang.notifications_on;
             _notifications.Click += Notifications_Click;
 
             _showWindow.Text = Resources.Languages.lang.showWindow;

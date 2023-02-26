@@ -16,7 +16,6 @@
     </Page.DataContext>
 
     <Page.Resources>
-        <converters:ToLowerConverter x:Key="ToLowerConverter" />
         <converters:ChatBoxNameConverter x:Key="ChatBoxNameConverter" />
     </Page.Resources>
 
@@ -69,7 +68,7 @@
                          Foreground="{DynamicResource Normal-Stroke}"
                          HorizontalAlignment="Left" />
                 <TextBlock
-                    Text="{Binding MyProfile.Username, StringFormat='@{0}', Converter={StaticResource ToLowerConverter}}"
+                    Text="{Binding MyProfile.Username, StringFormat='@{0}'}"
                     IsManipulationEnabled="True"
                     Cursor="Hand"
                     ToolTip="{x:Static language:lang.copyToClipboard}"

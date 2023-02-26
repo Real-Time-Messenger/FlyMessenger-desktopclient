@@ -120,8 +120,8 @@
   <data name="chat" xml:space="preserve">
     <value>Chat</value>
   </data>
-  <data name="conservations" xml:space="preserve">
-    <value>Conservation</value>
+  <data name="conversations" xml:space="preserve">
+    <value>Conversations</value>
   </data>
   <data name="groups" xml:space="preserve">
     <value>Groups</value>
@@ -228,7 +228,7 @@
   <data name="email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="login-Name" xml:space="preserve">
+  <data name="login-name" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="delete-acc-question" xml:space="preserve">
@@ -277,7 +277,7 @@
     <value>Unabled</value>
   </data>
   <data name="g-and-c" xml:space="preserve">
-    <value>Groups and conservations</value>
+    <value>Groups and conversations</value>
   </data>
   <data name="session-management" xml:space="preserve">
     <value>Session management</value>
@@ -356,5 +356,143 @@
   </data>
   <data name="noUsers" xml:space="preserve">
     <value>Users not found</value>
+  </data>
+  <data name="photo" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="your-password" xml:space="preserve">
+    <value>Your password</value>
+  </data>
+  <data name="username-or-email" xml:space="preserve">
+    <value>Username or email</value>
+  </data>
+  <data name="signup" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="forgot-password" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="username_error" xml:space="preserve">
+    <value>Username must be at least 3 and not more than 50 characters long.</value>
+  </data>
+  <data name="password-error" xml:space="preserve">
+    <value>Password must be at least 8 and not more than 32 characters.</value>
+  </data>
+  <data name="usernameOrEmailIsTaken" xml:space="preserve">
+    <value>The username or email is already taken.</value>
+  </data>
+  <data name="userNotActiveCheckEmail" xml:space="preserve">
+    <value>Your account is not active. Please check your email for an activation link.</value>
+  </data>
+  <data name="userNotFound" xml:space="preserve">
+    <value>We couldn't find an account with that username or email. Please check your credentials and try again.</value>
+  </data>
+  <data name="incorrectPassword" xml:space="preserve">
+    <value>Wrong password. Check your credentials and try again.</value>
+  </data>
+  <data name="registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="register-for-messaging" xml:space="preserve">
+    <value>Register to chat with friends!</value>
+  </data>
+  <data name="email_error" xml:space="preserve">
+    <value>The email address must be between 3 and 254 characters.</value>
+  </data>
+  <data name="repeat_your_password" xml:space="preserve">
+    <value>Repeat your password</value>
+  </data>
+  <data name="already-have-account" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="repeat-password" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="email-case-error" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="password-case-error" xml:space="preserve">
+    <value>Password does not match.</value>
+  </data>
+  <data name="emailHasIncorrectLength" xml:space="preserve">
+    <value>The email address must be between 3 and 254 characters.</value>
+  </data>
+  <data name="passwordHasIncorrectLength" xml:space="preserve">
+    <value>Password must be at least 8 and not more than 32 characters.</value>
+  </data>
+  <data name="passwordConfirmHasIncorrectLength" xml:space="preserve">
+    <value>Password must be at least 8 and not more than 32 characters.</value>
+  </data>
+  <data name="usernameHasIncorrectLength" xml:space="preserve">
+    <value>Username must be at least 3 and not more than 50 characters long.</value>
+  </data>
+  <data name="usernameAlreadyTaken" xml:space="preserve">
+    <value>Username already taken.</value>
+  </data>
+  <data name="emailAlreadyTaken" xml:space="preserve">
+    <value>Email already exists.</value>
+  </data>
+  <data name="emailIsNotValid" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="ACTIVATION_REQUIRED" xml:space="preserve">
+    <value>Congratulations! You have successfully registered. Please check your email to verify your account.</value>
+  </data>
+  <data name="write-email" xml:space="preserve">
+    <value>Enter your email address to recover your password.</value>
+  </data>
+  <data name="send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="CHECK_EMAIL" xml:space="preserve">
+    <value>An email with password recovery instructions has been sent to your email.</value>
+  </data>
+  <data name="accountNotActivated" xml:space="preserve">
+    <value>Your account is not activated. Please check your email and activate your account.</value>
+  </data>
+  <data name="userDoesNotExist" xml:space="preserve">
+    <value>User with this email does not exist.</value>
+  </data>
+  <data name="new-device-notification" xml:space="preserve">
+    <value>You are logged in from a new device. Please check your email address.</value>
+  </data>
+  <data name="enter-code" xml:space="preserve">
+    <value>Enter the code we sent you by email.</value>
+  </data>
+  <data name="code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="code_error" xml:space="preserve">
+    <value>Incorrect code.</value>
+  </data>
+  <data name="twoFactorIsNotEnabled" xml:space="preserve">
+    <value>Two-factor authentication is not enabled.</value>
+  </data>
+  <data name="twoFactorCodeIsNotValid" xml:space="preserve">
+    <value>The two-factor code is incorrect.</value>
+  </data>
+  <data name="twoFactorCodeIsRequired" xml:space="preserve">
+    <value>Field cannot be empty.</value>
+  </data>
+  <data name="new-device" xml:space="preserve">
+    <value>New device</value>
+  </data>
+  <data name="newDeviceCodeIsNotValid" xml:space="preserve">
+    <value>The new device confirmation code is incorrect.</value>
+  </data>
+  <data name="newDeviceCodeIsRequired" xml:space="preserve">
+    <value>Field cannot be empty.</value>
   </data>
 </root>

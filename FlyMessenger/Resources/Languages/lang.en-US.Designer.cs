@@ -60,6 +60,33 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your account is not activated. Please check your email and activate your account..
+        /// </summary>
+        public static string accountNotActivated {
+            get {
+                return ResourceManager.GetString("accountNotActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations! You have successfully registered. Please check your email to verify your account..
+        /// </summary>
+        public static string ACTIVATION_REQUIRED {
+            get {
+                return ResourceManager.GetString("ACTIVATION_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already have an account?.
+        /// </summary>
+        public static string already_have_account {
+            get {
+                return ResourceManager.GetString("already-have-account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anyone.
         /// </summary>
         public static string anyone {
@@ -141,11 +168,47 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conservation.
+        ///   Looks up a localized string similar to An email with password recovery instructions has been sent to your email..
         /// </summary>
-        public static string conservations {
+        public static string CHECK_EMAIL {
             get {
-                return ResourceManager.GetString("conservations", resourceCulture);
+                return ResourceManager.GetString("CHECK_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string close {
+            get {
+                return ResourceManager.GetString("close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code.
+        /// </summary>
+        public static string code {
+            get {
+                return ResourceManager.GetString("code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect code..
+        /// </summary>
+        public static string code_error {
+            get {
+                return ResourceManager.GetString("code_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conversations.
+        /// </summary>
+        public static string conversations {
+            get {
+                return ResourceManager.GetString("conversations", resourceCulture);
             }
         }
         
@@ -240,11 +303,65 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        public static string email_case_error {
+            get {
+                return ResourceManager.GetString("email-case-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email address must be between 3 and 254 characters..
+        /// </summary>
+        public static string email_error {
+            get {
+                return ResourceManager.GetString("email_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email already exists..
+        /// </summary>
+        public static string emailAlreadyTaken {
+            get {
+                return ResourceManager.GetString("emailAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The email address must be between 3 and 254 characters..
+        /// </summary>
+        public static string emailHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("emailHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        public static string emailIsNotValid {
+            get {
+                return ResourceManager.GetString("emailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         public static string english {
             get {
                 return ResourceManager.GetString("english", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the code we sent you by email..
+        /// </summary>
+        public static string enter_code {
+            get {
+                return ResourceManager.GetString("enter-code", resourceCulture);
             }
         }
         
@@ -267,7 +384,16 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Groups and conservations.
+        ///   Looks up a localized string similar to Forgot password?.
+        /// </summary>
+        public static string forgot_password {
+            get {
+                return ResourceManager.GetString("forgot-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groups and conversations.
         /// </summary>
         public static string g_and_c {
             get {
@@ -312,6 +438,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong password. Check your credentials and try again..
+        /// </summary>
+        public static string incorrectPassword {
+            get {
+                return ResourceManager.GetString("incorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string language {
@@ -348,11 +483,20 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string login {
+            get {
+                return ResourceManager.GetString("login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
-        public static string login_Name {
+        public static string login_name {
             get {
-                return ResourceManager.GetString("login-Name", resourceCulture);
+                return ResourceManager.GetString("login-name", resourceCulture);
             }
         }
         
@@ -416,6 +560,42 @@ namespace FlyMessenger.Resources.Languages {
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New device.
+        /// </summary>
+        public static string new_device {
+            get {
+                return ResourceManager.GetString("new-device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are logged in from a new device. Please check your email address..
+        /// </summary>
+        public static string new_device_notification {
+            get {
+                return ResourceManager.GetString("new-device-notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new device confirmation code is incorrect..
+        /// </summary>
+        public static string newDeviceCodeIsNotValid {
+            get {
+                return ResourceManager.GetString("newDeviceCodeIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field cannot be empty..
+        /// </summary>
+        public static string newDeviceCodeIsRequired {
+            get {
+                return ResourceManager.GetString("newDeviceCodeIsRequired", resourceCulture);
             }
         }
         
@@ -510,6 +690,60 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string password {
+            get {
+                return ResourceManager.GetString("password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password does not match..
+        /// </summary>
+        public static string password_case_error {
+            get {
+                return ResourceManager.GetString("password-case-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 and not more than 32 characters..
+        /// </summary>
+        public static string password_error {
+            get {
+                return ResourceManager.GetString("password-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 and not more than 32 characters..
+        /// </summary>
+        public static string passwordConfirmHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("passwordConfirmHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 and not more than 32 characters..
+        /// </summary>
+        public static string passwordHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("passwordHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo.
+        /// </summary>
+        public static string photo {
+            get {
+                return ResourceManager.GetString("photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pin.
         /// </summary>
         public static string pin {
@@ -542,6 +776,42 @@ namespace FlyMessenger.Resources.Languages {
         public static string recently {
             get {
                 return ResourceManager.GetString("recently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register to chat with friends!.
+        /// </summary>
+        public static string register_for_messaging {
+            get {
+                return ResourceManager.GetString("register-for-messaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string registration {
+            get {
+                return ResourceManager.GetString("registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat password.
+        /// </summary>
+        public static string repeat_password {
+            get {
+                return ResourceManager.GetString("repeat-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat your password.
+        /// </summary>
+        public static string repeat_your_password {
+            get {
+                return ResourceManager.GetString("repeat_your_password", resourceCulture);
             }
         }
         
@@ -600,6 +870,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string send {
+            get {
+                return ResourceManager.GetString("send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send first message.
         /// </summary>
         public static string send_first_message {
@@ -650,6 +929,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string showWindow {
             get {
                 return ResourceManager.GetString("showWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up.
+        /// </summary>
+        public static string signup {
+            get {
+                return ResourceManager.GetString("signup", resourceCulture);
             }
         }
         
@@ -726,6 +1014,33 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The two-factor code is incorrect..
+        /// </summary>
+        public static string twoFactorCodeIsNotValid {
+            get {
+                return ResourceManager.GetString("twoFactorCodeIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Field cannot be empty..
+        /// </summary>
+        public static string twoFactorCodeIsRequired {
+            get {
+                return ResourceManager.GetString("twoFactorCodeIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two-factor authentication is not enabled..
+        /// </summary>
+        public static string twoFactorIsNotEnabled {
+            get {
+                return ResourceManager.GetString("twoFactorIsNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unabled.
         /// </summary>
         public static string unable {
@@ -753,11 +1068,101 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User with this email does not exist..
+        /// </summary>
+        public static string userDoesNotExist {
+            get {
+                return ResourceManager.GetString("userDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must be at least 3 and not more than 50 characters long..
+        /// </summary>
+        public static string username_error {
+            get {
+                return ResourceManager.GetString("username_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username or email.
+        /// </summary>
+        public static string username_or_email {
+            get {
+                return ResourceManager.GetString("username-or-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username already taken..
+        /// </summary>
+        public static string usernameAlreadyTaken {
+            get {
+                return ResourceManager.GetString("usernameAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username must be at least 3 and not more than 50 characters long..
+        /// </summary>
+        public static string usernameHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("usernameHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username or email is already taken..
+        /// </summary>
+        public static string usernameOrEmailIsTaken {
+            get {
+                return ResourceManager.GetString("usernameOrEmailIsTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account is not active. Please check your email for an activation link..
+        /// </summary>
+        public static string userNotActiveCheckEmail {
+            get {
+                return ResourceManager.GetString("userNotActiveCheckEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We couldn&apos;t find an account with that username or email. Please check your credentials and try again..
+        /// </summary>
+        public static string userNotFound {
+            get {
+                return ResourceManager.GetString("userNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Users.
         /// </summary>
         public static string users {
             get {
                 return ResourceManager.GetString("users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your email address to recover your password..
+        /// </summary>
+        public static string write_email {
+            get {
+                return ResourceManager.GetString("write-email", resourceCulture);
             }
         }
         
@@ -776,6 +1181,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string yesterday {
             get {
                 return ResourceManager.GetString("yesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password.
+        /// </summary>
+        public static string your_password {
+            get {
+                return ResourceManager.GetString("your-password", resourceCulture);
             }
         }
     }

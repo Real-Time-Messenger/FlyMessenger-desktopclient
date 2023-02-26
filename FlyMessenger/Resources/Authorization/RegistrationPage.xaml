@@ -1,0 +1,617 @@
+<Page x:Class="FlyMessenger.Resources.Authorization.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
+      xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+      xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
+      mc:Ignorable="d">
+
+    <Border Background="{DynamicResource ThemeColor}"
+            Width="600"
+            CornerRadius="5">
+        <StackPanel>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 10 0 0"
+                       FontSize="18"
+                       FontFamily="{StaticResource Alata}"
+                       Foreground="{DynamicResource Normal-Stroke}">
+                <Image Source="{DynamicResource Logo}"
+                       Width="30" Height="30"
+                       Margin="0 0 4 0"
+                       VerticalAlignment="Bottom" />
+                <Run Text="Fly Messenger" BaselineAlignment="Center" />
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 10 0 10"
+                       FontSize="22"
+                       FontFamily="{StaticResource Alata}"
+                       Foreground="{DynamicResource Stronger-Stroke}">
+                <Run Text="{x:Static language:lang.registration}" />
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0 0 0 20"
+                       FontSize="16"
+                       FontFamily="{StaticResource Alata}"
+                       Foreground="{DynamicResource Normal-Stroke}">
+                <Run Text="{x:Static language:lang.register_for_messaging}" />
+            </TextBlock>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               x:Name="UsernameLabel"
+                               Text="{x:Static language:lang.username}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               Foreground="{DynamicResource Normal-Stroke}"
+                               Opacity="0.65"
+                               Margin="40 0 0 4" />
+                    <Border Grid.Row="1"
+                            Grid.Column="0"
+                            x:Name="UsernameTextBoxBorder"
+                            BorderThickness="0 0 0 1"
+                            BorderBrush="{DynamicResource Stroke-Darkened}"
+                            Margin="40 0 10 0">
+                        <TextBox x:Name="UsernameTextBox"
+                                 BorderBrush="Transparent"
+                                 BorderThickness="0"
+                                 FontFamily="{StaticResource Alata}"
+                                 FontSize="16"
+                                 Foreground="{DynamicResource Strongest-Stroke}"
+                                 Padding="2 0 0 6"
+                                 CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                 PreviewMouseLeftButtonUp="UsernameSetActive">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Resources>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                     AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label x:Name="HintLabel"
+                                                       Content="{x:Static language:lang.username}"
+                                                       FontFamily="{StaticResource Alata}"
+                                                       FontSize="16" FontWeight="Regular"
+                                                       Foreground="{DynamicResource Hint-Foreground}"
+                                                       VerticalAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       Margin="0 0 0 0" Padding="4 0 0 6" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="Text" Value="{x:Null}">
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Border>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               x:Name="UsernameErrorLabel"
+                               Text="{x:Static language:lang.username_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               x:Name="EmailLabel"
+                               Text="{x:Static language:lang.email}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               Foreground="{DynamicResource Normal-Stroke}"
+                               Opacity="0.65"
+                               Margin="10 0 0 4" />
+                    <Border Grid.Row="1"
+                            Grid.Column="1"
+                            x:Name="EmailTextBoxBorder"
+                            BorderThickness="0 0 0 1"
+                            BorderBrush="{DynamicResource Stroke-Darkened}"
+                            Margin="10 0 40 0">
+                        <TextBox x:Name="EmailTextBox"
+                                 BorderBrush="Transparent"
+                                 BorderThickness="0"
+                                 FontFamily="{StaticResource Alata}"
+                                 FontSize="16"
+                                 Foreground="{DynamicResource Strongest-Stroke}"
+                                 Padding="2 0 0 6"
+                                 CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                 PreviewMouseLeftButtonUp="EmailSetActive">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Resources>
+                                        <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                     AlignmentY="Center" Stretch="None">
+                                            <VisualBrush.Visual>
+                                                <Label x:Name="HintLabel"
+                                                       Content="{x:Static language:lang.email}"
+                                                       FontFamily="{StaticResource Alata}"
+                                                       FontSize="16" FontWeight="Regular"
+                                                       Foreground="{DynamicResource Hint-Foreground}"
+                                                       VerticalAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       Margin="0 0 0 0" Padding="4 0 0 6" />
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Style.Resources>
+                                    <Style.Triggers>
+                                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                        <Trigger Property="Text" Value="{x:Null}">
+                                            <Setter Property="Background"
+                                                    Value="{StaticResource CueBannerBrush}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Border>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               x:Name="EmailErrorLabel"
+                               Text="{x:Static language:lang.email_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="10 10 40 10"
+                               Visibility="Collapsed" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               x:Name="EmailCaseErrorLabel"
+                               Text="{x:Static language:lang.email_case_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="10 10 40 10"
+                               Visibility="Collapsed" />
+                </Grid>
+                <Grid Grid.Row="1" Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               x:Name="PasswordLabel"
+                               Text="{x:Static language:lang.password}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               Foreground="{DynamicResource Normal-Stroke}"
+                               Opacity="0.65"
+                               Margin="40 0 0 4" />
+                    <Border Grid.Row="1"
+                            x:Name="PasswordTextBoxBorder"
+                            BorderThickness="0 0 0 1"
+                            BorderBrush="{DynamicResource Stroke-Darkened}"
+                            Margin="40 0 40 0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <PasswordBox Grid.Column="0"
+                                         x:Name="PasswordTextBox"
+                                         BorderBrush="Transparent"
+                                         BorderThickness="0"
+                                         FontFamily="{StaticResource Alata}"
+                                         FontSize="16"
+                                         Foreground="{DynamicResource Strongest-Stroke}"
+                                         Padding="2 0 0 6"
+                                         CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                         PreviewMouseLeftButtonUp="PasswordSetActive"
+                                         PreviewKeyUp="PasswordHandler">
+                                <PasswordBox.Style>
+                                    <Style TargetType="PasswordBox">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                         AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <Label x:Name="HintLabel"
+                                                           Content="{x:Static language:lang.your_password}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           FontSize="16" FontWeight="Regular"
+                                                           Foreground="{DynamicResource Hint-Foreground}"
+                                                           VerticalAlignment="Center"
+                                                           VerticalContentAlignment="Center"
+                                                           Margin="0 0 0 0" Padding="4 0 0 6" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                    </Style>
+                                </PasswordBox.Style>
+                            </PasswordBox>
+                            <TextBox Grid.Column="0" x:Name="ShowPassword"
+                                     BorderBrush="Transparent"
+                                     BorderThickness="0"
+                                     FontFamily="{StaticResource Alata}"
+                                     FontSize="16"
+                                     Foreground="{DynamicResource Strongest-Stroke}"
+                                     Padding="2 0 0 6"
+                                     CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                     Visibility="Collapsed"
+                                     PreviewMouseLeftButtonUp="PasswordSetActive"
+                                     PreviewKeyUp="PasswordHandover">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                         AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <Label x:Name="HintLabel"
+                                                           Content="{x:Static language:lang.your_password}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           FontSize="16" FontWeight="Regular"
+                                                           Foreground="{DynamicResource Hint-Foreground}"
+                                                           VerticalAlignment="Center"
+                                                           VerticalContentAlignment="Center"
+                                                           Margin="0 0 0 0" Padding="4 0 0 6" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="{x:Null}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                            <Image Grid.Column="1"
+                                   x:Name="PasswordEyeImage"
+                                   Source="{DynamicResource PasswordEyeIcon-Opened}"
+                                   Width="20" Height="20"
+                                   Margin="0 0 6 0"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Cursor="Hand"
+                                   MouseLeftButtonUp="PasswordEyeClick" />
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Row="2"
+                               x:Name="PasswordErrorLabel"
+                               Text="{x:Static language:lang.password_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
+                </Grid>
+
+                <Grid Grid.Row="2" Margin="0 20 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               x:Name="PasswordRepeatLabel"
+                               Text="{x:Static language:lang.repeat_password}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               Foreground="{DynamicResource Normal-Stroke}"
+                               Opacity="0.65"
+                               Margin="40 0 0 4" />
+                    <Border Grid.Row="1"
+                            x:Name="PasswordRepeatTextBoxBorder"
+                            BorderThickness="0 0 0 1"
+                            BorderBrush="{DynamicResource Stroke-Darkened}"
+                            Margin="40 0 40 0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <PasswordBox Grid.Column="0"
+                                         x:Name="PasswordRepeatTextBox"
+                                         BorderBrush="Transparent"
+                                         BorderThickness="0"
+                                         FontFamily="{StaticResource Alata}"
+                                         FontSize="16"
+                                         Foreground="{DynamicResource Strongest-Stroke}"
+                                         Padding="2 0 0 6"
+                                         CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                         PreviewMouseLeftButtonUp="PasswordRepeatSetActive"
+                                         PreviewKeyUp="PasswordRepeatHandler">
+                                <PasswordBox.Style>
+                                    <Style TargetType="PasswordBox">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                         AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <Label x:Name="HintLabel"
+                                                           Content="{x:Static language:lang.repeat_your_password}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           FontSize="16" FontWeight="Regular"
+                                                           Foreground="{DynamicResource Hint-Foreground}"
+                                                           VerticalAlignment="Center"
+                                                           VerticalContentAlignment="Center"
+                                                           Margin="0 0 0 0" Padding="4 0 0 6" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                    </Style>
+                                </PasswordBox.Style>
+                            </PasswordBox>
+                            <TextBox Grid.Column="0" x:Name="ShowRepeatPassword"
+                                     BorderBrush="Transparent"
+                                     BorderThickness="0"
+                                     FontFamily="{StaticResource Alata}"
+                                     FontSize="16"
+                                     Foreground="{DynamicResource Strongest-Stroke}"
+                                     Padding="2 0 0 6"
+                                     CaretBrush="{DynamicResource SearchBar-Foreground}"
+                                     Visibility="Collapsed"
+                                     PreviewMouseLeftButtonUp="PasswordRepeatSetActive"
+                                     PreviewKeyUp="PasswordRepeatHandover">
+                                <TextBox.Style>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Resources>
+                                            <VisualBrush x:Key="CueBannerBrush" AlignmentX="Left"
+                                                         AlignmentY="Center" Stretch="None">
+                                                <VisualBrush.Visual>
+                                                    <Label x:Name="HintLabel"
+                                                           Content="{x:Static language:lang.repeat_your_password}"
+                                                           FontFamily="{StaticResource Alata}"
+                                                           FontSize="16" FontWeight="Regular"
+                                                           Foreground="{DynamicResource Hint-Foreground}"
+                                                           VerticalAlignment="Center"
+                                                           VerticalContentAlignment="Center"
+                                                           Margin="0 0 0 0" Padding="4 0 0 6" />
+                                                </VisualBrush.Visual>
+                                            </VisualBrush>
+                                        </Style.Resources>
+                                        <Style.Triggers>
+                                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                            <Trigger Property="Text" Value="{x:Null}">
+                                                <Setter Property="Background"
+                                                        Value="{StaticResource CueBannerBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBox.Style>
+                            </TextBox>
+                        </Grid>
+                    </Border>
+                    <TextBlock Grid.Row="2"
+                               x:Name="PasswordRepeatErrorLabel"
+                               Text="{x:Static language:lang.password_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
+                    <TextBlock Grid.Row="2"
+                               x:Name="PasswordRepeatCaseErrorLabel"
+                               Text="{x:Static language:lang.password_case_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+
+            <Button x:Name="RegisterButton"
+                    Content="{x:Static language:lang.signup}"
+                    Margin="40 30 40 0"
+                    OverridesDefaultStyle="True"
+                    Cursor="Hand"
+                    PreviewMouseLeftButtonUp="RegisterButtonClick">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{DynamicResource Confirm-Blue}" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Foreground" Value="{DynamicResource Strongest-Stroke}" />
+                        <Setter Property="FontFamily" Value="{StaticResource Alata}" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Border"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Padding="0 10 0 10"
+                                            CornerRadius="5"
+                                            SnapsToDevicePixels="True">
+                                        <ContentPresenter x:Name="ContentPresenter"
+                                                          HorizontalAlignment="Center"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border"
+                                                    Property="Background"
+                                                    Value="{DynamicResource Confirm-Blue-MouseOver}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="RegisterButtonLoading"
+                    Margin="40 30 40 0"
+                    OverridesDefaultStyle="True"
+                    Visibility="Collapsed">
+                <Button.Content>
+
+                    <userControls:LoadingSpinner OverridesDefaultStyle="True">
+                        <userControls:LoadingSpinner.Style>
+                            <Style TargetType="userControls:LoadingSpinner">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type userControls:LoadingSpinner}">
+                                            <Ellipse x:Name="Ellipse"
+                                                     Width="20"
+                                                     Height="20"
+                                                     RenderTransformOrigin="0.5,0.5"
+                                                     Stroke="{DynamicResource ChatBox-MouseOver}"
+                                                     StrokeThickness="2"
+                                                     StrokeDashArray="12, 6"
+                                                     StrokeDashCap="Round">
+                                                <Ellipse.RenderTransform>
+                                                    <TransformGroup>
+                                                        <RotateTransform x:Name="EllipseRotation" Angle="0" />
+                                                    </TransformGroup>
+                                                </Ellipse.RenderTransform>
+                                                <Ellipse.Triggers>
+                                                    <EventTrigger RoutedEvent="Ellipse.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="EllipseRotation"
+                                                                    Storyboard.TargetProperty="Angle"
+                                                                    From="0"
+                                                                    To="360"
+                                                                    Duration="0:0:1"
+                                                                    RepeatBehavior="Forever" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Ellipse.Triggers>
+                                            </Ellipse>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </userControls:LoadingSpinner.Style>
+                    </userControls:LoadingSpinner>
+
+                </Button.Content>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="{DynamicResource Main}" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Border"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Padding="0 10 0 10"
+                                            CornerRadius="5"
+                                            SnapsToDevicePixels="True">
+                                        <ContentPresenter x:Name="ContentPresenter"
+                                                          HorizontalAlignment="Center"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <TextBlock x:Name="RegisterErrorTextBlock"
+                       FontFamily="{StaticResource Alata}"
+                       FontSize="12"
+                       TextWrapping="Wrap"
+                       Foreground="#E86C6C"
+                       Margin="40 10 40 10"
+                       Visibility="Collapsed" />
+
+            <Button x:Name="LoginButton"
+                    Content="{x:Static language:lang.already_have_account}"
+                    FontFamily="{StaticResource Alata}"
+                    FontSize="12"
+                    Foreground="{DynamicResource Normal-Stroke}"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    BorderThickness="0"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Margin="0 10 0 10"
+                    Cursor="Hand"
+                    PreviewMouseLeftButtonUp="LoginButtonClick">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="Border"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            SnapsToDevicePixels="True">
+                                        <ContentPresenter x:Name="ContentPresenter"
+                                                          HorizontalAlignment="Center"
+                                                          Opacity="0.65"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ContentPresenter"
+                                                    Property="Opacity"
+                                                    Value="1" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Border>
+
+</Page>

@@ -1,6 +1,4 @@
-﻿using FlyMessenger.MVVM.Model;
-
-namespace FlyMessenger.Controllers
+﻿namespace FlyMessenger.Controllers
 {
     public static class ControllerBase
     {

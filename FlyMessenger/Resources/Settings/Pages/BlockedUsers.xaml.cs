@@ -7,7 +7,7 @@ namespace FlyMessenger.Resources.Settings.Pages
         public BlockedUsersPage()
         {
             InitializeComponent();
-
+            
             BlackListView.Loaded += (_, _) =>
             {
                 BlackListView.ItemsSource = MainWindow.MainViewModel.MyProfile.BlackList;

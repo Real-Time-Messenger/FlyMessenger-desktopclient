@@ -2,20 +2,19 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Resources;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using FlyMessenger.Controllers;
-using FlyMessenger.Core.Utils;
 using FlyMessenger.MVVM.Model;
 using FlyMessenger.Properties;
 using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
 using FlyMessenger.Resources.Settings.Pages;
+using FlyMessenger.Resources.Windows;
 using FlyMessenger.UserControls;
 using Newtonsoft.Json;
 using MessageBox = System.Windows.MessageBox;
@@ -27,7 +26,6 @@ namespace FlyMessenger
     /// </summary>
     public partial class App
     {
-        public readonly NotifyIconManager NotifyIconManager = new NotifyIconManager();
         public static ImageBrush ProfilePhotoDefaultPage { get; set; }
         public static ImageBrush ProfilePhotoMainWindow { get; set; }
         public static ProfileButtons LastActivityTextData { get; set; }
@@ -47,26 +45,22 @@ namespace FlyMessenger
                 var curTheme = Settings.Default.CurrentTheme;
                 var dict = new ResourceDictionary
                 {
-                    Source = new Uri("Resources/Colors/"+ curTheme +".xaml", UriKind.Relative)
+                    Source = new Uri("Resources/Colors/" + curTheme + ".xaml", UriKind.Relative)
                 };
                 Resources.MergedDictionaries.Add(dict);
                 ShutdownMode = ShutdownMode.OnExplicitShutdown;
-
-                NotifyIconManager.InitializeNotifyIcon();
-
-                // if (FlyMessenger.Properties.Settings.Default.IsFirstRun)
-                // {
-                //     var firstRunWindow = new FirstRunWindow();
-                //     firstRunWindow.ShowDialog();
-                // }
-                // else
-                // {
-                //     var loginWindow = new LoginWindow();
-                //     loginWindow.ShowDialog();
-                // }
             }
-            
+
             base.OnStartup(e);
+        }
+        
+        internal abstract class LanguageUtils
+        {
+            public static string? GetTranslation(string key)
+            {
+                var resourceManager = new ResourceManager(typeof(lang));
+                return resourceManager.GetString(key);
+            }
         }
 
         public static void ToggleLanguage(object? sender, EventArgs e)
@@ -122,12 +116,12 @@ namespace FlyMessenger
             mainViewModel.SessionsCount--;
 
             if (SettingsManager.CurrentPage.Page is not SessionManagement sessionManagement) return;
-            mainViewModel.MyProfile.Sessions.Remove(
+            mainViewModel.MyProfile.Sessions?.Remove(
                 mainViewModel.MyProfile.Sessions.FirstOrDefault(x => x?.Id == session)
             );
             sessionManagement.SessionsList.ItemsSource = mainViewModel.MyProfile.Sessions;
             sessionManagement.SessionsCountTextBlock.Text =
-                mainViewModel.MyProfile.Sessions.Count + " " + lang.sessions;
+                mainViewModel.MyProfile.Sessions?.Count + " " + lang.sessions;
         }
 
         private void OnUnblockUserClick(object sender, RoutedEventArgs e)
@@ -211,6 +205,15 @@ namespace FlyMessenger
             ControllerBase.DialogController.DeleteDialog(((DialogModel)((MenuItem)sender).DataContext).Id);
             FlyMessenger.MainWindow.MainViewModel.Dialogs.Remove((DialogModel)((MenuItem)sender).DataContext);
             listView.Items.Refresh();
+        }
+
+        private void OpenDialogGallery(object sender, MouseButtonEventArgs e)
+        {
+            var dialog = FlyMessenger.MainWindow.MainViewModel.SelectedDialog;
+            var currentPhoto = ((MessageModel)((Image)sender).DataContext).File;
+            if (currentPhoto == null) return;
+            var galleryWindow = new GalleryWindow(dialog, currentPhoto);
+            galleryWindow.Show();
         }
     }
 }

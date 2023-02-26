@@ -1,76 +1,87 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Windows;
+using FlyMessenger.Core.Utils;
 using RestSharp;
 
 namespace FlyMessenger.HTTP
 {
     public class HttpClientBase
     {
-        private readonly RestClient _client;
+        private static RestClient? _client;
 
         protected HttpClientBase()
         {
-            _client = new RestClient(Constants.ApiUrl).AddDefaultHeaders( new Dictionary<string, string>
-            {
-                {"Accept", "application/json"},
-                {"Content-type", "application/json"},
-                // TODO: Get authorization token from current session. 
-                {"Authorization", GetToken()}
-            });
+            _client = new RestClient(Constants.ApiUrl).AddDefaultHeaders(
+                new Dictionary<string, string>
+                {
+                    { "Accept", "application/json" },
+                    { "Content-type", "application/json" },
+                    { "X-Client-Name", "FlyMessenger" },
+                    { "X-Client-Version", "0.9.0" },
+                    { "X-Client-Type", "Desktop" },
+                    { "Authorization", GetToken() }
+                }
+            );
         }
 
-        protected T Get<T>(string url)
-        {
+        protected RestResponse<T> Get<T>(string url) {
             var request = new RestRequest(url);
-            
+
             var response = _client.Execute<T>(request);
-            return response.Data!;
+            return response;
         }
-        
+
         public static string GetToken()
         {
-            var fileStream = new FileStream("../../../Config/Token.txt", FileMode.Open, FileAccess.Read);
-            var streamReader = new StreamReader(fileStream);
-            var token = "Bearer" + " " + streamReader.ReadToEnd();
-            streamReader.Close();
-            fileStream.Close();
-            
-            return token;
-        }
-        
-        public static void SetToken(string token)
-        {
-            var fileStream = new FileStream("../../../Config/Token.txt", FileMode.Create, FileAccess.Write);
-            var streamWriter = new StreamWriter(fileStream);
-            streamWriter.Write(token);
-            streamWriter.Close();
-            fileStream.Close();
+            var tokenSettings = new TokenSettings();
+            var token = tokenSettings.Load();
+
+            return "Bearer " + token;
         }
 
-        protected T Post<T, TK>(string url, TK data) where T : class where TK : class
+        private static void UpdateAuthorizationHeader(string token)
+        {
+            _client?.DefaultParameters.RemoveParameter("Authorization");
+            _client?.AddDefaultHeader("Authorization", "Bearer " + token);
+        }
+
+        public static void SetToken(string token)
+        {
+            var tokenSettings = new TokenSettings();
+            tokenSettings.Save(token);
+            
+            UpdateAuthorizationHeader(token);
+        }
+
+        protected RestResponse<T> Post<T, TK>(string url, TK data) where T : class where TK : class
         {
             var request = new RestRequest(url, Method.Post);
 
             request.AddJsonBody(data);
 
             var response = _client.Execute<T>(request);
-            return response.Data!;
+            return response;
+        }
+        
+        protected RestResponse Post(string url)
+        {
+            var request = new RestRequest(url, Method.Post);
+
+            var response = _client.Execute(request);
+            return response;
         }
 
-        protected T Put<T, TK>(string url, TK data) where T : class where TK : class
+        protected RestResponse<T> Put<T, TK>(string url, TK data) where T : class where TK : class
         {
             var request = new RestRequest(url, Method.Put);
 
             request.AddJsonBody(data);
 
             var response = _client.Execute<T>(request);
-            return response.Data!;
+            return response;
         }
-        
-        protected T Put<T>(string url, byte[] file) where T : class
+
+        protected RestResponse<T> Put<T>(string url, byte[] file) where T : class
         {
             var request = new RestRequest(url, Method.Put);
 
@@ -78,7 +89,7 @@ namespace FlyMessenger.HTTP
             request.AddFile("file", file, "image.jpg");
 
             var response = _client.Execute<T>(request);
-            return response.Data!;
+            return response;
         }
 
         protected void Delete(string url)
@@ -87,13 +98,23 @@ namespace FlyMessenger.HTTP
 
             _client.Execute(request);
         }
-        
-        protected async Task<T> GetAsync<T>(string url)
+
+        protected async Task<RestResponse<T>> GetAsync<T>(string url)
         {
             var request = new RestRequest(url);
 
             var response = await _client.ExecuteAsync<T>(request);
-            return response.Data!;
+            return response;
+        }
+        
+        protected async Task<RestResponse<T>> PostAsync<T, TK>(string url, TK data) where T : class where TK : class
+        {
+            var request = new RestRequest(url, Method.Post);
+
+            request.AddJsonBody(data);
+
+            var response = await _client?.ExecuteAsync<T>(request)!;
+            return response;
         }
     }
 }

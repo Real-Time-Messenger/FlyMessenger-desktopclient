@@ -60,6 +60,33 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teie konto pole aktiveeritud. Kontrollige oma e-posti ja aktiveerige oma konto..
+        /// </summary>
+        public static string accountNotActivated {
+            get {
+                return ResourceManager.GetString("accountNotActivated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palju õnne! Olete edukalt sisse loginud. Konto kinnitamiseks kontrollige oma meili..
+        /// </summary>
+        public static string ACTIVATION_REQUIRED {
+            get {
+                return ResourceManager.GetString("ACTIVATION_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to On juba konto?.
+        /// </summary>
+        public static string already_have_account {
+            get {
+                return ResourceManager.GetString("already-have-account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Igaüks saab.
         /// </summary>
         public static string anyone {
@@ -141,11 +168,47 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Teie e-posti aadressile on saadetud e-kiri parooli taastamise juhistega..
+        /// </summary>
+        public static string CHECK_EMAIL {
+            get {
+                return ResourceManager.GetString("CHECK_EMAIL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sulge.
+        /// </summary>
+        public static string close {
+            get {
+                return ResourceManager.GetString("close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kood.
+        /// </summary>
+        public static string code {
+            get {
+                return ResourceManager.GetString("code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vale kood..
+        /// </summary>
+        public static string code_error {
+            get {
+                return ResourceManager.GetString("code_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vestlused.
         /// </summary>
-        public static string conservations {
+        public static string conversations {
             get {
-                return ResourceManager.GetString("conservations", resourceCulture);
+                return ResourceManager.GetString("conversations", resourceCulture);
             }
         }
         
@@ -240,11 +303,65 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kehtetu meilivorming..
+        /// </summary>
+        public static string email_case_error {
+            get {
+                return ResourceManager.GetString("email-case-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meiliaadress peab olema 3–254 tähemärgi pikkune..
+        /// </summary>
+        public static string email_error {
+            get {
+                return ResourceManager.GetString("email_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-post on juba olemas..
+        /// </summary>
+        public static string emailAlreadyTaken {
+            get {
+                return ResourceManager.GetString("emailAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meiliaadress peab olema 3–254 tähemärgi pikkune..
+        /// </summary>
+        public static string emailHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("emailHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kehtetu meilivorming..
+        /// </summary>
+        public static string emailIsNotValid {
+            get {
+                return ResourceManager.GetString("emailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inglise.
         /// </summary>
         public static string english {
             get {
                 return ResourceManager.GetString("english", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sisestage kood, mille me teile meili teel saatsime..
+        /// </summary>
+        public static string enter_code {
+            get {
+                return ResourceManager.GetString("enter-code", resourceCulture);
             }
         }
         
@@ -263,6 +380,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string exit {
             get {
                 return ResourceManager.GetString("exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unustasid parooli?.
+        /// </summary>
+        public static string forgot_password {
+            get {
+                return ResourceManager.GetString("forgot-password", resourceCulture);
             }
         }
         
@@ -312,6 +438,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vale parool. Kontrollige oma mandaate ja proovige uuesti..
+        /// </summary>
+        public static string incorrectPassword {
+            get {
+                return ResourceManager.GetString("incorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keel.
         /// </summary>
         public static string language {
@@ -348,11 +483,20 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logi sisse.
+        /// </summary>
+        public static string login {
+            get {
+                return ResourceManager.GetString("login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kasutajanimi.
         /// </summary>
-        public static string login_Name {
+        public static string login_name {
             get {
-                return ResourceManager.GetString("login-Name", resourceCulture);
+                return ResourceManager.GetString("login-name", resourceCulture);
             }
         }
         
@@ -416,6 +560,42 @@ namespace FlyMessenger.Resources.Languages {
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uus seade.
+        /// </summary>
+        public static string new_device {
+            get {
+                return ResourceManager.GetString("new-device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Olete sisse logitud uuest seadmest. Kontrollige oma e-posti aadressi..
+        /// </summary>
+        public static string new_device_notification {
+            get {
+                return ResourceManager.GetString("new-device-notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uue seadme kinnituskood on vale..
+        /// </summary>
+        public static string newDeviceCodeIsNotValid {
+            get {
+                return ResourceManager.GetString("newDeviceCodeIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Väli ei tohi olla tühi..
+        /// </summary>
+        public static string newDeviceCodeIsRequired {
+            get {
+                return ResourceManager.GetString("newDeviceCodeIsRequired", resourceCulture);
             }
         }
         
@@ -510,6 +690,60 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parool.
+        /// </summary>
+        public static string password {
+            get {
+                return ResourceManager.GetString("password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salasõna ei klapi..
+        /// </summary>
+        public static string password_case_error {
+            get {
+                return ResourceManager.GetString("password-case-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk..
+        /// </summary>
+        public static string password_error {
+            get {
+                return ResourceManager.GetString("password-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk..
+        /// </summary>
+        public static string passwordConfirmHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("passwordConfirmHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parool peab olema vähemalt 8 ja mitte rohkem kui 32 tähemärki pikk..
+        /// </summary>
+        public static string passwordHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("passwordHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pilt.
+        /// </summary>
+        public static string photo {
+            get {
+                return ResourceManager.GetString("photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kinnitada.
         /// </summary>
         public static string pin {
@@ -542,6 +776,42 @@ namespace FlyMessenger.Resources.Languages {
         public static string recently {
             get {
                 return ResourceManager.GetString("recently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registreeruge sõpradega vestlemiseks!.
+        /// </summary>
+        public static string register_for_messaging {
+            get {
+                return ResourceManager.GetString("register-for-messaging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registreerimine.
+        /// </summary>
+        public static string registration {
+            get {
+                return ResourceManager.GetString("registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korda salasõna.
+        /// </summary>
+        public static string repeat_password {
+            get {
+                return ResourceManager.GetString("repeat-password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korrake oma parooli.
+        /// </summary>
+        public static string repeat_your_password {
+            get {
+                return ResourceManager.GetString("repeat_your_password", resourceCulture);
             }
         }
         
@@ -600,6 +870,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Saada.
+        /// </summary>
+        public static string send {
+            get {
+                return ResourceManager.GetString("send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saada esimene sõnum.
         /// </summary>
         public static string send_first_message {
@@ -650,6 +929,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string showWindow {
             get {
                 return ResourceManager.GetString("showWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registreeru.
+        /// </summary>
+        public static string signup {
+            get {
+                return ResourceManager.GetString("signup", resourceCulture);
             }
         }
         
@@ -726,6 +1014,33 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kahefaktoriline kood on vale..
+        /// </summary>
+        public static string twoFactorCodeIsNotValid {
+            get {
+                return ResourceManager.GetString("twoFactorCodeIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Väli ei tohi olla tühi..
+        /// </summary>
+        public static string twoFactorCodeIsRequired {
+            get {
+                return ResourceManager.GetString("twoFactorCodeIsRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kahefaktoriline autentimine pole lubatud..
+        /// </summary>
+        public static string twoFactorIsNotEnabled {
+            get {
+                return ResourceManager.GetString("twoFactorIsNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Võimatu.
         /// </summary>
         public static string unable {
@@ -753,11 +1068,101 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selle e-posti aadressiga kasutajat pole olemas..
+        /// </summary>
+        public static string userDoesNotExist {
+            get {
+                return ResourceManager.GetString("userDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi.
+        /// </summary>
+        public static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi peab olema vähemalt 3 ja mitte rohkem kui 50 tähemärki pikk..
+        /// </summary>
+        public static string username_error {
+            get {
+                return ResourceManager.GetString("username_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi või e-post.
+        /// </summary>
+        public static string username_or_email {
+            get {
+                return ResourceManager.GetString("username-or-email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi on juba olemas..
+        /// </summary>
+        public static string usernameAlreadyTaken {
+            get {
+                return ResourceManager.GetString("usernameAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi peab olema vähemalt 3 ja mitte rohkem kui 50 tähemärki pikk..
+        /// </summary>
+        public static string usernameHasIncorrectLength {
+            get {
+                return ResourceManager.GetString("usernameHasIncorrectLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kasutajanimi või e-posti aadress on juba hõivatud..
+        /// </summary>
+        public static string usernameOrEmailIsTaken {
+            get {
+                return ResourceManager.GetString("usernameOrEmailIsTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teie konto pole aktiivne. Kontrollige aktiveerimislingi saamiseks oma meili..
+        /// </summary>
+        public static string userNotActiveCheckEmail {
+            get {
+                return ResourceManager.GetString("userNotActiveCheckEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Me ei leidnud selle kasutajanime või e-posti aadressiga kontot. Palun kontrollige oma mandaate ja proovige uuesti..
+        /// </summary>
+        public static string userNotFound {
+            get {
+                return ResourceManager.GetString("userNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kasutajad.
         /// </summary>
         public static string users {
             get {
                 return ResourceManager.GetString("users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parooli taastamiseks sisestage oma e-posti aadress..
+        /// </summary>
+        public static string write_email {
+            get {
+                return ResourceManager.GetString("write-email", resourceCulture);
             }
         }
         
@@ -776,6 +1181,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string yesterday {
             get {
                 return ResourceManager.GetString("yesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teie parool.
+        /// </summary>
+        public static string your_password {
+            get {
+                return ResourceManager.GetString("your-password", resourceCulture);
             }
         }
     }

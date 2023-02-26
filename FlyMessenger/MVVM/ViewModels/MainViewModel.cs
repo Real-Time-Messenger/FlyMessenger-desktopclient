@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using FlyMessenger.Controllers;
 using FlyMessenger.Core;
 using FlyMessenger.MVVM.Model;
@@ -11,8 +10,8 @@ using FlyMessenger.Properties;
 using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Settings;
 using Newtonsoft.Json;
+using RestSharp;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
 namespace FlyMessenger.MVVM.ViewModels
 {
@@ -22,8 +21,7 @@ namespace FlyMessenger.MVVM.ViewModels
         public ObservableCollection<DialogModel?> DialogsInSearch { get; set; } = new ObservableCollection<DialogModel?>();
         public ObservableCollection<DialogModel> MessagesInSearch { get; set; } = new ObservableCollection<DialogModel>();
         public ObservableCollection<UserModel?> UsersInSearch { get; set; } = new ObservableCollection<UserModel?>();
-        public static ObservableCollection<SessionsModel>? Sessions { get; set; }
-        public RelayCommand SendCommand { get; set; }
+        public static ObservableCollection<SessionsModel?>? Sessions { get; set; }
         public RelayCommand ClearSearchBox { get; set; }
 
         // Add a flag to check if messages are loaded or it's last time to load messages
@@ -580,14 +578,19 @@ namespace FlyMessenger.MVVM.ViewModels
                 }
 
                 if (Application.Current.MainWindow is not MainWindow window) return;
-                window.MessagesListView.Items.Refresh();
                 dialog.Messages.Add(message);
+                window.MessagesListView.Items.Refresh();
 
                 if (SelectedDialog != null! && SelectedDialog.Id == dialog.Id)
                     if (window.MessagesScrollViewer.VerticalOffset > window.MessagesScrollViewer.ExtentHeight -
                         window.MessagesScrollViewer.ViewportHeight - 320 || message.IsMyMessage == true)
                         window.MessagesListView.ScrollIntoView(SelectedDialog.Messages.Last());
 
+                if (message.File != null)
+                {
+                    dialog.LastMessage = message;
+                    dialog.LastMessage.Text = lang.photo;
+                }
                 dialog.LastMessage = message;
                 if (message.IsRead || message.Sender.Id == MyProfile.Id) return;
                 dialog.UnreadMessages++;
@@ -599,6 +602,11 @@ namespace FlyMessenger.MVVM.ViewModels
                 message.NewDate = true;
                 SetPhotoVisibility(message);
                 dialog.Messages.Add(message);
+                if (message.File != null)
+                {
+                    dialog.LastMessage = message;
+                    dialog.LastMessage.Text = lang.photo;
+                }
                 dialog.LastMessage = message;
             }
         }
@@ -622,6 +630,10 @@ namespace FlyMessenger.MVVM.ViewModels
             if (existDialog == null)
             {
                 var newDialog = JsonConvert.DeserializeObject<DialogModel>(dialog.ToString());
+                if (dialog.LastMessage.File != null)
+                {
+                    dialog.LastMessage.Text = lang.photo;
+                }
                 Dialogs.Add(newDialog);
                 UnreadMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
 
@@ -700,43 +712,53 @@ namespace FlyMessenger.MVVM.ViewModels
             CurrentPage = SettingsManager.DefaultPage;
             MyProfile = ControllerBase.UserController.GetMyProfile();
 
-            var sessions = ControllerBase.UserController.GetMySessions();
-            Sessions = new ObservableCollection<SessionsModel>(sessions);
-            SessionsCount = MyProfile.Sessions.Count;
-            // Get current session
-            CurrentSession = Sessions.FirstOrDefault(x => x.Current == true);
-            // Remove current session from Sessions
-            if (CurrentSession != null)
+            var sessions = ControllerBase.UserController.GetMySessions() ?? null;
+            Sessions = sessions != null ? new ObservableCollection<SessionsModel?>(sessions) : null;
+            if (MyProfile.Sessions != null)
             {
-                Sessions.Remove(CurrentSession);
+                SessionsCount = MyProfile.Sessions.Count;
+                // Get current session
+                CurrentSession = Sessions?.FirstOrDefault(x => x?.Current == true);
+                // Remove current session from Sessions
+                if (CurrentSession != null)
+                {
+                    Sessions?.Remove(CurrentSession);
+                }
             }
             MyProfile.Sessions = Sessions;
 
             BlockedUsersCount = MyProfile.BlackList.Count;
 
-            var dialogs = ControllerBase.DialogController.GetDialogs();
+            var dialogs = ControllerBase.DialogController.GetDialogs() ?? null;
 
-            // Get all dialogs
-            if (dialogs.Length != 0)
+            if (dialogs != null)
             {
-                foreach (var dialog in dialogs)
+                // Get all dialogs
+                if (dialogs.Length != 0)
                 {
-                    Dialogs.Add(dialog);
-                }
+                    foreach (var dialog in dialogs)
+                    {
+                        Dialogs.Add(dialog);
+                    }
 
-                NoMessagesVisibility = false;
+                    NoMessagesVisibility = false;
 
-                // Sort by MessageDateTime and MessageAnchor
-                Dialogs = new ObservableCollection<DialogModel>(
-                    Dialogs.OrderByDescending(x => x.IsPinned).ThenByDescending(x => x.LastMessage?.SentAt)
-                );
+                    // Sort by MessageDateTime and MessageAnchor
+                    Dialogs = new ObservableCollection<DialogModel>(
+                        Dialogs.OrderByDescending(x => x.IsPinned).ThenByDescending(x => x.LastMessage?.SentAt)
+                    );
 
-                // Count how many MessagesCount are
-                UnreadMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
+                    // Count how many MessagesCount are
+                    UnreadMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
 
-                foreach (var dialog in Dialogs)
-                {
-                    ValidateMessages(dialog.Messages);
+                    foreach (var dialog in Dialogs)
+                    {
+                        if (dialog.LastMessage?.File != null)
+                        {
+                            dialog.LastMessage.Text = lang.photo;
+                        }
+                        ValidateMessages(dialog.Messages);
+                    }
                 }
             }
             else
@@ -758,17 +780,18 @@ namespace FlyMessenger.MVVM.ViewModels
                     break;
             }
 
-            switch (MyProfile.Settings.LastActivityMode)
-            {
-                case true:
-                    IsAnyoneChecked = true;
-                    CheckedAction = lang.anyone;
-                    break;
-                case false:
-                    IsNobodyChecked = true;
-                    CheckedAction = lang.nobody;
-                    break;
-            }
+            if (MyProfile.Settings != null)
+                switch (MyProfile.Settings.LastActivityMode)
+                {
+                    case true:
+                        IsAnyoneChecked = true;
+                        CheckedAction = lang.anyone;
+                        break;
+                    case false:
+                        IsNobodyChecked = true;
+                        CheckedAction = lang.nobody;
+                        break;
+                }
 
             AutoStartupEnabled = Settings.Default.RunOnStartupAllowed;
 

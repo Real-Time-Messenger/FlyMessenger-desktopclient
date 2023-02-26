@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using FlyMessenger.HTTP;
 using FlyMessenger.MVVM.Model;
+using RestSharp;
 
 namespace FlyMessenger.Controllers
 {
@@ -8,12 +9,12 @@ namespace FlyMessenger.Controllers
     {
         public UserModel GetMyProfile()
         {
-            return Get<UserModel>(Constants.ProfilesUrl + "/me");
+            return Get<UserModel>(Constants.ProfilesUrl + "/me").Data!;
         }
 
-        public IEnumerable<SessionsModel> GetMySessions()
+        public SessionsModel[] GetMySessions()
         {
-            return Get<SessionsModel[]>(Constants.ProfilesUrl + "/me/sessions");
+            return Get<SessionsModel[]>(Constants.ProfilesUrl + "/me/sessions").Data!;
         }
 
         public void EditMyProfileName(string? name, string? surname)
@@ -83,12 +84,62 @@ namespace FlyMessenger.Controllers
                 new { AutoStartEnabled = autoStart }
             );
         }
+        
+        public void Logout()
+        {
+            Post(Constants.AuthUrl + "/logout");
+        }
+
+        public void Delete()
+        {
+            Delete(Constants.ProfilesUrl + "/me");
+        }
 
         public BlackListResponseModel BlockOrUnblockUser(string userId)
         {
             return Post<BlackListResponseModel, object>(
                 Constants.ProfilesUrl + "/blacklist",
                 new { BlacklistedUserId = userId }
+            ).Data!;
+        }
+
+        public async Task<RestResponse<LoginModel>> Login(string username, string password)
+        {
+            return await PostAsync<LoginModel, object>(
+                Constants.AuthUrl + "/login",
+                new { Username = username, Password = password }
+            );
+        }
+
+        public async Task<RestResponse<RegisterModel>> Register(string username, string email, string password, string passwordConfirm)
+        {
+            return await PostAsync<RegisterModel, object>(
+                Constants.AuthUrl + "/signup",
+                new { Username = username, Email = email, Password = password, PasswordConfirm = passwordConfirm }
+            );
+        }
+        
+        public async Task<RestResponse<CallResetPasswordModel>> CallResetPassword(string email)
+        {
+            return await PostAsync<CallResetPasswordModel, object>(
+                Constants.AuthUrl + "/call-reset-password",
+                new { Email = email }
+            );
+        }
+        
+        public async Task<RestResponse<TwoFactorModel>> TwoFactorAuthenticate(string code)
+        {
+            return await PostAsync<TwoFactorModel, object>(
+                Constants.AuthUrl + "/two-factor",
+                new { Code = code }
+            );
+        }
+        
+        public async Task<RestResponse<TwoFactorModel>> ConfirmNewDevice(string code)
+        {
+            return await PostAsync<TwoFactorModel, object>(
+                Constants.AuthUrl + "/new-device",
+                new { Code = code }
             );
         }
     }

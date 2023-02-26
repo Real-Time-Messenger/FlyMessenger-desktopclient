@@ -11,10 +11,10 @@
       Title="Profile">
 
     <Page.Resources>
-        <converters:ToLowerConverter x:Key="ToLowerConverter" />
         <converters:OnlineStatusConverter x:Key="OnlineStatusConverter" />
         <converters:ChatBoxNameConverter x:Key="ChatBoxNameConverter" />
     </Page.Resources>
+    
     <Page.DataContext>
         <viewModels:MainViewModel />
     </Page.DataContext>
@@ -150,8 +150,8 @@
                 </userControls:ProfileButtons.Style>
             </userControls:ProfileButtons>
             <userControls:ProfileButtons x:Name="UsernameButton"
-                                         Title="{x:Static language:lang.login_Name}"
-                                         TextData="{Binding MyProfile.Username, StringFormat='@{0}', Converter={StaticResource ToLowerConverter}}"
+                                         Title="{x:Static language:lang.login_name}"
+                                         TextData="{Binding MyProfile.Username, StringFormat='@{0}'}"
                                          Icon="{DynamicResource Settings-Notifications}"
                                          PreviewMouseLeftButtonUp="CopyUsernameToClipboard">
                 <userControls:ProfileButtons.Style>

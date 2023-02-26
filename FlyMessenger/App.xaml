@@ -5,7 +5,7 @@
              xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
              xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
              xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
 
         <ObjectDataProvider x:Key="UserFirstNameDataProvider" ObjectType="{x:Type viewModels:MainViewModel}" />
@@ -1014,6 +1014,9 @@
         </Style>
 
         <!-- DialogMessagesStyle Resources -->
+        <Style TargetType="Image" x:Key="ImageInMessageStyle">
+            <EventSetter Event="PreviewMouseLeftButtonUp" Handler="OpenDialogGallery"/>
+        </Style>
         <Style TargetType="{x:Type ListViewItem}" x:Key="DialogMessagesStyle">
             <Setter Property="Margin" Value="20 0 20 0" />
             <Setter Property="SnapsToDevicePixels" Value="True" />
@@ -1059,15 +1062,28 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBox Grid.Column="0" Text="{Binding Text}"
-                                                 IsReadOnly="True"
-                                                 BorderThickness="0"
-                                                 Background="Transparent"
-                                                 Padding="-2 0 0 0"
-                                                 TextWrapping="Wrap"
-                                                 Foreground="{DynamicResource Strongest-Stroke}"
-                                                 FontSize="14"
-                                                 Margin="10 10 10 10" />
+                                        <Grid Grid.Column="0">
+                                            <Image x:Name="ImageInMessage"
+                                                   Source="{Binding File}"
+                                                   Margin="10 10 10 10"
+                                                   MaxWidth="630"
+                                                   Cursor="Hand"
+                                                   Stretch="Uniform"
+                                                   RenderOptions.BitmapScalingMode="Fant"
+                                                   RenderOptions.EdgeMode="Aliased"
+                                                   StretchDirection="DownOnly"
+                                                   PreviewMouseLeftButtonUp="OpenDialogGallery" />
+                                            <TextBox x:Name="TextInMessage"
+                                                     Text="{Binding Text}"
+                                                     IsReadOnly="True"
+                                                     BorderThickness="0"
+                                                     Background="Transparent"
+                                                     Padding="-2 0 0 0"
+                                                     TextWrapping="Wrap"
+                                                     Foreground="{DynamicResource Strongest-Stroke}"
+                                                     FontSize="14"
+                                                     Margin="10 10 10 10" />
+                                        </Grid>
                                         <TextBlock Grid.Column="1"
                                                    x:Name="SentAtTextBlock"
                                                    Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
@@ -1100,6 +1116,12 @@
                         <ControlTemplate.Triggers>
                             <DataTrigger Binding="{Binding NewDate}" Value="true">
                                 <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Text}" Value="{x:Null}">
+                                <Setter TargetName="TextInMessage" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding File}" Value="{x:Null}">
+                                <Setter TargetName="ImageInMessage" Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsMyMessage, UpdateSourceTrigger=PropertyChanged}"
                                          Value="True">
@@ -1169,15 +1191,28 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" Text="{Binding Text}"
-                                             IsReadOnly="True"
-                                             BorderThickness="0"
-                                             Background="Transparent"
-                                             Padding="-2 0 0 0"
-                                             TextWrapping="Wrap"
-                                             Foreground="{DynamicResource Strongest-Stroke}"
-                                             FontSize="14"
-                                             Margin="10 10 10 10" />
+                                    <Grid Grid.Column="0">
+                                        <Image x:Name="ImageInMessage"
+                                               Source="{Binding File}"
+                                               Margin="10 10 10 10"
+                                               MaxWidth="630"
+                                               Cursor="Hand"
+                                               Stretch="Uniform"
+                                               RenderOptions.BitmapScalingMode="Fant"
+                                               RenderOptions.EdgeMode="Aliased"
+                                               StretchDirection="DownOnly"
+                                               Style="{StaticResource ImageInMessageStyle}" />
+                                        <TextBox x:Name="TextInMessage"
+                                                 Text="{Binding Text}"
+                                                 IsReadOnly="True"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 Padding="-2 0 0 0"
+                                                 TextWrapping="Wrap"
+                                                 Foreground="{DynamicResource Strongest-Stroke}"
+                                                 FontSize="14"
+                                                 Margin="10 10 10 10" />
+                                    </Grid>
                                     <TextBlock Grid.Column="1"
                                                Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
                                                Foreground="{DynamicResource Litest-Stroke-Second}"
@@ -1220,6 +1255,12 @@
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding NewDate}" Value="true">
                             <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text}" Value="{x:Null}">
+                            <Setter TargetName="TextInMessage" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding File}" Value="{x:Null}">
+                            <Setter TargetName="ImageInMessage" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsRead, UpdateSourceTrigger=PropertyChanged}"
                                      Value="True">
@@ -1271,15 +1312,28 @@
                                         <ColumnDefinition MaxWidth="630" Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" Text="{Binding Text}"
-                                             IsReadOnly="True"
-                                             BorderThickness="0"
-                                             Background="Transparent"
-                                             Padding="-2 0 0 0"
-                                             TextWrapping="Wrap"
-                                             Foreground="{DynamicResource Strongest-Stroke}"
-                                             FontSize="14"
-                                             Margin="10 10 10 10" />
+                                    <Grid Grid.Column="0">
+                                        <Image x:Name="ImageInMessage"
+                                               Source="{Binding File}"
+                                               Margin="10 10 10 10"
+                                               MaxWidth="630"
+                                               Cursor="Hand"
+                                               Stretch="Uniform"
+                                               RenderOptions.BitmapScalingMode="Fant"
+                                               RenderOptions.EdgeMode="Aliased"
+                                               StretchDirection="DownOnly"
+                                               Style="{StaticResource ImageInMessageStyle}" />
+                                        <TextBox x:Name="TextInMessage"
+                                                 Text="{Binding Text}"
+                                                 IsReadOnly="True"
+                                                 BorderThickness="0"
+                                                 Background="Transparent"
+                                                 Padding="-2 0 0 0"
+                                                 TextWrapping="Wrap"
+                                                 Foreground="{DynamicResource Strongest-Stroke}"
+                                                 FontSize="14"
+                                                 Margin="10 10 10 10" />
+                                    </Grid>
                                     <TextBlock Grid.Column="1"
                                                Text="{Binding SentAt, Converter={StaticResource DateTimeConverter}}"
                                                Foreground="{DynamicResource Liter-Stroke-Second}"
@@ -1293,6 +1347,12 @@
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding NewDate}" Value="true">
                             <Setter TargetName="NewDateBorder" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Text}" Value="{x:Null}">
+                            <Setter TargetName="TextInMessage" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding File}" Value="{x:Null}">
+                            <Setter TargetName="ImageInMessage" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -7,7 +7,7 @@ namespace FlyMessenger.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return value.ToString()!.ToLower();
+            return value == null ? null : value.ToString()!.ToLower();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
