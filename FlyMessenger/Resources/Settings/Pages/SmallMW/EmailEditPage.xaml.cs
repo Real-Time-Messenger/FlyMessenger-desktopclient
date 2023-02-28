@@ -23,7 +23,7 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
                 new Thickness(0, 0, 0, 2),
                 TimeSpan.FromSeconds(0.1)
             );
-            
+
             // Start animation
             EmailEditLabel.BeginAnimation(OpacityProperty, animation);
             EmailEditTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorder);
@@ -33,49 +33,38 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
             if (Application.Current.MainWindow is not MainWindow mainWindow) return;
-            
-            closeAnimation.Completed += (_, _) =>
-            {
-                mainWindow.EmailEditModalWindow.IsOpen = false;
-            };
-            
+
+            closeAnimation.Completed += (_, _) => { mainWindow.EmailEditModalWindow.IsOpen = false; };
+
             mainWindow.EmailEditModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
         private void OnEmailEditSaveClick(object sender, RoutedEventArgs e)
         {
             var email = EmailEditTextBox.Text;
+
+            EmailErrorLabel.Visibility =
+                IsValidLength(email, 3, 50) ? Visibility.Collapsed : Visibility.Visible;
+            if (!IsValidLength(email, 3, 50)) return;
             
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                var mainWindow = (MainWindow) Application.Current.MainWindow;
-                if (mainWindow == null) return;
-                if (mainWindow.CannotBeNullTip.IsOpen) return;
+            EmailCaseErrorLabel.Visibility =
+                IsValidEmail(email) ? Visibility.Collapsed : Visibility.Visible;
+            if (!IsValidEmail(email)) return;
 
-                mainWindow.CannotBeNullTip.IsOpen = true;
-
-                var openAnimation = new DoubleAnimation(0, 1, TimeSpan.FromSeconds(0.2));
-                var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.2))
-                {
-                    BeginTime = TimeSpan.FromSeconds(2)
-                };
-
-                openAnimation.Completed += (_, _) =>
-                {
-                    mainWindow.CannotBeNullTip.BeginAnimation(OpacityProperty, closeAnimation);
-                    EmailEditTextBox.Text = ControllerBase.UserController.GetMyProfile().Email;
-                };
-                closeAnimation.Completed += (_, _) => mainWindow.CannotBeNullTip.IsOpen = false;
-
-                mainWindow.CannotBeNullTip.BeginAnimation(OpacityProperty, openAnimation);
-                return;
-            }
-            
             ControllerBase.UserController.EditMyProfileEmail(email);
-            
+
             EmailEditLabel.Opacity = 0.5;
             EmailEditTextBoxBorder.BorderThickness = new Thickness(0, 0, 0, 1);
         }
+
+        private static bool IsValidLength(string text, int min, int max)
+        {
+            return text.Length >= min && text.Length <= max;
+        }
+
+        private static bool IsValidEmail(string email)
+        {
+            return email.Split("@").Length == 2 && email.Split("@")[1].Split(".").Length > 1;
+        }
     }
 }
-

@@ -330,6 +330,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kehtetu meilivorming..
+        /// </summary>
+        public static string emailHasIncorrectDomain {
+            get {
+                return ResourceManager.GetString("emailHasIncorrectDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meiliaadress peab olema 3–254 tähemärgi pikkune..
         /// </summary>
         public static string emailHasIncorrectLength {
@@ -344,6 +353,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string emailIsNotValid {
             get {
                 return ResourceManager.GetString("emailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kehtetu meilivorming..
+        /// </summary>
+        public static string emailIsNotValidType {
+            get {
+                return ResourceManager.GetString("emailIsNotValidType", resourceCulture);
             }
         }
         
@@ -483,6 +501,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perekonnanimi peab olema vähemalt 3 ja mitte rohkem kui 25 tähemärki pikk..
+        /// </summary>
+        public static string lastname_error {
+            get {
+                return ResourceManager.GetString("lastname-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logi sisse.
         /// </summary>
         public static string login {
@@ -560,6 +587,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nimi peab olema vähemalt 3 ja mitte rohkem kui 25 tähemärki pikk..
+        /// </summary>
+        public static string name_error {
+            get {
+                return ResourceManager.GetString("name-error", resourceCulture);
             }
         }
         
@@ -1037,6 +1073,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string twoFactorIsNotEnabled {
             get {
                 return ResourceManager.GetString("twoFactorIsNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kirjutab....
+        /// </summary>
+        public static string typing {
+            get {
+                return ResourceManager.GetString("typing", resourceCulture);
             }
         }
         

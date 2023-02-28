@@ -17,7 +17,7 @@ namespace FlyMessenger.MVVM.Model
         public string Id { get; set; }
         public string DialogId { get; set; }
         public Sender Sender { get; set; }
-        public string Text { get; set; }
+        public string? Text { get; set; }
         public string? File { get; set; }
         public bool IsRead { get; set; }
         public string SentAt { get; set; }
@@ -44,7 +44,7 @@ namespace FlyMessenger.MVVM.Model
         public string Id { get; set; }
         public UserInDialogModel User { get; set; }
         public Collection<MessageModel> Messages { get; set; } = new Collection<MessageModel>();
-
+        
         private MessageModel? _lastMessage;
         
         public MessageModel? LastMessage
@@ -68,7 +68,8 @@ namespace FlyMessenger.MVVM.Model
                 OnPropertyChanged();
             }
         }
-
+        
+        public string? Typing { get; set; }
         public int UnreadMessages { get; set; }
         public bool IsPinned { get; set; }
         public bool IsSoundEnabled { get; set; }

@@ -17,6 +17,7 @@ using FlyMessenger.MVVM.Model;
 using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.Properties;
 using FlyMessenger.Resources.Settings;
+using FlyMessenger.Resources.Windows;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Application = System.Windows.Application;
@@ -35,8 +36,9 @@ namespace FlyMessenger
         public WebSockets WebSocketClient;
         private MainWindow _mainWindow;
         public string LangSwitch { get; set; } = "";
-        public static MainViewModel MainViewModel { get; } = new MainViewModel();
+        public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
         private readonly NotifyIconManager _notifyIconManager = new NotifyIconManager();
+        private bool _searched;
 
         public MainWindow()
         {
@@ -49,8 +51,31 @@ namespace FlyMessenger
             App.ProfilePhotoMainWindow = ProfilePhoto;
             PreviewKeyDown += MainWindowPreviewKeyDown;
             Loaded += MainWindow_Loaded;
-            Closed += App.ToggleLanguage;
+            Closed += (sender, args) =>
+            {
+                App.ToggleLanguage(sender, args);
+                _notifyIconManager.DisposeNotifyIcon();
+            };
             
+            Activated += (_, _) =>
+            {
+                WebSocketClient?.Send(JsonConvert.SerializeObject(new ToggleOnlineStatus
+                {
+                    type = "TOGGLE_ONLINE_STATUS",
+                    status = true
+                }));
+            };
+            
+            Deactivated += (_, _) =>
+            {
+                WebSocketClient?.Send(JsonConvert.SerializeObject(new ToggleOnlineStatus
+                {
+                    type = "TOGGLE_ONLINE_STATUS",
+                    status = false
+                }));
+            };
+            
+            MainViewModel = new MainViewModel();
             _notifyIconManager.InitializeNotifyIcon();
         }
 
@@ -129,9 +154,12 @@ namespace FlyMessenger
                 var selectedDialog = MainViewModel.SelectedDialog;
                 selectedDialog.UnreadMessages = Math.Max(selectedDialog.UnreadMessages - 1, 0);
                 MainViewModel.UnreadMessagesCount =
-                    MainViewModel.Dialogs!.Count(x => x.UnreadMessages > 0);
+                    MainViewModel.Dialogs.Count(x => x.UnreadMessages > 0);
                 ChatBoxListView.Items.Refresh();
             }
+            
+            if (Application.Current.MainWindow is not MainWindow { IsActive: true }) return;
+            NotificationsManager.CloseDialogNotifications(MainViewModel.SelectedDialog.Id);
         }
 
         private UIElement? MainWindow_GetFirstItemIsInViewport()
@@ -570,6 +598,10 @@ namespace FlyMessenger
         {
             // Delete old token
             _cancellationTokenSource?.Cancel();
+            if (e.Key != Key.Enter)
+            {
+                _searched = false;
+            }
 
             // Create new token
             _cancellationTokenSource = new CancellationTokenSource();
@@ -587,27 +619,34 @@ namespace FlyMessenger
                 MainViewModel.DialogsInSearch.Clear();
                 MainViewModel.UsersInSearch.Clear();
                 MainViewModel.MessagesInSearch.Clear();
+                _searched = false;
                 return;
             }
-            if (e.Key == Key.Enter) MainViewModel.Search(SearchBox.Text);
+            if (e.Key == Key.Enter && _searched == false)
+            {
+                _searched = true;
+                MainViewModel.Search(SearchBox.Text);
+            }
             if (!IsTextKey(e.Key)) return;
 
             try
             {
                 // Wait 1 second before search
                 await Task.Delay(TimeSpan.FromSeconds(1), _cancellationTokenSource.Token);
+                if (_searched) return;
                 MainViewModel.Search(SearchBox.Text);
+                _searched = true;
             }
             catch (TaskCanceledException)
             {
-                // Ignore, if the task was canceled
+                // Do nothing
             }
         }
 
         private async void SearchBoxSecond_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             // Delete old token
-            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource?.Cancel();
 
             // Create new token
             _cancellationTokenSource = new CancellationTokenSource();
@@ -694,6 +733,52 @@ namespace FlyMessenger
             };
             
             WebSocketClient.Send(JsonConvert.SerializeObject(fileModel));
+        }
+
+        private void SendMessage(object sender, MouseButtonEventArgs e)
+        {
+            // Send typing status to the selected dialog via WebSocket
+            var typingState = new SendMessageModel
+            {
+                type = string.IsNullOrWhiteSpace(ActiveChatMessage.Text) ? "UNTYPING" : "TYPING",
+                dialogId = ((MainViewModel)DataContext).SelectedDialog.Id,
+            };
+
+            var untypingState = new SendMessageModel
+            {
+                type = "UNTYPING",
+                dialogId = ((MainViewModel)DataContext).SelectedDialog.Id,
+            };
+
+            WebSocketClient.Send(JsonConvert.SerializeObject(typingState));
+            
+            var text = ActiveChatMessage.Text;
+            ActiveChatMessage.Text = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(text)) return;
+            text = text.Trim();
+
+            var message = new SendMessageModel
+            {
+                type = "SEND_MESSAGE",
+                file = null,
+                dialogId = MainViewModel.SelectedDialog.Id,
+            };
+
+            if (text.Length > 1000)
+            {
+                for (var i = 0; i < text.Length; i += 1000)
+                {
+                    message.text = text.Substring(i, Math.Min(1000, text.Length - i));
+                    WebSocketClient.Send(JsonConvert.SerializeObject(message));
+                }
+            }
+            else
+            {
+                message.text = text;
+                WebSocketClient.Send(JsonConvert.SerializeObject(message));
+                WebSocketClient.Send(JsonConvert.SerializeObject(untypingState));
+            }
         }
     }
 }

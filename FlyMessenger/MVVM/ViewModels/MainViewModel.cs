@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,7 +32,7 @@ namespace FlyMessenger.MVVM.ViewModels
 
         // Add a flag to check if messages are loading
         private bool _isFetching;
-        
+
         // Add a keeper of previous dialog
         private DialogModel? _previousDialog;
 
@@ -116,37 +118,40 @@ namespace FlyMessenger.MVVM.ViewModels
             DialogsInSearch.Clear();
             MessagesInSearch.Clear();
             UsersInSearch.Clear();
-            
+
             SearchResult = await ControllerBase.SearchController.Search(text);
-            MessagesNotFoundVisibility = SearchResult.Messages.Length == 0;
+            MessagesNotFoundVisibility = SearchResult.Messages?.Length == 0;
             DialogsNotFoundVisibility = SearchResult.Dialogs?.Length == 0;
             UsersNotFoundVisibility = SearchResult.Users?.Length == 0;
 
+            if (SearchResult.Dialogs == null || SearchResult.Users == null || SearchResult.Messages == null)
+                return;
+            
             foreach (var dialog in SearchResult.Messages)
             {
                 MessagesInSearch.Add(dialog);
             }
 
-            if (SearchResult.Dialogs == null || SearchResult.Users == null)
-                return;
+            SearchResult.Dialogs = SearchResult.Dialogs.OrderByDescending(d => d.LastMessage?.SentAt).ToArray();
             foreach (var dialog in SearchResult.Dialogs)
             {
                 DialogsInSearch.Add(dialog);
 
-                // Заменить dialog в Dialogs на dialog из SearchResult.Dialogs
                 Dialogs.Remove(Dialogs.FirstOrDefault(d => d.Id == dialog.Id)!);
                 Dialogs.Add(dialog);
             }
-            foreach (var user in SearchResult.Users)
+
+            var distinctUsers = SearchResult.Users.Distinct().ToArray();
+            foreach (var user in distinctUsers)
             {
                 UsersInSearch.Add(user);
             }
 
+            if (DialogsInSearch.Count == 0)
+                return;
             foreach (var dialog in DialogsInSearch)
             {
-                if (dialog == null)
-                    continue;
-                ValidateMessages(dialog.Messages);
+                if (dialog?.Messages != null) ValidateMessages(dialog.Messages);
             }
         }
 
@@ -475,7 +480,7 @@ namespace FlyMessenger.MVVM.ViewModels
                 OnPropertyChanged();
             }
         }
-        
+
         private bool IsDateDifferent(MessageModel firstMessage, MessageModel secondMessage, int? minMinutes = null)
         {
             var firstSentAt = DateTimeOffset.Parse(firstMessage.SentAt).Date;
@@ -489,7 +494,7 @@ namespace FlyMessenger.MVVM.ViewModels
             return firstSentAt != secondSentAt || firstSentAtTime - secondSentAtTime > TimeSpan.FromMinutes(minMinutes.Value);
         }
 
-        private void ValidateMessages(Collection<MessageModel> messages, bool isScrolling = false)
+        private void ValidateMessages(IReadOnlyList<MessageModel> messages, bool isScrolling = false)
         {
             if (messages.Count == 0) return;
 
@@ -585,28 +590,19 @@ namespace FlyMessenger.MVVM.ViewModels
                     if (window.MessagesScrollViewer.VerticalOffset > window.MessagesScrollViewer.ExtentHeight -
                         window.MessagesScrollViewer.ViewportHeight - 320 || message.IsMyMessage == true)
                         window.MessagesListView.ScrollIntoView(SelectedDialog.Messages.Last());
-
-                if (message.File != null)
-                {
-                    dialog.LastMessage = message;
-                    dialog.LastMessage.Text = lang.photo;
-                }
+                
                 dialog.LastMessage = message;
                 if (message.IsRead || message.Sender.Id == MyProfile.Id) return;
                 dialog.UnreadMessages++;
                 UnreadMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
-                window.ChatBoxListView.Items.Refresh();
             }
             else
             {
+                if (Application.Current.MainWindow is not MainWindow window) return;
                 message.NewDate = true;
                 SetPhotoVisibility(message);
                 dialog.Messages.Add(message);
-                if (message.File != null)
-                {
-                    dialog.LastMessage = message;
-                    dialog.LastMessage.Text = lang.photo;
-                }
+                window.MessagesListView.Items.Refresh();
                 dialog.LastMessage = message;
             }
         }
@@ -627,22 +623,27 @@ namespace FlyMessenger.MVVM.ViewModels
         {
             var newMessage = JsonConvert.DeserializeObject<MessageModel>(message.ToString());
             var existDialog = Dialogs.FirstOrDefault(x => x.Id == dialogId);
+            if (Application.Current.MainWindow is not MainWindow window) return;
+            
             if (existDialog == null)
             {
                 var newDialog = JsonConvert.DeserializeObject<DialogModel>(dialog.ToString());
-                if (dialog.LastMessage.File != null)
-                {
-                    dialog.LastMessage.Text = lang.photo;
-                }
                 Dialogs.Add(newDialog);
                 UnreadMessagesCount = Dialogs.Count(x => x.UnreadMessages != 0);
 
-                if (Application.Current.MainWindow is not MainWindow window) return;
-                window.ChatBoxListView.Items.Refresh();
+                // Order dialogs firstly by isPinned, then by lastMessage sentAt
+                window.ChatBoxListView.Items.SortDescriptions.Clear();
+                window.ChatBoxListView.Items.SortDescriptions.Add(new SortDescription("IsPinned", ListSortDirection.Descending));
+                window.ChatBoxListView.Items.SortDescriptions.Add(new SortDescription("LastMessage.SentAt", ListSortDirection.Ascending));
+
                 ValidateMessage(newMessage, newDialog);
                 NoMessagesVisibility = false;
                 return;
             }
+            
+            window.ChatBoxListView.Items.SortDescriptions.Clear();
+            window.ChatBoxListView.Items.SortDescriptions.Add(new SortDescription("IsPinned", ListSortDirection.Descending));
+            window.ChatBoxListView.Items.SortDescriptions.Add(new SortDescription("LastMessage.SentAt", ListSortDirection.Ascending));
             ValidateMessage(newMessage, existDialog);
         }
 
@@ -704,7 +705,6 @@ namespace FlyMessenger.MVVM.ViewModels
 
             MessagesLoadingVisibility = false;
             _isFetching = false;
-            
         }
 
         public MainViewModel()
@@ -753,10 +753,6 @@ namespace FlyMessenger.MVVM.ViewModels
 
                     foreach (var dialog in Dialogs)
                     {
-                        if (dialog.LastMessage?.File != null)
-                        {
-                            dialog.LastMessage.Text = lang.photo;
-                        }
                         ValidateMessages(dialog.Messages);
                     }
                 }

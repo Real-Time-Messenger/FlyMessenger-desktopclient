@@ -6,6 +6,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
+using FlyMessenger.Resources.Languages;
+using Newtonsoft.Json;
 
 namespace FlyMessenger.Resources.Authorization
 {
@@ -46,7 +48,8 @@ namespace FlyMessenger.Resources.Authorization
             }
 
 
-            if (EmailErrorLabel.Visibility == Visibility.Collapsed)
+            if (EmailErrorLabel.Visibility == Visibility.Collapsed &&
+                EmailCaseErrorLabel.Visibility == Visibility.Collapsed)
             {
                 var result = await ControllerBase.UserController.CallResetPassword(
                     EmailTextBox.Text
@@ -70,16 +73,21 @@ namespace FlyMessenger.Resources.Authorization
                         ShowSendButton(true);
 
                         if (result.Data?.Details != null)
+                        {
                             foreach (var detail in result.Data.Details)
                             {
                                 if (detail.Field != "email") continue;
                                 EmailErrorLabel.Visibility = Visibility.Visible;
-                                EmailErrorLabel.Text = App.LanguageUtils.GetTranslation(detail.Translation!);
+                                EmailErrorLabel.Text = detail.Translation != null
+                                    ? App.LanguageUtils.GetTranslation(detail.Translation!)
+                                    : lang.emailIsNotValid;
                             }
-                        
-                        SendErrorTextBlock.Visibility = Visibility.Visible;
+                        }
                         if (result.Data?.Translation != null)
+                        {
+                            SendErrorTextBlock.Visibility = Visibility.Visible;
                             SendErrorTextBlock.Text = App.LanguageUtils.GetTranslation(result.Data.Translation);
+                        }
                         break;
                 }
             }

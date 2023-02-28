@@ -330,6 +330,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неправильный формат email..
+        /// </summary>
+        public static string emailHasIncorrectDomain {
+            get {
+                return ResourceManager.GetString("emailHasIncorrectDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Адрес электронной почты должен содержать от 3 до 254 символов..
         /// </summary>
         public static string emailHasIncorrectLength {
@@ -344,6 +353,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string emailIsNotValid {
             get {
                 return ResourceManager.GetString("emailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неправильный формат email..
+        /// </summary>
+        public static string emailIsNotValidType {
+            get {
+                return ResourceManager.GetString("emailIsNotValidType", resourceCulture);
             }
         }
         
@@ -483,6 +501,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фамилия должна быть не менее 3 и не более 25 символов..
+        /// </summary>
+        public static string lastname_error {
+            get {
+                return ResourceManager.GetString("lastname-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Авторизация.
         /// </summary>
         public static string login {
@@ -560,6 +587,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Имя должно быть не менее 3 и не более 25 символов..
+        /// </summary>
+        public static string name_error {
+            get {
+                return ResourceManager.GetString("name-error", resourceCulture);
             }
         }
         
@@ -1037,6 +1073,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string twoFactorIsNotEnabled {
             get {
                 return ResourceManager.GetString("twoFactorIsNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Печатает....
+        /// </summary>
+        public static string typing {
+            get {
+                return ResourceManager.GetString("typing", resourceCulture);
             }
         }
         

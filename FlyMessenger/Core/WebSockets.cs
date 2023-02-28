@@ -1,8 +1,16 @@
 using System;
+using System.Globalization;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
+using FlyMessenger.Controllers;
+using FlyMessenger.Converters;
 using WebSocket4Net;
 using FlyMessenger.Core.Utils;
 using FlyMessenger.HTTP;
+using FlyMessenger.MVVM.Model;
+using FlyMessenger.Resources.Languages;
 using Newtonsoft.Json;
 using Application = System.Windows.Application;
 
@@ -64,17 +72,26 @@ namespace FlyMessenger.Core
             var type = (string)json.type;
             if (string.IsNullOrEmpty(type)) return;
             // Handle message based on message type
+            DialogModel? dialog;
+            TokenSettings? tokenSettings;
             switch (type)
             {
                 case "RECEIVE_MESSAGE":
-                    if (MainWindow.MainViewModel.MyProfile.Settings
-                        .ChatsNotificationsEnabled)
-                    {
-                        if ((string)json.dialog.isNotificationsEnabled == "false") return;
-                        NotificationsManager.SendNotification(json);
-                    }
                     Application.Current.Dispatcher.Invoke(
-                        () => { MainWindow.MainViewModel.SendMessage(json.message, (string)json.message.dialogId, json.dialog); }
+                        () =>
+                        {
+                            if (Application.Current.MainWindow is not MainWindow mainWindow) return;
+                            if (!mainWindow.IsActive)
+                            {
+                                if (MainWindow.MainViewModel.MyProfile.Settings
+                                    .ChatsNotificationsEnabled)
+                                {
+                                    if ((bool)json.dialog.isNotificationsEnabled)
+                                        NotificationsManager.SendNotification(json);
+                                }
+                            }
+                            MainWindow.MainViewModel.SendMessage(json.message, (string)json.message.dialogId, json.dialog);
+                        }
                     );
                     break;
                 case "READ_MESSAGE":
@@ -83,10 +100,57 @@ namespace FlyMessenger.Core
                     );
                     break;
                 case "TOGGLE_ONLINE_STATUS":
-                    var dialog = MainWindow.MainViewModel.Dialogs.FirstOrDefault(x => x.User.Id == (string)json.userId);
+                    dialog = MainWindow.MainViewModel.Dialogs.FirstOrDefault(x => x.User.Id == (string)json.userId);
                     if (dialog == null) return;
                     dialog.User.IsOnline = (bool)json.status;
                     dialog.User.LastActivity = (string)json.lastActivity;
+                    Application.Current.Dispatcher.Invoke(
+                        () =>
+                        {
+                            if (Application.Current.MainWindow is not MainWindow window) return;
+                            window.ChatBoxListView.Items.Refresh();
+
+                            if (dialog.User.IsOnline)
+                            {
+                                window.LastActivityTextBlock.Text = lang.online;
+                            }
+                            else
+                            {
+                                // Set last activity to dialog.User.LastActivity with LastActivityConverter converter
+                                var converter = new LastActivityConverter();
+                                var value = dialog.User.LastActivity;
+                                var targetType = typeof(string);
+                                object? parameter = null;
+                                var culture = CultureInfo.CurrentCulture;
+                                var result = converter.Convert(value, targetType, parameter, culture);
+                                window.LastActivityTextBlock.Text = result as string;
+                            }
+                        }
+                    );
+                    break;
+                case "TYPING":
+                    Application.Current.Dispatcher.Invoke(
+                        () =>
+                        {
+                            var dialogT = MainWindow.MainViewModel.Dialogs.FirstOrDefault(x => x.Id == (string)json.dialogId);
+                            if (dialogT == null) return;
+                            dialogT.Typing = lang.typing;
+                            if (Application.Current.MainWindow is not MainWindow window) return;
+                            window.ChatBoxListView.Items.Refresh();
+                        }
+                    );
+                    break;
+                case "UNTYPING":
+                    Application.Current.Dispatcher.Invoke(
+                        () =>
+                        {
+                            var dialogT = MainWindow.MainViewModel.Dialogs.FirstOrDefault(x => x.Id == (string)json.dialogId);
+                            if (dialogT == null) return;
+                            dialogT.Typing = null;
+                            if (Application.Current.MainWindow is not MainWindow window) return;
+                            window.ChatBoxListView.Items.Refresh();
+                        }
+                    );
                     break;
                 case "USER_BLOCKED":
                     MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !(bool)json.isBlocked;
@@ -95,14 +159,32 @@ namespace FlyMessenger.Core
                     if (json.success == null)
                     {
                         HttpClientBase.SetToken("");
+                        tokenSettings = new TokenSettings();
+                        tokenSettings.Delete();
                         Application.Current.Dispatcher.Invoke(
                             () =>
                             {
                                 if (Application.Current.MainWindow is not MainWindow window) return;
                                 window.CloseWindow();
+                                var loginWindow = new LoginWindow();
+                                loginWindow.Show();
                             }
                         );
                     }
+                    break;
+                case "DELETE_USER":
+                    HttpClientBase.SetToken("");
+                    tokenSettings = new TokenSettings();
+                    tokenSettings.Delete();
+                    Application.Current.Dispatcher.Invoke(
+                        () =>
+                        {
+                            if (Application.Current.MainWindow is not MainWindow window) return;
+                            window.CloseWindow();
+                            var loginWindow = new LoginWindow();
+                            loginWindow.Show();
+                        }
+                    );
                     break;
             }
         }

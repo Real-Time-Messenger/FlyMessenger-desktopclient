@@ -330,6 +330,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        public static string emailHasIncorrectDomain {
+            get {
+                return ResourceManager.GetString("emailHasIncorrectDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The email address must be between 3 and 254 characters..
         /// </summary>
         public static string emailHasIncorrectLength {
@@ -344,6 +353,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string emailIsNotValid {
             get {
                 return ResourceManager.GetString("emailIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        public static string emailIsNotValidType {
+            get {
+                return ResourceManager.GetString("emailIsNotValidType", resourceCulture);
             }
         }
         
@@ -483,6 +501,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lastname must be at least 3 and not more than 25 characters long..
+        /// </summary>
+        public static string lastname_error {
+            get {
+                return ResourceManager.GetString("lastname-error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string login {
@@ -560,6 +587,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string name {
             get {
                 return ResourceManager.GetString("name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be at least 3 and not more than 25 characters long..
+        /// </summary>
+        public static string name_error {
+            get {
+                return ResourceManager.GetString("name-error", resourceCulture);
             }
         }
         
@@ -1037,6 +1073,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string twoFactorIsNotEnabled {
             get {
                 return ResourceManager.GetString("twoFactorIsNotEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typing....
+        /// </summary>
+        public static string typing {
+            get {
+                return ResourceManager.GetString("typing", resourceCulture);
             }
         }
         

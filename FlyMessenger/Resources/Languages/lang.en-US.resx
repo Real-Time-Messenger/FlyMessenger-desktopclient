@@ -495,4 +495,19 @@
   <data name="newDeviceCodeIsRequired" xml:space="preserve">
     <value>Field cannot be empty.</value>
   </data>
+  <data name="name-error" xml:space="preserve">
+    <value>Name must be at least 3 and not more than 25 characters long.</value>
+  </data>
+  <data name="lastname-error" xml:space="preserve">
+    <value>Lastname must be at least 3 and not more than 25 characters long.</value>
+  </data>
+  <data name="typing" xml:space="preserve">
+    <value>Typing...</value>
+  </data>
+  <data name="emailIsNotValidType" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="emailHasIncorrectDomain" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
 </root>

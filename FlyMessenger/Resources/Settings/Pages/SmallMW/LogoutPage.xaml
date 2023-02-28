@@ -42,7 +42,7 @@
                     <Button DockPanel.Dock="Right"
                             Style="{StaticResource ConfirmRedButton}"
                             Click="OnLogoutClick">
-                        <TextBlock Text="{x:Static language:lang.delete}"
+                        <TextBlock Text="{x:Static language:lang.logout}"
                                    FontFamily="{StaticResource Alata}"
                                    FontSize="14"
                                    Foreground="#E86C6C" />

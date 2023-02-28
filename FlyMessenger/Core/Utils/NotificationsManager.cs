@@ -1,3 +1,5 @@
+using System.Linq;
+using FlyMessenger.Resources.Languages;
 using FlyMessenger.Resources.Windows;
 using Application = System.Windows.Application;
 
@@ -20,8 +22,7 @@ namespace FlyMessenger.Core.Utils
 
                     if (message.file != null)
                     {
-                        var messageTitle = (string)message.file;
-                        ShowNotification(userFirstAndLastName, messageTitle, photoUrl, dialogId);
+                        ShowNotification(userFirstAndLastName, lang.photo, photoUrl, dialogId);
                     }
                     else
                     {
@@ -38,6 +39,15 @@ namespace FlyMessenger.Core.Utils
             {
                 if (notificationWindow is not NotificationWindow window) return;
                 window.Close();
+            }
+        }
+        
+        public static void CloseDialogNotifications(string dialogId)
+        {
+            foreach (var notificationWindow in Application.Current.Windows.OfType<NotificationWindow>())
+            {
+                if (notificationWindow.dialogId == dialogId)
+                    notificationWindow.Close();
             }
         }
 

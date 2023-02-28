@@ -3,7 +3,7 @@
     public class SearchModel
     {
         public DialogModel[]? Dialogs { get; set; }
-        public DialogModel[] Messages { get; set; }
+        public DialogModel[]? Messages { get; set; }
         public UserModel[]? Users { get; set; }
     }
     

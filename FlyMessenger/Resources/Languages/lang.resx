@@ -389,4 +389,19 @@
     <data name="newDeviceCodeIsRequired" xml:space="preserve">
         <value>Väli ei tohi olla tühi.</value>
     </data>
+    <data name="name-error" xml:space="preserve">
+        <value>Nimi peab olema vähemalt 3 ja mitte rohkem kui 25 tähemärki pikk.</value>
+    </data>
+    <data name="lastname-error" xml:space="preserve">
+        <value>Perekonnanimi peab olema vähemalt 3 ja mitte rohkem kui 25 tähemärki pikk.</value>
+    </data>
+    <data name="typing" xml:space="preserve">
+        <value>Kirjutab...</value>
+    </data>
+    <data name="emailIsNotValidType" xml:space="preserve">
+        <value>Kehtetu meilivorming.</value>
+    </data>
+    <data name="emailHasIncorrectDomain" xml:space="preserve">
+        <value>Kehtetu meilivorming.</value>
+    </data>
 </root>

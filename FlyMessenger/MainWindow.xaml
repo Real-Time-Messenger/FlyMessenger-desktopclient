@@ -1366,7 +1366,8 @@
                                     </TextBox.Style>
                                 </TextBox>
                                 <Button Grid.Column="2" Width="34" Height="34" VerticalAlignment="Bottom"
-                                        HorizontalAlignment="Center" Cursor="Hand">
+                                        HorizontalAlignment="Center" Cursor="Hand"
+                                        PreviewMouseLeftButtonUp="SendMessage">
                                     <Image Width="16" Height="16"
                                            Source="{DynamicResource ActiveChat-Send}" />
                                     <Button.Style>

@@ -108,7 +108,7 @@
                     </MultiBinding>
                 </TextBox.Text>
                     </TextBox>
-                <TextBlock Text="{Binding MyProfile.IsOnline, Converter={StaticResource OnlineStatusConverter}}"
+                <TextBlock Text="{x:Static language:lang.online}"
                            FontFamily="{DynamicResource Alata}"
                            FontSize="12"
                            Foreground="{DynamicResource Settings-Status}"

@@ -81,15 +81,15 @@ namespace FlyMessenger.HTTP
             return response;
         }
 
-        protected RestResponse<T> Put<T>(string url, byte[] file) where T : class
+        protected T Put<T>(string url, byte[] file) where T : class
         {
             var request = new RestRequest(url, Method.Put);
 
-            request.AddHeader("Content-type", "multipart/form-data");
+            request.AddHeader("Content-Type", "multipart/form-data");
             request.AddFile("file", file, "image.jpg");
 
             var response = _client.Execute<T>(request);
-            return response;
+            return response.Data!;
         }
 
         protected void Delete(string url)

@@ -402,4 +402,19 @@
     <data name="newDeviceCodeIsRequired" xml:space="preserve">
         <value>Поле не может быть пустым.</value>
     </data>
+    <data name="name-error" xml:space="preserve">
+        <value>Имя должно быть не менее 3 и не более 25 символов.</value>
+    </data>
+    <data name="lastname-error" xml:space="preserve">
+        <value>Фамилия должна быть не менее 3 и не более 25 символов.</value>
+    </data>
+    <data name="typing" xml:space="preserve">
+        <value>Печатает...</value>
+    </data>
+    <data name="emailIsNotValidType" xml:space="preserve">
+        <value>Неправильный формат email.</value>
+    </data>
+    <data name="emailHasIncorrectDomain" xml:space="preserve">
+        <value>Неправильный формат email.</value>
+    </data>
 </root>

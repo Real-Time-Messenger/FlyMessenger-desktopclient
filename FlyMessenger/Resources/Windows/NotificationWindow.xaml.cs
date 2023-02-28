@@ -8,6 +8,11 @@ namespace FlyMessenger.Resources.Windows
 {
     public partial class NotificationWindow
     {
+        public string userFirstAndLastName { get; set; }
+        public string messageTitle { get; set; }
+        public string photoUrl { get; set; }
+        public string dialogId { get; set; }
+        
         public NotificationWindow(string userFirstAndLastName, string messageTitle, string photoUrl, string dialogId)
         {
             this.userFirstAndLastName = userFirstAndLastName;
@@ -89,11 +94,6 @@ namespace FlyMessenger.Resources.Windows
             }
         }
 
-        public string userFirstAndLastName { get; set; }
-        public string messageTitle { get; set; }
-        public string photoUrl { get; set; }
-        public string dialogId { get; set; }
-        
         private void Button_Click_Close(object sender, RoutedEventArgs e)
         {
             Close();

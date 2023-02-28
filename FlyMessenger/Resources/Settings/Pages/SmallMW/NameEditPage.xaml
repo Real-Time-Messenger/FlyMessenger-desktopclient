@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:FlyMessenger.Resources.Settings.Pages.SmallMW"
       xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
       xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
       mc:Ignorable="d">
@@ -38,6 +37,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
                                x:Name="NameEditLabel"
@@ -63,9 +63,19 @@
                                  Padding="-2 0 0 2"
                                  PreviewMouseLeftButtonUp="NameSetActive" />
                     </Border>
+                    <TextBlock Grid.Row="2"
+                               x:Name="NameErrorLabel"
+                               Text="{x:Static language:lang.name_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
                 </Grid>
                 <Grid Grid.Row="1" Margin="0 10 0 0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
@@ -93,6 +103,15 @@
                                  Padding="-2 0 0 2"
                                  PreviewMouseLeftButtonUp="LastNameSetActive" />
                     </Border>
+                    <TextBlock Grid.Row="2"
+                               x:Name="LastNameErrorLabel"
+                               Text="{x:Static language:lang.lastname_error}"
+                               FontFamily="{StaticResource Alata}"
+                               FontSize="12"
+                               TextWrapping="Wrap"
+                               Foreground="#E86C6C"
+                               Margin="40 10 40 10"
+                               Visibility="Collapsed" />
                 </Grid>
             </Grid>
             <Grid Grid.Row="2"

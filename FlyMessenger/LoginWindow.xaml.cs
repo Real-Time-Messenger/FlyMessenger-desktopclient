@@ -32,11 +32,10 @@ namespace FlyMessenger
 
             Loaded += LoginWindow_Loaded;
             
-            var httpToken = HttpClientBase.GetToken();
             var token = new TokenSettings().Load();
-            if (token == string.Empty || httpToken != "Bearer " + token) return;
+            if (token == string.Empty) return;
             var myProfile = ControllerBase.UserController.GetMyProfile();
-            if (myProfile == null) return;
+            if (myProfile.Id == null) return;
             Application.Current.MainWindow = new MainWindow();
             Application.Current.MainWindow.Show();
             Application.Current.MainWindow.Activate();

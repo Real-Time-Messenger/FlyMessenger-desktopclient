@@ -76,7 +76,18 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             var name = NameEditTextBox.Text;
             var surname = SurnameEditTextBox.Text;
             
+            NameErrorLabel.Visibility =
+                IsValidLength(name, 3, 25) ? Visibility.Collapsed : Visibility.Visible;
+            LastNameErrorLabel.Visibility =
+                IsValidLength(surname, 3, 25) ? Visibility.Collapsed : Visibility.Visible;
+            
+            if (!IsValidLength(name, 3, 25) || !IsValidLength(surname, 3, 25)) return;
             ControllerBase.UserController.EditMyProfileName(name, surname);
+        }
+        
+        private static bool IsValidLength(string text, int min, int max)
+        {
+            return text.Length >= min && text.Length <= max;
         }
     }
 }
