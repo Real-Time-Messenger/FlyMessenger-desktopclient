@@ -38,13 +38,13 @@ Fly Messenger is written entirely in pure WPF. Only NuGet packages necessary for
 3. Start chatting!
 
 ## Used packages
-- [**@Newtonsoft.Json**](https://www.newtonsoft.com/json) - *Json serializer and deserializer*
-- [**@RestSharp**](https://restsharp.dev/) - *REST API client*
-- [**@WebSocket4Net**](https://www.nuget.org/packages/WebSocket4Net/) - *WebSocket client*
+- [**Newtonsoft.Json**](https://www.newtonsoft.com/json) - *Json serializer and deserializer*
+- [**RestSharp**](https://restsharp.dev/) - *REST API client*
+- [**WebSocket4Net**](https://www.nuget.org/packages/WebSocket4Net/) - *WebSocket client*
 
 ## Authors
-- [**@WhiteWolfDD**](https://github.com/WhiteWolfDD) - *Desktop author and Designer* 
-- [**@Kirill**](https://github.com/Winicred) - *Web and API author*
+- [**WhiteWolfDD**](https://github.com/WhiteWolfDD) - *Desktop author and Designer* 
+- [**Kirill**](https://github.com/Winicred) - *Web and API author*
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
