@@ -13,6 +13,9 @@
         <FileVersion>0.9.0</FileVersion>
         <PublicSign>false</PublicSign>
         <Version>0.9.0</Version>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <SignAssembly>False</SignAssembly>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

@@ -1,6 +1,4 @@
 using System.Windows;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
