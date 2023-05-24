@@ -9,6 +9,9 @@ using FlyMessenger.HTTP;
 
 namespace FlyMessenger.Resources.Authorization
 {
+    /// <summary>
+    /// Interaction logic for TwoFactorPage.xaml
+    /// </summary>
     public partial class TwoFactorPage
     {
         public TwoFactorPage()
@@ -16,6 +19,11 @@ namespace FlyMessenger.Resources.Authorization
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Visual active effect for code label.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void CodeSetActive(object sender, MouseButtonEventArgs e)
         {
             var animation = new DoubleAnimation(CodeLabel.Opacity, 1, TimeSpan.FromSeconds(0.1));
@@ -29,8 +37,14 @@ namespace FlyMessenger.Resources.Authorization
             CodeTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorder);
         }
 
+        /// <summary>
+        /// Button login click event handler.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private async void LoginButtonClick(object sender, MouseButtonEventArgs e)
         {
+            // Check code errors
             if (string.IsNullOrEmpty(CodeTextBox.Text))
             {
                 CodeErrorLabel.Visibility = Visibility.Visible;
@@ -42,6 +56,8 @@ namespace FlyMessenger.Resources.Authorization
             var result = await ControllerBase.UserController.TwoFactorAuthenticate(CodeTextBox.Text);
 
             if (result.Data == null) return;
+            
+            // Status code handler
             switch (result.StatusCode)
             {
                 case HttpStatusCode.OK:
@@ -79,6 +95,10 @@ namespace FlyMessenger.Resources.Authorization
             }
         }
 
+        /// <summary>
+        /// Show or hide login button.
+        /// </summary>
+        /// <param name="show">Show or hide.</param>
         private void ShowLoginButton(bool show)
         {
             LoginButton.Visibility = show ? Visibility.Visible : Visibility.Collapsed;

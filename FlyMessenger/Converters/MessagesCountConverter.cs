@@ -4,8 +4,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Messages count converter.
+    /// </summary>
     public class MessagesCountConverter : IValueConverter
     {
+        // Convert messages count to boolean.
         public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
             // return true if value is more than 0

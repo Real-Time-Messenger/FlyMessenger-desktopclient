@@ -26,10 +26,14 @@ namespace FlyMessenger
     /// </summary>
     public partial class App
     {
-        public static ImageBrush ProfilePhotoDefaultPage { get; set; }
-        public static ImageBrush ProfilePhotoMainWindow { get; set; }
+        public static ImageBrush SettingsProfilePhoto { get; set; }
+        public static ImageBrush NavBarProfilePhoto { get; set; }
         public static ProfileButtons LastActivityTextData { get; set; }
 
+        /// <summary>
+        /// On startup event
+        /// </summary>
+        /// <param name="e">Startup event arguments</param>
         protected override void OnStartup(StartupEventArgs e)
         {
             var processName = Process.GetCurrentProcess().ProcessName;
@@ -53,9 +57,17 @@ namespace FlyMessenger
 
             base.OnStartup(e);
         }
-        
+
+        /// <summary>
+        /// Language utils
+        /// </summary>
         internal abstract class LanguageUtils
         {
+            /// <summary>
+            /// Get translation by key
+            /// </summary>
+            /// <param name="key">Translation key</param>
+            /// <returns>Translation</returns>
             public static string? GetTranslation(string key)
             {
                 var resourceManager = new ResourceManager(typeof(lang));
@@ -63,6 +75,11 @@ namespace FlyMessenger
             }
         }
 
+        /// <summary>
+        /// Toggle language
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         public static void ToggleLanguage(object? sender, EventArgs e)
         {
             if (sender is not MainWindow window || string.IsNullOrEmpty(window.LangSwitch)) return;
@@ -74,6 +91,9 @@ namespace FlyMessenger
             Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Restart app
+        /// </summary>
         public static void RestartApp()
         {
             var processName = Process.GetCurrentProcess().ProcessName;
@@ -81,12 +101,16 @@ namespace FlyMessenger
             Current.Shutdown();
         }
 
+        /// <summary>
+        /// Exception handler
+        /// </summary>
         public App()
         {
             Dispatcher.UnhandledException += OnDispatcherUnhandledException;
         }
 
-        private static void OnDispatcherUnhandledException(object sender,
+        // Debug
+        /*private static void OnDispatcherUnhandledException(object sender,
             System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             if (e.Exception is not null)
@@ -98,9 +122,30 @@ namespace FlyMessenger
                     MessageBoxImage.Error
                 );
             }
+        }*/
+
+        // Release
+        private static void OnDispatcherUnhandledException(object sender,
+            System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            if (e.Exception is null) return;
+            if (MessageBox.Show(
+                    "Something went wrong. Please, restart the app.",
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                ) == MessageBoxResult.OK)
+            {
+                RestartApp();
+            }
         }
 
-        private void OnCloseSessionClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handle session close button click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void CloseSessionClick(object sender, RoutedEventArgs e)
         {
             var session = ((SessionsModel)((Button)sender).DataContext).Id;
             var message = new DestroySessionModel
@@ -124,17 +169,22 @@ namespace FlyMessenger
                 mainViewModel.MyProfile.Sessions?.Count + " " + lang.sessions;
         }
 
-        private void OnUnblockUserClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handle unblock user button click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void UnblockUserClick(object sender, RoutedEventArgs e)
         {
             var userId = ((BlackListModel)((Button)sender).DataContext).Id;
-            var result = ControllerBase.UserController.BlockOrUnblockUser(userId);
+            var result = await ControllerBase.UserController.BlockOrUnblockUser(userId);
             FlyMessenger.MainWindow.MainViewModel.MyProfile.BlackList = result.BlackList;
             FlyMessenger.MainWindow.MainViewModel.BlockedUsersCount = result.BlackList.Count;
             var dialog = FlyMessenger.MainWindow.MainViewModel.Dialogs.FirstOrDefault(d => d.User.Id == userId);
             if (dialog != null)
             {
                 dialog.User.IsBlocked = result.IsBlocked;
-                FlyMessenger.MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !result.IsBlocked;
+                FlyMessenger.MainWindow.MainViewModel.DialogInputVisibility = !result.IsBlocked;
             }
 
             if (Current.MainWindow is not MainWindow window) return;
@@ -145,10 +195,15 @@ namespace FlyMessenger
             blockedUsersPage.BlockedUsersCountTextBlock.Text = result.BlackList.Count + " " + lang.blocked_users_second;
         }
 
-        private void DialogPinState(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle dialog pin state change
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void DialogPinState(object sender, MouseButtonEventArgs e)
         {
             var dialog = (DialogModel)((MenuItem)sender).DataContext;
-            ControllerBase.DialogController.EditDialog(
+            await ControllerBase.DialogController.EditDialog(
                 dialog.Id,
                 new DialogInEdit { IsPinned = !dialog.IsPinned }
             );
@@ -158,10 +213,15 @@ namespace FlyMessenger
             window.ChatBoxListView.Items.Refresh();
         }
 
-        private void DialogNotificationsState(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle dialog notifications state change
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void DialogNotificationsState(object sender, MouseButtonEventArgs e)
         {
             var dialog = (DialogModel)((MenuItem)sender).DataContext;
-            ControllerBase.DialogController.EditDialog(
+            await ControllerBase.DialogController.EditDialog(
                 dialog.Id,
                 new DialogInEdit { IsNotificationsEnabled = !dialog.IsNotificationsEnabled }
             );
@@ -170,10 +230,15 @@ namespace FlyMessenger
             window.ChatBoxListView.Items.Refresh();
         }
 
-        private void DialogSoundState(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle dialog sound state change
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void DialogSoundState(object sender, MouseButtonEventArgs e)
         {
             var dialog = (DialogModel)((MenuItem)sender).DataContext;
-            ControllerBase.DialogController.EditDialog(
+            await ControllerBase.DialogController.EditDialog(
                 dialog.Id,
                 new DialogInEdit { IsSoundEnabled = !dialog.IsSoundEnabled }
             );
@@ -182,31 +247,46 @@ namespace FlyMessenger
             window.ChatBoxListView.Items.Refresh();
         }
 
-        private void DialogBlockState(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle user block state change
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void UserBlockState(object sender, MouseButtonEventArgs e)
         {
             var userId = ((DialogModel)((MenuItem)sender).DataContext).User.Id;
-            var result = ControllerBase.UserController.BlockOrUnblockUser(userId);
+            var result = await ControllerBase.UserController.BlockOrUnblockUser(userId);
             FlyMessenger.MainWindow.MainViewModel.MyProfile.BlackList = result.BlackList;
             FlyMessenger.MainWindow.MainViewModel.BlockedUsersCount = result.BlackList.Count;
             var dialog = FlyMessenger.MainWindow.MainViewModel.Dialogs.FirstOrDefault(d => d.User.Id == userId);
             if (dialog != null)
             {
                 dialog.User.IsBlocked = result.IsBlocked;
-                FlyMessenger.MainWindow.MainViewModel.SelectedDialogTextBoxVisibility = !result.IsBlocked;
+                FlyMessenger.MainWindow.MainViewModel.DialogInputVisibility = !result.IsBlocked;
             }
             if (Current.MainWindow is not MainWindow window) return;
             window.ChatBoxListView.Items.Refresh();
         }
 
-        private void DialogDelete(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle dialog delete
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void DialogDelete(object sender, MouseButtonEventArgs e)
         {
             if (Current.MainWindow is not MainWindow window) return;
             var listView = window.ChatBoxListView;
-            ControllerBase.DialogController.DeleteDialog(((DialogModel)((MenuItem)sender).DataContext).Id);
+            await ControllerBase.DialogController.DeleteDialog(((DialogModel)((MenuItem)sender).DataContext).Id);
             FlyMessenger.MainWindow.MainViewModel.Dialogs.Remove((DialogModel)((MenuItem)sender).DataContext);
             listView.Items.Refresh();
         }
 
+        /// <summary>
+        /// Method for opening gallery window
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenDialogGallery(object sender, MouseButtonEventArgs e)
         {
             var dialog = FlyMessenger.MainWindow.MainViewModel.SelectedDialog;

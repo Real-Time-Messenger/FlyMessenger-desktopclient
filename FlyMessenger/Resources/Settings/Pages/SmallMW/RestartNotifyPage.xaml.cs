@@ -5,6 +5,9 @@ using System.Windows.Media.Animation;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
+    /// <summary>
+    /// Interaction logic for RestartNotifyPage.xaml
+    /// </summary>
     public partial class RestartNotifyPage : Page
     {
         public RestartNotifyPage()
@@ -12,6 +15,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handler for restart cancel button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnRestartCancelClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -22,6 +30,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             window.RestartNotifyModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
+        /// <summary>
+        /// Handler for restart button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnRestartClick(object sender, RoutedEventArgs e)
         {
             App.RestartApp();

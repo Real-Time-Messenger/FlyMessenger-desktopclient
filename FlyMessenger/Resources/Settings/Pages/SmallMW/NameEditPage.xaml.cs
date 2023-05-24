@@ -2,12 +2,14 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
+    /// <summary>
+    /// Interaction logic for NameEditPage.xaml
+    /// </summary>
     public partial class NameEditPage
     {
         public NameEditPage()
@@ -15,6 +17,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Visual effects for name edit label.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void NameSetActive(object sender, MouseButtonEventArgs e)
         {
             // Set animation
@@ -38,6 +45,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             SurnameEditTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorderExit);
         }
 
+        /// <summary>
+        /// Visual effects for surname edit label.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void LastNameSetActive(object sender, MouseButtonEventArgs e)
         {
             // Set animation
@@ -61,6 +73,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             NameEditTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorderExit);
         }
 
+        /// <summary>
+        /// Handler for name edit cancel button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnNameEditCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
@@ -71,20 +88,30 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             mainWindow.NameEditModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
-        private void OnNameEditSaveClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handler for name edit save button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnNameEditSaveClick(object sender, RoutedEventArgs e)
         {
             var name = NameEditTextBox.Text;
             var surname = SurnameEditTextBox.Text;
             
             NameErrorLabel.Visibility =
                 IsValidLength(name, 3, 25) ? Visibility.Collapsed : Visibility.Visible;
-            LastNameErrorLabel.Visibility =
-                IsValidLength(surname, 3, 25) ? Visibility.Collapsed : Visibility.Visible;
             
-            if (!IsValidLength(name, 3, 25) || !IsValidLength(surname, 3, 25)) return;
-            ControllerBase.UserController.EditMyProfileName(name, surname);
+            if (!IsValidLength(name, 3, 25)) return;
+            await ControllerBase.UserController.EditMyProfileName(name, surname);
         }
         
+        /// <summary>
+        /// Validate text length.
+        /// </summary>
+        /// <param name="text">Text to validate.</param>
+        /// <param name="min">Minimum length.</param>
+        /// <param name="max">Maximum length.</param>
+        /// <returns>True if text length is valid.</returns>
         private static bool IsValidLength(string text, int min, int max)
         {
             return text.Length >= min && text.Length <= max;

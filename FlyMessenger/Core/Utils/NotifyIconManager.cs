@@ -41,39 +41,46 @@ namespace FlyMessenger.Core.Utils
             // Initialize the context menu
             _notifyIcon.ContextMenuStrip = contextMenu;
 
+            // Add the menu items
             contextMenu.Items.Add(_showWindow);
             contextMenu.Items.Add(_notifications);
             contextMenu.Items.Add(_exit);
 
+            // Set the options for the notify icon
             _notifyIcon.Icon = new Icon("Public/Icons/Logo16.ico");
             _notifyIcon.Text = @"FlyMessenger";
             _notifyIcon.Visible = true;
             _notifyIcon.MouseUp += NotifyIcon_Click;
 
-            // Set the menu items
             // Create manual translation
             _exit.Text = Resources.Languages.lang.exit;
             _exit.Click += Exit_Click;
 
+            // Check if notifications is enabled
             if (MainWindow.MainViewModel.MyProfile.Settings != null)
                 _notifications.Text = MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled
                     ? Resources.Languages.lang.notifications_off
                     : Resources.Languages.lang.notifications_on;
             _notifications.Click += Notifications_Click;
 
+            // Create manual translation
             _showWindow.Text = Resources.Languages.lang.showWindow;
             _showWindow.Click += ShowWindow_Click;
 
-            // contextMenuStrip settings
+            // Set the options for the context menu
             contextMenu.ShowImageMargin = false;
             contextMenu.ShowCheckMargin = false;
             contextMenu.ShowItemToolTips = false;
             contextMenu.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            
+            // Set height for all menu items
             foreach (Forms.ToolStripMenuItem item in contextMenu.Items)
             {
                 item.AutoSize = false;
                 item.Height = 32;
             }
+            
+            // Custom renderer
             contextMenu.RenderMode = Forms.ToolStripRenderMode.Professional;
             contextMenu.Renderer = new CustomRenderer();
         }
@@ -87,6 +94,7 @@ namespace FlyMessenger.Core.Utils
             _notifyIcon.Dispose();
         }
         
+        // Dispose the notify icon
         public void DisposeNotifyIcon()
         {
             _notifyIcon.Dispose();
@@ -97,15 +105,17 @@ namespace FlyMessenger.Core.Utils
         {
             // ControllerBase.UserController.EditMyChatsNotifications();
 
-            // If notifications are off
+            // Check if notifications is enabled
             if (MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled)
             {
+                // Disable notifications
                 ControllerBase.UserController.EditMyChatsNotifications(false);
                 MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled = false;
                 ((Forms.ToolStripMenuItem)sender!).Text = Resources.Languages.lang.notifications_on;
             }
             else
             {
+                // Enable notifications
                 ControllerBase.UserController.EditMyChatsNotifications(true);
                 MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled = true;
                 ((Forms.ToolStripMenuItem)sender!).Text = Resources.Languages.lang.notifications_off;
@@ -115,6 +125,7 @@ namespace FlyMessenger.Core.Utils
         // Open/close FlyMessenger
         private static void ShowWindow_Click(object? sender, EventArgs e)
         {
+            // Check if window is visible
             var window = (MainWindow?)Application.Current.MainWindow;
             if (window == null) return;
             window.Show();
@@ -130,7 +141,10 @@ namespace FlyMessenger.Core.Utils
         // Logic for click to NotifyIcon
         private static void NotifyIcon_Click(object? sender, Forms.MouseEventArgs e)
         {
+            // Check if left mouse button is pressed
             if (e.Button != Forms.MouseButtons.Left) return;
+            
+            // Check if window is visible
             if (Application.Current.MainWindow?.Visibility == Visibility.Visible)
             {
                 Application.Current.MainWindow?.Hide();
@@ -149,13 +163,18 @@ namespace FlyMessenger.Core.Utils
         }
     }
 
+    /// <summary>
+    /// Custom renderer for the context menu
+    /// </summary>
     public class CustomRenderer : Forms.ToolStripRenderer
     {
         // Change background color of items when mouse hover
         protected override void OnRenderMenuItemBackground(Forms.ToolStripItemRenderEventArgs e)
         {
+            // Check if theme is Light
             if (Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light"))
             {
+                // Set colors to Light theme
                 e.Item.ForeColor = Color.FromArgb(16, 16, 16);
                 e.Graphics.FillRectangle(
                     e.Item.Selected
@@ -164,8 +183,10 @@ namespace FlyMessenger.Core.Utils
                     e.Item.ContentRectangle
                 );
             }
+            // Check if theme is Dark
             else
             {
+                // Set colors to Dark theme
                 e.Item.ForeColor = Color.FromArgb(184, 186, 242);
                 e.Graphics.FillRectangle(
                     e.Item.Selected
@@ -179,6 +200,7 @@ namespace FlyMessenger.Core.Utils
         // Change background color of contextMenu
         protected override void OnRenderToolStripBackground(Forms.ToolStripRenderEventArgs e)
         {
+            // Fill rectangle
             e.Graphics.FillRectangle(
                 Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light")
                     ? new SolidBrush(Color.FromArgb(234, 237, 250))
@@ -186,7 +208,7 @@ namespace FlyMessenger.Core.Utils
                 e.AffectedBounds
             );
 
-            // Border
+            // Draw rectangle border
             e.Graphics.DrawRectangle(
                 new Pen(
                     Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("Light")

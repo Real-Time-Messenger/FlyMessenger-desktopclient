@@ -5,14 +5,17 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Anchor Visibility Converter
+    /// </summary>
     public class AnchorVisibilityConverter : IValueConverter
     {
+        // Show or hide anchor
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((bool)value)
                 return Visibility.Visible;
-            else
-                return Visibility.Collapsed;
+            return Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

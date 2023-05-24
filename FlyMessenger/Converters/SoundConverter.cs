@@ -4,8 +4,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Sound converter.
+    /// </summary>
     public class SoundConverter : IValueConverter
     {
+        // Convert sound status to string.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is true

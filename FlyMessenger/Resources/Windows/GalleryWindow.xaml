@@ -11,8 +11,8 @@
         AllowsTransparency="True"
         ShowInTaskbar="False"
         Name="Gallery"
-        PreviewMouseLeftButtonDown="Outside_Click"
-        PreviewMouseLeftButtonUp="Outside_Click_Handled"
+        PreviewMouseLeftButtonDown="OutsideClick"
+        PreviewMouseLeftButtonUp="OutsideClickHandled"
         PreviewMouseWheel="Image_Scale">
 
     <Window.Background>
@@ -33,7 +33,7 @@
                 VerticalAlignment="Top"
                 OverridesDefaultStyle="True"
                 Cursor="Hand"
-                Click="CloseButton_Click">
+                Click="CloseButtonClick">
             <Button.Content>
                 <Path Data="M 0,0 L 40,40 M 40,0 L 0,40"
                       Width="40"
@@ -83,7 +83,7 @@
                     VerticalAlignment="Stretch"
                     OverridesDefaultStyle="True"
                     Cursor="Hand"
-                    Click="PreviousButton_Click">
+                    Click="PreviousButtonClick">
                 <Button.Content>
                     <Path Data="M 30,2 L 10,20 L 30,38"
                           Width="40"
@@ -127,9 +127,9 @@
                    Source="{Binding ElementName=Gallery, Path=ImageSource}"
                    Stretch="Uniform"
                    StretchDirection="DownOnly"
-                   MouseLeftButtonDown="Image_Move"
+                   MouseLeftButtonDown="ImageMove"
                    RenderTransformOrigin="0.5, 0.5"
-                   Loaded="Hide_Loader" />
+                   Loaded="HideLoader" />
             <Button Grid.Column="2"
                     x:Name="NextButton"
                     Width="80"
@@ -137,7 +137,7 @@
                     VerticalAlignment="Stretch"
                     OverridesDefaultStyle="True"
                     Cursor="Hand"
-                    Click="NextButton_Click">
+                    Click="NextButtonClick">
                 <Button.Content>
                     <Path Data="M 10,2 L 30,20 L 10,38"
                           Width="40"

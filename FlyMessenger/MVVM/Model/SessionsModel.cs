@@ -1,5 +1,8 @@
 ﻿namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Sessions model.
+    /// </summary>
     public class SessionsModel
     {
         public string Id { get; set; }
@@ -11,6 +14,9 @@
         public bool? Current { get; set; }
     }
     
+    /// <summary>
+    /// Sessions response model.
+    /// </summary>
     public class DestroySessionModel
     {
         public string type { get; set; }

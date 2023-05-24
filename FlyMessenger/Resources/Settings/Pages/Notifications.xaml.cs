@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using FlyMessenger.Controllers;
 
 namespace FlyMessenger.Resources.Settings.Pages
@@ -12,21 +11,31 @@ namespace FlyMessenger.Resources.Settings.Pages
             InitializeComponent();
         }
 
-        private void NotificationStateChanged(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handler for notification state button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void NotificationStateChanged(object sender, MouseButtonEventArgs e)
         {
-            ControllerBase.UserController.EditMyChatsNotifications(!NotificationStateButton.CheckState);
+            await ControllerBase.UserController.EditMyChatsNotifications(!NotificationStateButton.CheckState);
             MainWindow.MainViewModel.MyProfile.Settings.ChatsNotificationsEnabled = !NotificationStateButton.CheckState;
             SoundStateButton.CheckState = !NotificationStateButton.CheckState;
-            ControllerBase.UserController.EditMyChatsSound(!NotificationStateButton.CheckState);
+            await ControllerBase.UserController.EditMyChatsSound(!NotificationStateButton.CheckState);
         }
 
-        private void SoundStateChanged(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handler for sound state button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void SoundStateChanged(object sender, MouseButtonEventArgs e)
         {
-            ControllerBase.UserController.EditMyChatsSound(!SoundStateButton.CheckState);
+            await ControllerBase.UserController.EditMyChatsSound(!SoundStateButton.CheckState);
             MainWindow.MainViewModel.MyProfile.Settings.ChatsSoundEnabled = !SoundStateButton.CheckState;
             if (NotificationStateButton.CheckState) return;
             NotificationStateButton.CheckState = true;
-            ControllerBase.UserController.EditMyChatsNotifications(true);
+            await ControllerBase.UserController.EditMyChatsNotifications(true);
         }
     }
 }

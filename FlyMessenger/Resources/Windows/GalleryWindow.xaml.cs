@@ -10,6 +10,9 @@ using FlyMessenger.MVVM.Model;
 
 namespace FlyMessenger.Resources.Windows
 {
+    /// <summary>
+    /// Interaction logic for GalleryWindow.xaml
+    /// </summary>
     public partial class GalleryWindow
     {
         private ObservableCollection<MessageModel?> GalleryFiles { get; set; } = new ObservableCollection<MessageModel?>();
@@ -20,17 +23,23 @@ namespace FlyMessenger.Resources.Windows
         private bool _isClicked;
         private Point _lastPosition;
 
+        /// <summary>
+        /// Gallery window constructor
+        /// </summary>
+        /// <param name="dialog">Dialog model</param>
+        /// <param name="file">Current image</param>
         public GalleryWindow(DialogModel dialog, string file)
         {
             DataContext = MainWindow.MainViewModel;
             GalleryDialog = dialog;
             CurrentImage = file;
 
-            Initialized += Window_Initialized;
+            Initialized += WindowInitialized;
             InitializeComponent();
 
-            BaseImage.MouseMove += Image_Drag;
-            BaseImage.MouseUp += Image_StopDragging;
+            // Set events for buttons
+            BaseImage.MouseMove += ImageDrag;
+            BaseImage.MouseUp += ImageStopDragging;
             
             KeyDown += (sender, args) =>
             {
@@ -40,16 +49,21 @@ namespace FlyMessenger.Resources.Windows
                         Close();
                         break;
                     case Key.Right:
-                        NextButton_Click(sender, args);
+                        NextButtonClick(sender, args);
                         break;
                     case Key.Left:
-                        PreviousButton_Click(sender, args);
+                        PreviousButtonClick(sender, args);
                         break;
                 }
             };
         }
 
-        private void Window_Initialized(object? sender, EventArgs e)
+        /// <summary>
+        /// Initialize gallery window
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void WindowInitialized(object? sender, EventArgs e)
         {
             // Get all messages with file from dialog
             foreach (var message in GalleryDialog.Messages.Where(message => message.File != null))
@@ -75,6 +89,7 @@ namespace FlyMessenger.Resources.Windows
             if (CurrentImage != null) ImageSource = new BitmapImage(new Uri(CurrentImage));
         }
 
+        #region Getters and setters
         public ImageSource ImageSource
         {
             get => (ImageSource)GetValue(ImageSourceProperty);
@@ -92,16 +107,27 @@ namespace FlyMessenger.Resources.Windows
 
         public static readonly DependencyProperty ZoomProperty =
             DependencyProperty.Register(nameof(Zoom), typeof(double), typeof(GalleryWindow), new PropertyMetadata(1.0));
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        #endregion
+        
+        /// <summary>
+        /// Handle close button click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handle next button click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void NextButtonClick(object sender, RoutedEventArgs e)
         {
             if (_currentIndex == GalleryFiles.Count - 1) return;
-            Hide_Loader(_currentIndex, e);
+            HideLoader(_currentIndex, e);
             var uriString = GalleryFiles[_currentIndex + 1]?.File;
 
             if (uriString != null)
@@ -120,10 +146,15 @@ namespace FlyMessenger.Resources.Windows
             NextButton.Visibility = Visibility.Collapsed;
         }
 
-        private void PreviousButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handle previous button click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void PreviousButtonClick(object sender, RoutedEventArgs e)
         {
             if (_currentIndex == 0) return;
-            Hide_Loader(_currentIndex, e);
+            HideLoader(_currentIndex, e);
             var uriString = GalleryFiles[_currentIndex - 1]?.File;
 
             if (uriString != null)
@@ -142,7 +173,12 @@ namespace FlyMessenger.Resources.Windows
             PreviousButton.Visibility = Visibility.Collapsed;
         }
 
-        private void Outside_Click(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle outside click
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void OutsideClick(object sender, MouseButtonEventArgs e)
         {
             if (e.Source.Equals(this))
             {
@@ -150,7 +186,12 @@ namespace FlyMessenger.Resources.Windows
             }
         }
 
-        private void Outside_Click_Handled(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle isClicked flag
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void OutsideClickHandled(object sender, MouseButtonEventArgs e)
         {
             if (!_isClicked) return;
             Close();
@@ -161,15 +202,18 @@ namespace FlyMessenger.Resources.Windows
         {
             base.OnMouseWheel(e);
             var currentScale = BaseImage.RenderTransform.Value.M11;
-
-            if (BaseImage.Source.Width > 2000 && currentScale < 0.51 && e.Delta < 0 ||
-                BaseImage.Source.Width > 2000 && currentScale > 9.99 && e.Delta > 0 ||
-                BaseImage.Source.Height > 2000 && currentScale < 0.51 && e.Delta < 0 ||
-                BaseImage.Source.Width > 2000 && currentScale > 9.99 && e.Delta > 0 ||
-                BaseImage.Source.Width < 2000 && currentScale < 0.51 && e.Delta < 0 ||
-                BaseImage.Source.Width < 2000 && currentScale > 5.99 && e.Delta > 0 ||
-                BaseImage.Source.Height < 2000 && currentScale < 0.51 && e.Delta < 0 ||
-                BaseImage.Source.Width < 2000 && currentScale > 5.99 && e.Delta > 0) return;
+            
+            // Zoom in/out
+            switch (BaseImage.Source.Width > 2000, BaseImage.Source.Height > 2000, currentScale, e.Delta)
+            {
+                case (true, false, < 0.51, < 0):
+                case (true, false, > 9.99, > 0):
+                case (false, true, < 0.51, < 0):
+                case (false, true, > 9.99, > 0):
+                case (false, false, < 0.51, < 0):
+                case (false, false, > 5.99, > 0):
+                    return;
+            }
 
             BaseImage.RenderTransform = e.Delta switch
             {
@@ -183,32 +227,36 @@ namespace FlyMessenger.Resources.Windows
             Zoom = BaseImage.RenderTransform.Value.M11;
         }
 
-        private void Image_Move(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle image move
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void ImageMove(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton != MouseButtonState.Pressed || !IsImageOutOfBounds()) return;
             _isDragging = true;
             _lastPosition = e.GetPosition(BaseImage);
         }
 
-        private void Image_Drag(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Method to drag image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImageDrag(object sender, MouseEventArgs e)
         {
-            // Если изображение не перемещается, то выходим
             if (!_isDragging) return;
 
-            // Получаем текущую позицию изображения
             var currentPosition = e.GetPosition(BaseImage);
-
-            // Получаем текущие границы окна
             var currentWindow = new Rect(Left, Top, Width, Height);
-
-            // Получаем текущие границы изображения
             var currentImage = BaseImage.TransformToAncestor(this).TransformBounds(new Rect(BaseImage.RenderSize));
 
-            // Получаем смещение
+            // Calculate new X and Y
             var newX = (currentPosition.X - _lastPosition.X);
             var newY = (currentPosition.Y - _lastPosition.Y);
 
-            // Разрешаем перемещение только тогда, когда изображение выходит за границы окна
+            // Check if image is out of bounds
             if (currentImage.Left + newX > currentWindow.Left + 8)
                 newX = 0;
 
@@ -221,7 +269,7 @@ namespace FlyMessenger.Resources.Windows
             if (currentImage.Bottom + newY < currentWindow.Bottom)
                 newY = 0;
 
-            // Перемещаем изображение по координатам
+            // Move image
             BaseImage.RenderTransform = new MatrixTransform(
                 BaseImage.RenderTransform.Value.M11,
                 BaseImage.RenderTransform.Value.M12,
@@ -231,15 +279,23 @@ namespace FlyMessenger.Resources.Windows
                 BaseImage.RenderTransform.Value.OffsetY + newY
             );
 
-            // Обновляем позицию курсора
             _lastPosition = currentPosition;
         }
 
-        private void Image_StopDragging(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handle image stop dragging
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void ImageStopDragging(object sender, MouseButtonEventArgs e)
         {
             _isDragging = false;
         }
 
+        /// <summary>
+        /// Handle bounds of image
+        /// </summary>
+        /// <returns>True if image is out of bounds</returns>
         private bool IsImageOutOfBounds()
         {
             var imageBounds = BaseImage.TransformToAncestor(this).TransformBounds(new Rect(BaseImage.RenderSize));
@@ -248,7 +304,12 @@ namespace FlyMessenger.Resources.Windows
             return !windowBounds.Contains(imageBounds);
         }
 
-        private void Hide_Loader(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Method to hide loader
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void HideLoader(object sender, RoutedEventArgs e)
         {
             LoadingSpinner.Opacity = 1;
             LoadingSpinner.Visibility = Visibility.Visible;
@@ -257,7 +318,7 @@ namespace FlyMessenger.Resources.Windows
             {
                 From = 1,
                 To = 0,
-                Duration = new Duration(TimeSpan.FromSeconds(5))
+                Duration = new Duration(TimeSpan.FromSeconds(10))
             };
 
             animation.Completed += (_, _) => { LoadingSpinner.Visibility = Visibility.Collapsed; };

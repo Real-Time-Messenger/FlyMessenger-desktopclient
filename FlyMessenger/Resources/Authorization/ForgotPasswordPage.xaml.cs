@@ -7,10 +7,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
 using FlyMessenger.Resources.Languages;
-using Newtonsoft.Json;
 
 namespace FlyMessenger.Resources.Authorization
 {
+    /// <summary>
+    /// Interaction logic for ForgotPasswordPage.xaml
+    /// </summary>
     public partial class ForgotPasswordPage
     {
         public ForgotPasswordPage()
@@ -18,6 +20,11 @@ namespace FlyMessenger.Resources.Authorization
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Visual active effect for email label.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void EmailSetActive(object sender, MouseButtonEventArgs e)
         {
             // Set animation
@@ -33,9 +40,16 @@ namespace FlyMessenger.Resources.Authorization
             EmailTextBoxBorder.BeginAnimation(Control.BorderThicknessProperty, animationBorder);
         }
 
+        /// <summary>
+        /// Button send click event handler.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private async void SendButtonClick(object sender, MouseButtonEventArgs e)
         {
             ShowSendButton(false);
+            
+            // Check email errors
             EmailErrorLabel.Visibility =
                 IsValidLength(EmailTextBox.Text, 3, 254) ? Visibility.Collapsed : Visibility.Visible;
             if (EmailErrorLabel.Visibility == Visibility.Collapsed)
@@ -46,15 +60,17 @@ namespace FlyMessenger.Resources.Authorization
             {
                 EmailCaseErrorLabel.Visibility = Visibility.Collapsed;
             }
-
-
+            
+            // If all data is valid
             if (EmailErrorLabel.Visibility == Visibility.Collapsed &&
                 EmailCaseErrorLabel.Visibility == Visibility.Collapsed)
             {
+                // Call reset password
                 var result = await ControllerBase.UserController.CallResetPassword(
                     EmailTextBox.Text
                 );
 
+                // Check result
                 switch (result.StatusCode)
                 {
                     case HttpStatusCode.OK:
@@ -62,6 +78,7 @@ namespace FlyMessenger.Resources.Authorization
                         SendErrorTextBlock.Visibility = Visibility.Collapsed;
                         if (result.Data is null)
                         {
+                            // Show error
                             SendErrorTextBlock.Visibility = Visibility.Visible;
                             SendErrorTextBlock.Text = App.LanguageUtils.GetTranslation("CHECK_EMAIL");
                             SendErrorTextBlock.Foreground = new SolidColorBrush(Color.FromRgb(69, 202, 36));
@@ -72,6 +89,7 @@ namespace FlyMessenger.Resources.Authorization
                     default:
                         ShowSendButton(true);
 
+                        // Show possible errors
                         if (result.Data?.Details != null)
                         {
                             foreach (var detail in result.Data.Details)
@@ -97,22 +115,43 @@ namespace FlyMessenger.Resources.Authorization
             }
         }
 
+        /// <summary>
+        /// Email validation.
+        /// </summary>
+        /// <param name="email">The email to validate.</param>
+        /// <returns>True if email is valid, false otherwise.</returns>
         private static bool IsValidEmail(string email)
         {
             return email.Split("@").Length == 2 && email.Split("@")[1].Split(".").Length > 1;
         }
 
+        /// <summary>
+        /// Length validation.
+        /// </summary>
+        /// <param name="text">The text to validate.</param>
+        /// <param name="min">Minimum length.</param>
+        /// <param name="max">Maximum length.</param>
+        /// <returns>True if length is valid, false otherwise.</returns>
         private static bool IsValidLength(string text, int min, int max)
         {
             return text.Length >= min && text.Length <= max;
         }
 
+        /// <summary>
+        /// Show or hide send button.
+        /// </summary>
+        /// <param name="show">True to show, false to hide.</param>
         private void ShowSendButton(bool show)
         {
             SendButton.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
             SendButtonLoading.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
         }
 
+        /// <summary>
+        /// Login button click event handler.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void LoginButtonClick(object sender, MouseButtonEventArgs e)
         {
             if (Window.GetWindow(this) is LoginWindow loginWindow)
@@ -121,6 +160,11 @@ namespace FlyMessenger.Resources.Authorization
             }
         }
 
+        /// <summary>
+        /// Register button click event handler.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void RegisterButtonClick(object sender, MouseButtonEventArgs e)
         {
             if (Window.GetWindow(this) is LoginWindow loginWindow)

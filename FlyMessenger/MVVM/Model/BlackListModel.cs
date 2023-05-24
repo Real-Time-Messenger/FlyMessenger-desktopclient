@@ -2,6 +2,9 @@
 
 namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Black list model.
+    /// </summary>
     public class BlackListModel
     {
         public string Id { get; set; }
@@ -11,6 +14,9 @@ namespace FlyMessenger.MVVM.Model
         public string PhotoUrl { get; set; }
     }
     
+    /// <summary>
+    /// Black list response model.
+    /// </summary>
     public class BlackListResponseModel
     {
         public string UserId { get; set; }

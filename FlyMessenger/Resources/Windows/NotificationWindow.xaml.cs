@@ -6,6 +6,9 @@ using Application = System.Windows.Application;
 
 namespace FlyMessenger.Resources.Windows
 {
+    /// <summary>
+    /// Interaction logic for NotificationWindow.xaml
+    /// </summary>
     public partial class NotificationWindow
     {
         public string userFirstAndLastName { get; set; }
@@ -13,6 +16,13 @@ namespace FlyMessenger.Resources.Windows
         public string photoUrl { get; set; }
         public string dialogId { get; set; }
         
+        /// <summary>
+        /// Constructor for NotificationWindow
+        /// </summary>
+        /// <param name="userFirstAndLastName">User first and last name</param>
+        /// <param name="messageTitle">Message title</param>
+        /// <param name="photoUrl">Photo url</param>
+        /// <param name="dialogId">Dialog id</param>
         public NotificationWindow(string userFirstAndLastName, string messageTitle, string photoUrl, string dialogId)
         {
             this.userFirstAndLastName = userFirstAndLastName;
@@ -26,17 +36,22 @@ namespace FlyMessenger.Resources.Windows
 
 
             InitializeComponent();
-            Loaded += Window_Loaded;
-            Closed += Window_Closed;
+            Loaded += WindowLoaded;
+            Closed += WindowClosed;
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Window loaded event
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 6;
             Top = desktopWorkingArea.Bottom - Height - 7;
 
-            // if more than one notification is sent, the new one will be shown down. Maximum is 3 notifications.
+            // Set 3 notification windows limit. New notification window will be created on the down of the last one.
             var notificationWindows = Application.Current.Windows.OfType<NotificationWindow>().ToList();
             switch (notificationWindows.Count)
             {
@@ -66,7 +81,8 @@ namespace FlyMessenger.Resources.Windows
 
             // Toggle sound effect
             if (!MainWindow.MainViewModel.MyProfile.Settings.ChatsSoundEnabled) return;
-            // if isSoundEnabled is false on dialog, then don't play sound.
+            
+            // Check if dialog is not muted
             var dialog = MainWindow.MainViewModel.Dialogs.FirstOrDefault(d => d.Id == dialogId);
             if (dialog is { IsSoundEnabled: false }) return;
             var soundPlayer = new System.Media.SoundPlayer(Properties.Resources.PopDing);
@@ -74,7 +90,12 @@ namespace FlyMessenger.Resources.Windows
             soundPlayer.Play();
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        /// <summary>
+        /// Window closed event
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void WindowClosed(object sender, EventArgs e)
         {
             var desktopWorkingArea = SystemParameters.WorkArea;
             Left = desktopWorkingArea.Right - Width - 6;
@@ -94,12 +115,22 @@ namespace FlyMessenger.Resources.Windows
             }
         }
 
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Close button click event
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void CloseButtonClick(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void NotificationWindow_Click(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Notification window click event
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void NotificationWindowClick(object sender, MouseButtonEventArgs e)
         {
             // if NotificationCloseButton then return
             if (e.Source is System.Windows.Controls.Button) return;
@@ -117,16 +148,16 @@ namespace FlyMessenger.Resources.Windows
             MainWindow.MainViewModel.SelectedDialog = dialog!;
             
             if (window.MessagesListView.Items.IsEmpty) return;
-            window.MainWindow_CheckMessageOnScreen();
+            window.CheckMessageOnScreen();
             
             var message = dialog?.Messages.FirstOrDefault(m => m.IsRead == false);
             window.MessagesListView.ScrollIntoView(message!);
             
             Close();
 
-            var activeChatVisibilityNone = MainWindow.MainViewModel.ActiveChatVisibilityNone;
+            var activeChatVisibilityNone = MainWindow.MainViewModel.ActiveChatVisHidden;
             if (!activeChatVisibilityNone) return;
-            MainWindow.MainViewModel.ActiveChatVisibilityNone = false;
+            MainWindow.MainViewModel.ActiveChatVisHidden = false;
             MainWindow.MainViewModel.ActiveChatVisibility = true;
         }
     }

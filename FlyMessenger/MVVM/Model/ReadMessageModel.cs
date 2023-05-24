@@ -1,5 +1,8 @@
 namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Read message model.
+    /// </summary>
     public class ReadMessageModel
     {
         public string type { get; set; }

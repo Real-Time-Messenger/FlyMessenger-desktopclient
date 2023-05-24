@@ -11,7 +11,7 @@
     <Grid>
         <Border Background="{DynamicResource Main}" CornerRadius="5"
                 BorderBrush="{DynamicResource NotifyIcon-BorderBrush}" BorderThickness="1.5"
-                PreviewMouseLeftButtonUp="NotificationWindow_Click">
+                PreviewMouseLeftButtonUp="NotificationWindowClick">
             <!-- Notification area -->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -57,7 +57,7 @@
                 <Grid Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,8,10,0">
                     <Button x:Name="NotificationCloseButton"
                             Style="{StaticResource NotificationCloseButton}"
-                            Click="Button_Click_Close">
+                            Click="CloseButtonClick">
                         <Image Width="12" Height="12" Source="{DynamicResource CloseModalWindow}" />
                     </Button>
                 </Grid>

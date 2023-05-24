@@ -31,7 +31,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="MVVM\View" />
         <Folder Include="Public\Images" />
         <Folder Include="Public\Sounds" />
     </ItemGroup>

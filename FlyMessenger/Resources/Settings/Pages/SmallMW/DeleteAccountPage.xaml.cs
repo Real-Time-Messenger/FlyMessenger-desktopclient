@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -7,6 +8,9 @@ using FlyMessenger.Core.Utils;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
+    /// <summary>
+    /// Interaction logic for DeleteAccountPage.xaml
+    /// </summary>
     public partial class DeleteAccountPage : Page
     {
         public DeleteAccountPage()
@@ -14,6 +18,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
         
+        /// <summary>
+        /// Handler for click on cancel button.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnDeleteCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
@@ -26,10 +35,15 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             mainWindow.DeleteAccountModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
-        private void OnDeleteAccountClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handler for click on delete button.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnDeleteAccountClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow mainWindow) return;
-            ControllerBase.UserController.Delete();
+            await ControllerBase.UserController.Delete();
             var tokenSettings = new TokenSettings();
             tokenSettings.Delete();
             var loginWindow = new LoginWindow();

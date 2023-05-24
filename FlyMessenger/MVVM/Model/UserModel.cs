@@ -2,6 +2,9 @@
 
 namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// User model.
+    /// </summary>
     public class UserModel
     {
         public string Id { get; set; }
@@ -22,6 +25,9 @@ namespace FlyMessenger.MVVM.Model
         public ObservableCollection<BlackListModel> BlackList { get; set; } = new ObservableCollection<BlackListModel>();
     }
     
+    /// <summary>
+    /// Login model.
+    /// </summary>
     public class LoginModel
     {
         public Details[] Details { get; set; }
@@ -30,12 +36,18 @@ namespace FlyMessenger.MVVM.Model
         public string? Event { get; set; }
     }
     
+    /// <summary>
+    /// Register model.
+    /// </summary>
     public class RegisterModel
     {
         public Details[] Details { get; set; }
         public string? Event { get; set; }
     }
     
+    /// <summary>
+    /// Reset password model.
+    /// </summary>
     public class CallResetPasswordModel
     {
         public Details[] Details { get; set; }
@@ -43,6 +55,9 @@ namespace FlyMessenger.MVVM.Model
         public string? Translation { get; set; }
     }
     
+    /// <summary>
+    /// Two factor model.
+    /// </summary>
     public class TwoFactorModel
     {
         public Details[] Details { get; set; }

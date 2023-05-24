@@ -1,5 +1,8 @@
 ﻿namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Settings model.
+    /// </summary>
     public class SettingsModel
     {
         public string Theme { get; set; }

@@ -5,21 +5,28 @@ using RestSharp;
 
 namespace FlyMessenger.Controllers
 {
+    /// <summary>
+    /// User controller.
+    /// </summary>
     public class UserController : HttpClientBase
     {
+        // Get user profile.
         public UserModel GetMyProfile()
         {
-            return Get<UserModel>(Constants.ProfilesUrl + "/me").Data!;
+            var user = Get<UserModel>(Constants.ProfilesUrl + "/me").Data!;
+            return user;
         }
 
+        // Get user sessions.
         public SessionsModel[] GetMySessions()
         {
             return Get<SessionsModel[]>(Constants.ProfilesUrl + "/me/sessions").Data!;
         }
 
-        public void EditMyProfileName(string? name, string? surname)
+        // Edit user first name and last name.
+        public async Task EditMyProfileName(string? name, string? surname)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new
                 {
@@ -29,9 +36,10 @@ namespace FlyMessenger.Controllers
             );
         }
 
-        public void EditMyProfileEmail(string? email)
+        // Edit user email.
+        public async Task EditMyProfileEmail(string? email)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new
                 {
@@ -40,69 +48,79 @@ namespace FlyMessenger.Controllers
             );
         }
 
-        public void EditMyProfilePhoto(byte[] photo)
+        // Edit user photo.
+        public async Task EditMyProfilePhoto(byte[] photo)
         {
-            Put<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
+            await PutAsync<UserModel>(Constants.ProfilesUrl + "/me/avatar", photo);
         }
 
-        public void EditMyLastActivity(bool lastActivity)
+        // Edit user last activity.
+        public async Task EditMyLastActivity(bool lastActivity)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new { LastActivityMode = lastActivity }
             );
         }
 
-        public void EditMyChatsNotifications(bool chatsNotifications)
+        // Enable/disable notifications.
+        public async Task EditMyChatsNotifications(bool chatsNotifications)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new { ChatsNotificationsEnabled = chatsNotifications }
             );
         }
 
-        public void EditMyChatsSound(bool chatsSound)
+        // Enable/disable notification sound.
+        public async Task EditMyChatsSound(bool chatsSound)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new { ChatsSoundEnabled = chatsSound }
             );
         }
 
-        public void EditMyTwoFactorAuth(object twoFactor)
+        // Enable/disable 2FA.
+        public async Task EditMyTwoFactorAuth(object twoFactor)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new { TwoFactorAuthEnabled = twoFactor }
             );
         }
 
-        public void EditMyAutoStart(bool autoStart)
+        // Enable/disable auto start on system start.
+        public async Task EditMyAutoStart(bool autoStart)
         {
-            Put<UserModel, object>(
+            await PutAsync<UserModel, object>(
                 Constants.ProfilesUrl + "/me",
                 new { AutoStartEnabled = autoStart }
             );
         }
         
+        // Logout.
         public void Logout()
         {
             Post(Constants.AuthUrl + "/logout");
         }
 
-        public void Delete()
+        // Delete user.
+        public async Task Delete()
         {
-            Delete(Constants.ProfilesUrl + "/me");
+            await DeleteAsync(Constants.ProfilesUrl + "/me");
         }
 
-        public BlackListResponseModel BlockOrUnblockUser(string userId)
+        // Block/unblock user.
+        public async Task<BlackListResponseModel> BlockOrUnblockUser(string userId)
         {
-            return Post<BlackListResponseModel, object>(
+            return await PostAsync<BlackListResponseModel, object>(
                 Constants.ProfilesUrl + "/blacklist",
                 new { BlacklistedUserId = userId }
-            ).Data!;
+            ).ContinueWith(task => task.Result.Data!);
         }
 
+        // Login user.
         public async Task<RestResponse<LoginModel>> Login(string username, string password)
         {
             return await PostAsync<LoginModel, object>(
@@ -111,6 +129,7 @@ namespace FlyMessenger.Controllers
             );
         }
 
+        // Register user.
         public async Task<RestResponse<RegisterModel>> Register(string username, string email, string password, string passwordConfirm)
         {
             return await PostAsync<RegisterModel, object>(
@@ -119,6 +138,7 @@ namespace FlyMessenger.Controllers
             );
         }
         
+        // Reset password.
         public async Task<RestResponse<CallResetPasswordModel>> CallResetPassword(string email)
         {
             return await PostAsync<CallResetPasswordModel, object>(
@@ -127,6 +147,7 @@ namespace FlyMessenger.Controllers
             );
         }
         
+        // Two factor authentication.
         public async Task<RestResponse<TwoFactorModel>> TwoFactorAuthenticate(string code)
         {
             return await PostAsync<TwoFactorModel, object>(
@@ -135,6 +156,7 @@ namespace FlyMessenger.Controllers
             );
         }
         
+        // Confirm new device.
         public async Task<RestResponse<TwoFactorModel>> ConfirmNewDevice(string code)
         {
             return await PostAsync<TwoFactorModel, object>(

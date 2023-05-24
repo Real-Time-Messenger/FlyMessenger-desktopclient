@@ -9,6 +9,9 @@ using Application = System.Windows.Application;
 
 namespace FlyMessenger.Resources.Settings
 {
+    /// <summary>
+    /// Settings page class
+    /// </summary>
     public class SettingsPage
     {
         public int? Id { get; }
@@ -26,6 +29,9 @@ namespace FlyMessenger.Resources.Settings
         }
     }
 
+    /// <summary>
+    /// Settings manager class
+    /// </summary>
     public abstract class SettingsManager
     {
         // Array of settings pages
@@ -64,12 +70,19 @@ namespace FlyMessenger.Resources.Settings
             )
         };
 
+        // Set default page
         public static readonly SettingsPage DefaultPage = Pages[0];
 
+        // Set current page to default
         public static SettingsPage CurrentPage { get; set; } = DefaultPage;
 
+        /// <summary>
+        /// Method for open page
+        /// </summary>
+        /// <param name="id">Page id</param>
         public static void OpenPage(int id)
         {
+            // Get current page
             CurrentPage = Pages.FirstOrDefault(x => x.Id == id);
             if (CurrentPage?.Page == null) return;
 
@@ -87,6 +100,9 @@ namespace FlyMessenger.Resources.Settings
             window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
         }
 
+        /// <summary>
+        /// Method for go back to previous page
+        /// </summary>
         public static void GoBack()
         {
             var slideAnimation = new ThicknessAnimation(
@@ -117,6 +133,11 @@ namespace FlyMessenger.Resources.Settings
             window.Page.BeginAnimation(UIElement.OpacityProperty, opacityAnimation);
         }
 
+        /// <summary>
+        /// Method for toggle page
+        /// </summary>
+        /// <param name="page">Page to toggle</param>
+        /// <param name="isBack">Is we go back</param>
         private static void TogglePage(Page page, bool isBack = false)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;

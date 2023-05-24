@@ -510,4 +510,10 @@
   <data name="emailHasIncorrectDomain" xml:space="preserve">
     <value>Invalid email format.</value>
   </data>
+  <data name="last_items" xml:space="preserve">
+    <value>Your last search history</value>
+  </data>
+  <data name="noLastItemsFound" xml:space="preserve">
+    <value>No last search history</value>
+  </data>
 </root>

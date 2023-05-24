@@ -7,6 +7,9 @@ using FlyMessenger.Controllers;
 
 namespace FlyMessenger.Resources.Settings.Pages
 {
+    /// <summary>
+    /// Interaction logic for Privacy.xaml
+    /// </summary>
     public partial class PrivacyPage
     {
         public PrivacyPage()
@@ -15,6 +18,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             App.LastActivityTextData = LastActivityTextData;
         }
 
+        /// <summary>
+        /// Open last activity modal window
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenLastActivityModalWindow(object sender, MouseButtonEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -24,14 +32,25 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.LastActivityModalWindow.BeginAnimation(OpacityProperty, openAnimation);
         }
 
-        private void TwoFactorStateChanged(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handler for two factor state button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void TwoFactorStateChanged(object sender, MouseButtonEventArgs e)
         {
-            ControllerBase.UserController.EditMyTwoFactorAuth(!TwoFactorButton.CheckState);
+            await ControllerBase.UserController.EditMyTwoFactorAuth(!TwoFactorButton.CheckState);
             MainWindow.MainViewModel.MyProfile.Settings.TwoFactorEnabled = !TwoFactorButton.CheckState;
         }
 
-        private void AutoStartStateChanged(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Handler for auto start state button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void AutoStartStateChanged(object sender, MouseButtonEventArgs e)
         {
+            // Try to change auto start state in registry
             try
             {
                 var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
@@ -49,7 +68,7 @@ namespace FlyMessenger.Resources.Settings.Pages
                 {
                     key?.SetValue(curAssemblyName, curAssemblyPath);
                 }
-                ControllerBase.UserController.EditMyAutoStart(!AutoStartButton.CheckState);
+                await ControllerBase.UserController.EditMyAutoStart(!AutoStartButton.CheckState);
                 Properties.Settings.Default.RunOnStartupAllowed = !AutoStartButton.CheckState;
                 Properties.Settings.Default.Save();
 

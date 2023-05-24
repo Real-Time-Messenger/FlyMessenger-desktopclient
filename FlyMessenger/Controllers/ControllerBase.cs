@@ -1,5 +1,8 @@
 ﻿namespace FlyMessenger.Controllers
 {
+    /// <summary>
+    /// Base class for all controllers
+    /// </summary>
     public static class ControllerBase
     {
         public static readonly DialogController DialogController = new DialogController();

@@ -5,8 +5,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Last activity converter.
+    /// </summary>
     public class LastActivityConverter : IValueConverter
     {
+        // Convert last activity to string.
         public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             // if value is null or empty

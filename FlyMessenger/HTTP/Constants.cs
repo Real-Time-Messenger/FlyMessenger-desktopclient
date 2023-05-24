@@ -1,6 +1,9 @@
 ﻿namespace FlyMessenger.HTTP
 {
-    public class Constants
+    /// <summary>
+    /// Constants.
+    /// </summary>
+    public static class Constants
     {
         public const string ApiUrl = "http://localhost:8000/api";
         public const string DialogsUrl = "/dialogs";

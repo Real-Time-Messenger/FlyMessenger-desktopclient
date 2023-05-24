@@ -404,4 +404,10 @@
     <data name="emailHasIncorrectDomain" xml:space="preserve">
         <value>Kehtetu meilivorming.</value>
     </data>
+    <data name="last_items" xml:space="preserve">
+        <value>Viimase otsingu ajalugu</value>
+    </data>
+    <data name="noLastItemsFound" xml:space="preserve">
+        <value>Viimast otsinguajalugu pole</value>
+    </data>
 </root>

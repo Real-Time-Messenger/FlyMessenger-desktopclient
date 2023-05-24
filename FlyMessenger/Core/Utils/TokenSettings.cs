@@ -5,9 +5,13 @@ using System.Text;
 
 namespace FlyMessenger.Core.Utils
 {
+    /// <summary>
+    /// Token settings.
+    /// </summary>
     public class TokenSettings
     {
-        // Create path with name _tokenFilePath to AppData\Roaming\FlyMessenger\token.dat
+        // Create token file path.
+        // Path: C:\Users\{username}\AppData\Roaming\FlyMessenger\token.dat
         private readonly string _tokenFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "FlyMessenger", "token.dat");
         
         // Save data to config
@@ -50,6 +54,7 @@ namespace FlyMessenger.Core.Utils
             return Encoding.UTF8.GetString(dataBytes);
         }
         
+        // Delete config file
         public void Delete()
         {
             File.Delete(_tokenFilePath);

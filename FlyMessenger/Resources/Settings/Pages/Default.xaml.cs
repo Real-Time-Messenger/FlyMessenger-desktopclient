@@ -6,15 +6,23 @@ using System.Windows.Media.Animation;
 
 namespace FlyMessenger.Resources.Settings.Pages
 {
+    /// <summary>
+    /// Interaction logic for Default.xaml
+    /// </summary>
     public partial class DefaultPage
     {
         public DefaultPage()
         {
             InitializeComponent();
-            App.ProfilePhotoDefaultPage = ProfilePhoto;
+            App.SettingsProfilePhoto = ProfilePhoto;
         }
 
-        private void Username_CopyToClipboard(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Method for copy username to clipboard.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void CopyUsernameToClipboard(object sender, MouseButtonEventArgs e)
         {
             if (sender is not TextBlock textBlock) return;
 
@@ -36,6 +44,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.UsernameCopiedTip.BeginAnimation(OpacityProperty, openAnimation);
         }
 
+        /// <summary>
+        /// Open language modal window.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenLanguage_ModalWindow(object sender, MouseButtonEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -45,6 +58,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.LanguageModalWindow.BeginAnimation(OpacityProperty, openAnimation);
         }
 
+        /// <summary>
+        /// Open delete account modal window.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenDeleteAccount_ModalWindow(object sender, MouseButtonEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;

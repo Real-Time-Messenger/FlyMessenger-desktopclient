@@ -5,7 +5,7 @@ using System.Windows.Media;
 namespace FlyMessenger.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для ChatMenuButton.xaml
+    /// Logic for ChatMenuButton.xaml
     /// </summary>
     public partial class ChatMenuButton : UserControl
     {

@@ -1,12 +1,22 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
-using FlyMessenger.Properties;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Date to date converter
+    /// </summary>
     public class DateToDateConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts a given value to a date string representation.
+        /// </summary>
+        /// <param name="value">The value to convert.</param>
+        /// <param name="targetType">The type of the target property.</param>
+        /// <param name="parameter">An optional parameter.</param>
+        /// <param name="culture">The culture used for formatting.</param>
+        /// <returns>A formatted date string representation of the given value.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (string.IsNullOrEmpty(value.ToString()))

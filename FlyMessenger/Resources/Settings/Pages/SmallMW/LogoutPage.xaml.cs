@@ -14,6 +14,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handler for logout cancel button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnLogoutCancelClick(object sender, RoutedEventArgs e)
         {
             var closeAnimation = new DoubleAnimation(1, 0, TimeSpan.FromSeconds(0.1));
@@ -26,6 +31,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             mainWindow.LogoutModalWindow.BeginAnimation(OpacityProperty, closeAnimation);
         }
 
+        /// <summary>
+        /// Handler for logout button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnLogoutClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow mainWindow) return;

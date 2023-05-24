@@ -3,6 +3,9 @@ using System.Windows.Media;
 
 namespace FlyMessenger.UserControls
 {
+    /// <summary>
+    /// Logic for SecondSettingsButton.xaml
+    /// </summary>
     public partial class SecondSettingsButton
     {
         public SecondSettingsButton()

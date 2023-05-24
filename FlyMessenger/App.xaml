@@ -5,7 +5,6 @@
              xmlns:language="clr-namespace:FlyMessenger.Resources.Languages"
              xmlns:userControls="clr-namespace:FlyMessenger.UserControls"
              xmlns:viewModels="clr-namespace:FlyMessenger.MVVM.ViewModels"
-             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
 
@@ -544,7 +543,7 @@
                                     <MenuItem x:Name="BlockMenuItem"
                                               Header="{Binding User.IsBlocked, 
                                               Converter={StaticResource BlockConverter}}"
-                                              PreviewMouseLeftButtonUp="DialogBlockState">
+                                              PreviewMouseLeftButtonUp="UserBlockState">
                                         <MenuItem.Icon>
                                             <Image Source="{DynamicResource Block}" Width="16" Height="16" />
                                         </MenuItem.Icon>
@@ -662,7 +661,7 @@
                                         <Ellipse.Fill>
                                             <ImageBrush Stretch="UniformToFill"
                                                         RenderOptions.BitmapScalingMode="Fant"
-                                                        ImageSource="{Binding PhotoUrl}" />
+                                                        ImageSource="{Binding User.PhotoUrl}" />
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <Border x:Name="OnlineBorder"
@@ -675,7 +674,7 @@
                                             VerticalAlignment="Bottom"
                                             HorizontalAlignment="Right"
                                             Margin="0 0 3 3"
-                                            Visibility="{Binding IsOnline, 
+                                            Visibility="{Binding User.IsOnline, 
                                                 Converter={StaticResource BooleanToVisibilityConverter}}" />
                                 </Grid>
                                 <Grid Column="1">
@@ -694,15 +693,15 @@
                                                    Margin="2,11,0,0">
                                             <TextBlock.Text>
                                                 <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
-                                                    <Binding Path="FirstName" />
-                                                    <Binding Path="LastName" />
+                                                    <Binding Path="User.FirstName" />
+                                                    <Binding Path="User.LastName" />
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </Grid>
                                     <Grid Grid.Row="1">
                                         <TextBlock x:Name="UsernameTextBlock"
-                                                   Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                                   Text="{Binding User.Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
                                                     StringFormat=@{0}}"
                                                    FontFamily="{StaticResource Alata}"
                                                    Foreground="{DynamicResource ChatBox-Foreground}"
@@ -751,137 +750,6 @@
                                 </MultiTrigger.Conditions>
                                 <MultiTrigger.Setters>
                                     <Setter Property="Background" TargetName="border"
-                                            Value="{DynamicResource ChatBox-MouseOver}" />
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- UserBox Resources -->
-        <Style TargetType="{x:Type ListViewItem}" x:Key="CurrentUserBox">
-            <Setter Property="Margin" Value="0" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="MinWidth" Value="200" />
-            <Setter Property="MaxWidth" Value="350" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="border"
-                                CornerRadius="5"
-                                Background="{DynamicResource ChatBox-Normal}"
-                                MinWidth="200"
-                                MaxWidth="350"
-                                Margin="0 0 0 10"
-                                Height="78">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="64" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid Column="0">
-                                    <!-- Full circled Image 48x48 -->
-                                    <Ellipse Width="48" Height="48">
-                                        <Ellipse.Fill>
-                                            <ImageBrush Stretch="UniformToFill"
-                                                        RenderOptions.BitmapScalingMode="Fant"
-                                                        ImageSource="{Binding PhotoUrl}" />
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                    <Border x:Name="OnlineBorder"
-                                            Width="12"
-                                            Height="12"
-                                            BorderBrush="{DynamicResource ChatBox-Normal}"
-                                            BorderThickness="2"
-                                            CornerRadius="6"
-                                            Background="{DynamicResource Settings-Change-Photo}"
-                                            VerticalAlignment="Bottom"
-                                            HorizontalAlignment="Right"
-                                            Margin="0 0 3 3"
-                                            Visibility="{Binding IsOnline, 
-                                                Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                </Grid>
-                                <Grid Column="1" HorizontalAlignment="Left">
-                                    <TextBlock FontSize="14" FontFamily="{StaticResource Alata}"
-                                               FontWeight="Regular"
-                                               Foreground="{DynamicResource Strongest-Stroke}"
-                                               MaxHeight="19"
-                                               MaxWidth="274"
-                                               TextTrimming="CharacterEllipsis"
-                                               HorizontalAlignment="Left"
-                                               Margin="2,11,0,0">
-                                        <TextBlock.Text>
-                                            <MultiBinding Converter="{StaticResource ChatBoxNameConverter}">
-                                                <Binding Path="FirstName" />
-                                                <Binding Path="LastName" />
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-                                    <Button x:Name="CloseButton"
-                                            Width="20"
-                                            Height="20"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Top"
-                                            Margin="0,0,0,0"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            BorderThickness="0"
-                                            Command="{Binding CloseCommand}"
-                                            CommandParameter="{Binding}">
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border"
-                                                        CornerRadius="10"
-                                                        Background="Transparent"
-                                                        BorderBrush="Transparent"
-                                                        BorderThickness="0">
-                                                    <Path Fill="{DynamicResource ChatBox-Foreground}"
-                                                          Data="M 10,10 L 20,20 M 20,10 L 10,20" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Button.Template>
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Selector.IsSelectionActive" Value="False" />
-                                    <Condition Property="Selector.IsSelected" Value="True" />
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter Property="Background" TargetName="border"
-                                            Value="{DynamicResource ChatBox-Selected}" />
-                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
-                                            Value="{DynamicResource ChatBox-Selected}" />
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="Selector.IsSelectionActive" Value="True" />
-                                    <Condition Property="Selector.IsSelected" Value="True" />
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter Property="Background" TargetName="border"
-                                            Value="{DynamicResource ChatBox-Selected}" />
-                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
-                                            Value="{DynamicResource ChatBox-Selected}" />
-                                </MultiTrigger.Setters>
-                            </MultiTrigger>
-                            <MultiTrigger>
-                                <MultiTrigger.Conditions>
-                                    <Condition Property="UIElement.IsMouseOver" Value="True" />
-                                    <Condition Property="Selector.IsSelected" Value="False" />
-                                </MultiTrigger.Conditions>
-                                <MultiTrigger.Setters>
-                                    <Setter Property="Background" TargetName="border"
-                                            Value="{DynamicResource ChatBox-MouseOver}" />
-                                    <Setter Property="BorderBrush" TargetName="OnlineBorder"
                                             Value="{DynamicResource ChatBox-MouseOver}" />
                                 </MultiTrigger.Setters>
                             </MultiTrigger>
@@ -1452,7 +1320,7 @@
                                             <Button DockPanel.Dock="Right"
                                                     x:Name="BtnCloseSession"
                                                     Style="{DynamicResource SessionCloseButton}"
-                                                    Click="OnCloseSessionClick">
+                                                    Click="CloseSessionClick">
                                                 <Image Width="14" Height="14"
                                                        Source="{DynamicResource CloseModalWindow}" />
                                             </Button>
@@ -1528,7 +1396,7 @@
                                             Style="{DynamicResource UnblockUserButton}"
                                             FontFamily="{StaticResource Alata}"
                                             FontSize="12"
-                                            Click="OnUnblockUserClick"
+                                            Click="UnblockUserClick"
                                             VerticalAlignment="Center"
                                             Content="{x:Static language:lang.unblock_user}">
                                     </Button>

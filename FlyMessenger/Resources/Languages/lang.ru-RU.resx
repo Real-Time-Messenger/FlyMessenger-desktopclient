@@ -417,4 +417,10 @@
     <data name="emailHasIncorrectDomain" xml:space="preserve">
         <value>Неправильный формат email.</value>
     </data>
+    <data name="last_items" xml:space="preserve">
+        <value>История последнего поиска</value>
+    </data>
+    <data name="noLastItemsFound" xml:space="preserve">
+        <value>История последнего поиска отсутствует</value>
+    </data>
 </root>

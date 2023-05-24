@@ -4,8 +4,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// ChatBox Name Converter
+    /// </summary>
     public class ChatBoxNameConverter : IMultiValueConverter
     {
+        // Convert two strings to one string
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             // If value = UnsetValue, then the binding is not ready yet.

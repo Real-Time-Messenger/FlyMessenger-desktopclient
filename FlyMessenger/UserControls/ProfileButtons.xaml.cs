@@ -1,12 +1,12 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using FlyMessenger.MVVM.ViewModels;
-using FlyMessenger.Resources.Settings;
 
 namespace FlyMessenger.UserControls
 {
+    /// <summary>
+    /// Logic for ProfileButtons.xaml
+    /// </summary>
     public partial class ProfileButtons : UserControl
     {
         public ProfileButtons()

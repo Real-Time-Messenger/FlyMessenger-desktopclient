@@ -47,12 +47,12 @@
 
         <!-- Top bar -->
         <Grid Grid.Row="0">
-            <Border Background="{DynamicResource TopBar}" MouseDown="Border_MouseDown">
+            <Border Background="{DynamicResource TopBar}" MouseDown="DragMainWindow">
                 <Grid>
                     <StackPanel Width="120" MinWidth="120" MaxWidth="120" Height="30" MinHeight="30" MaxHeight="30"
                                 HorizontalAlignment="Right" Orientation="Horizontal">
                         <uc:TopBarButton TopBarData="M13 20H27"
-                                         PreviewMouseLeftButtonDown="TopBarMinimizeButton_PreviewMouseLeftButtonDown">
+                                         PreviewMouseLeftButtonDown="TopBarMinimizeButton">
                             <uc:TopBarButton.Style>
                                 <Style TargetType="uc:TopBarButton">
                                     <Style.Triggers>
@@ -66,7 +66,7 @@
                         </uc:TopBarButton>
                         <uc:TopBarButton
                             TopBarData="M25.4444 10H14.5556C13.6964 10 13 10.4975 13 11.1111V18.8889C13 19.5025 13.6964 20 14.5556 20H25.4444C26.3036 20 27 19.5025 27 18.8889V11.1111C27 10.4975 26.3036 10 25.4444 10Z"
-                            PreviewMouseLeftButtonDown="TopBarMaximizeButton_OnMouseUp">
+                            PreviewMouseLeftButtonDown="TopBarMaximizeButton">
                             <uc:TopBarButton.Style>
                                 <Style TargetType="uc:TopBarButton">
                                     <Style.Triggers>
@@ -79,7 +79,7 @@
                             </uc:TopBarButton.Style>
                         </uc:TopBarButton>
                         <uc:TopBarButton TopBarData="M25 10L15 20 M15 10L25 20"
-                                         PreviewMouseLeftButtonDown="TopBarCloseButton_MouseLeftButtonDown">
+                                         PreviewMouseLeftButtonDown="TopBarCloseButton">
                             <uc:TopBarButton.Style>
                                 <Style TargetType="uc:TopBarButton">
                                     <Style.Triggers>
@@ -136,7 +136,7 @@
                                 <Button DockPanel.Dock="Right"
                                         x:Name="BtnCloseModal"
                                         Style="{DynamicResource ModalCloseButton}"
-                                        Click="OnCloseModalClick"
+                                        Click="ModalClose"
                                         Command="{Binding CloseModalWindowCommand}">
                                     <Image Width="16" Height="16"
                                            Source="{DynamicResource CloseModalWindow}" />
@@ -228,7 +228,7 @@
                                            Foreground="{DynamicResource Stronger-Stroke}" />
                                 <Button DockPanel.Dock="Right"
                                         Style="{DynamicResource ModalCloseButton}"
-                                        Click="OnCloseLanguageModalClick">
+                                        Click="LanguageModalClose">
                                     <Image Width="16" Height="16"
                                            Source="{DynamicResource CloseModalWindow}" />
                                 </Button>
@@ -266,7 +266,7 @@
                                            Foreground="{DynamicResource Stronger-Stroke}" />
                                 <Button DockPanel.Dock="Right"
                                         Style="{DynamicResource ModalCloseButton}"
-                                        Click="OnCloseLastActivityModalClick">
+                                        Click="LastActivityModalClose">
                                     <Image Width="16" Height="16"
                                            Source="{DynamicResource CloseModalWindow}" />
                                 </Button>
@@ -319,8 +319,8 @@
             <Border Grid.Column="0" Width="50" HorizontalAlignment="Left" Background="{DynamicResource Main}"
                     Panel.ZIndex="3"
                     x:Name="SideBar"
-                    MouseEnter="SideBar_OnMouseEnter"
-                    MouseLeave="SideBar_OnMouseLeave">
+                    MouseEnter="SideBarMouseEnter"
+                    MouseLeave="SideBarMouseLeave">
                 <Grid>
 
                     <!-- Logo -->
@@ -370,7 +370,7 @@
                                            x:Name="GroupsChatMenuButton"
                                            Data="M13.4584 16.625V15.0417C13.4584 14.2018 13.1247 13.3964 12.5309 12.8025C11.937 12.2086 11.1315 11.875 10.2917 11.875H3.95835C3.1185 11.875 2.31305 12.2086 1.71918 12.8025C1.12532 13.3964 0.791687 14.2018 0.791687 15.0417V16.625 M7.12498 8.70833C8.87388 8.70833 10.2916 7.29057 10.2916 5.54167C10.2916 3.79277 8.87388 2.375 7.12498 2.375C5.37608 2.375 3.95831 3.79277 3.95831 5.54167C3.95831 7.29057 5.37608 8.70833 7.12498 8.70833Z M18.2083 16.625V15.0417C18.2078 14.34 17.9743 13.6584 17.5444 13.1039C17.1145 12.5494 16.5127 12.1533 15.8333 11.9779 M12.6667 2.47792C13.3478 2.65233 13.9516 3.04848 14.3827 3.60392C14.8139 4.15936 15.0479 4.84249 15.0479 5.54563C15.0479 6.24876 14.8139 6.9319 14.3827 7.48734C13.9516 8.04278 13.3478 8.43893 12.6667 8.61334"
                                            ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="GroupsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="GroupsButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -389,7 +389,7 @@
                                            x:Name="ConservationsChatMenuButton"
                                            Data="M10 18.3333C14.6024 18.3333 18.3334 14.6024 18.3334 10C18.3334 5.39763 14.6024 1.66667 10 1.66667C5.39765 1.66667 1.66669 5.39763 1.66669 10C1.66669 14.6024 5.39765 18.3333 10 18.3333Z M1.66669 10H18.3334 M10 1.66667C12.0844 3.94863 13.269 6.91003 13.3334 10C13.269 13.09 12.0844 16.0514 10 18.3333C7.91562 16.0514 6.73106 13.09 6.66669 10C6.73106 6.91003 7.91562 3.94863 10 1.66667V1.66667Z"
                                            ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="ConservationsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="ConservationsButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -408,7 +408,7 @@
                                            x:Name="SupportChatMenuButton"
                                            Data="M15 15.7167H14.3667C13.7 15.7167 13.0667 15.975 12.6 16.4417L11.175 17.85C10.525 18.4917 9.46667 18.4917 8.81667 17.85L7.39167 16.4417C6.925 15.975 6.28333 15.7167 5.625 15.7167H5C3.61667 15.7167 2.5 14.6084 2.5 13.2417V4.15005C2.5 2.78338 3.61667 1.67505 5 1.67505H15C16.3833 1.67505 17.5 2.78338 17.5 4.15005V13.2417C17.5 14.6 16.3833 15.7167 15 15.7167Z M5.83337 7.63329C5.83337 6.85829 6.46671 6.22496 7.24171 6.22496C8.01671 6.22496 8.65004 6.85829 8.65004 7.63329C8.65004 9.19996 6.42504 9.36663 5.93337 10.8583C5.83337 11.1666 6.09171 11.475 6.41671 11.475H8.65004M13.3667 11.4666V6.70829C13.3672 6.603 13.3332 6.50044 13.27 6.41621C13.2069 6.33197 13.1179 6.27067 13.0167 6.24163C12.9148 6.21285 12.8064 6.21756 12.7073 6.25506C12.6083 6.29257 12.524 6.36089 12.4667 6.44996C11.8667 7.41663 11.2167 8.51663 10.65 9.48329C10.5584 9.64163 10.5584 9.84996 10.65 10.0083C10.7417 10.1666 10.9167 10.2666 11.1084 10.2666H14.1667"
                                            ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="SupportChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="SupportButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -427,7 +427,7 @@
                                            x:Name="SettingsChatMenuButton"
                                            Data="M10 12.5C11.3807 12.5 12.5 11.3807 12.5 10C12.5 8.61929 11.3807 7.5 10 7.5C8.61929 7.5 7.5 8.61929 7.5 10C7.5 11.3807 8.61929 12.5 10 12.5Z M16.1667 12.5C16.0558 12.7514 16.0227 13.0302 16.0717 13.3005C16.1207 13.5709 16.2496 13.8203 16.4417 14.0167L16.4917 14.0667C16.6467 14.2215 16.7696 14.4053 16.8535 14.6076C16.9373 14.81 16.9805 15.0268 16.9805 15.2459C16.9805 15.4649 16.9373 15.6818 16.8535 15.8841C16.7696 16.0864 16.6467 16.2703 16.4917 16.425C16.3369 16.58 16.1531 16.7029 15.9508 16.7868C15.7484 16.8707 15.5316 16.9139 15.3125 16.9139C15.0935 16.9139 14.8766 16.8707 14.6743 16.7868C14.472 16.7029 14.2882 16.58 14.1334 16.425L14.0834 16.375C13.887 16.1829 13.6375 16.0541 13.3672 16.005C13.0969 15.956 12.8181 15.9891 12.5667 16.1C12.3202 16.2057 12.11 16.3811 11.962 16.6047C11.8139 16.8282 11.7344 17.0902 11.7334 17.3584V17.5C11.7334 17.9421 11.5578 18.366 11.2452 18.6786C10.9327 18.9911 10.5087 19.1667 10.0667 19.1667C9.62468 19.1667 9.20076 18.9911 8.8882 18.6786C8.57564 18.366 8.40004 17.9421 8.40004 17.5V17.425C8.39359 17.1492 8.30431 16.8817 8.1438 16.6573C7.98329 16.4329 7.75899 16.2619 7.50004 16.1667C7.24869 16.0558 6.96988 16.0227 6.69955 16.0717C6.42922 16.1207 6.17977 16.2496 5.98337 16.4417L5.93337 16.4917C5.77859 16.6467 5.59477 16.7696 5.39244 16.8535C5.19011 16.9373 4.97323 16.9805 4.75421 16.9805C4.53518 16.9805 4.3183 16.9373 4.11597 16.8535C3.91364 16.7696 3.72983 16.6467 3.57504 16.4917C3.42008 16.3369 3.29715 16.1531 3.21327 15.9508C3.1294 15.7484 3.08623 15.5316 3.08623 15.3125C3.08623 15.0935 3.1294 14.8766 3.21327 14.6743C3.29715 14.472 3.42008 14.2882 3.57504 14.1334L3.62504 14.0834C3.81715 13.887 3.94603 13.6375 3.99504 13.3672C4.04406 13.0969 4.01097 12.8181 3.90004 12.5667C3.7944 12.3202 3.619 12.11 3.39543 11.962C3.17185 11.8139 2.90986 11.7344 2.64171 11.7334H2.50004C2.05801 11.7334 1.63409 11.5578 1.32153 11.2452C1.00897 10.9327 0.833374 10.5087 0.833374 10.0667C0.833374 9.62468 1.00897 9.20076 1.32153 8.8882C1.63409 8.57564 2.05801 8.40004 2.50004 8.40004H2.57504C2.85087 8.39359 3.11838 8.30431 3.34279 8.1438C3.5672 7.98329 3.73814 7.75899 3.83337 7.50004C3.9443 7.24869 3.97739 6.96988 3.92838 6.69955C3.87936 6.42922 3.75049 6.17977 3.55837 5.98337L3.50837 5.93337C3.35341 5.77859 3.23048 5.59477 3.14661 5.39244C3.06273 5.19011 3.01956 4.97323 3.01956 4.75421C3.01956 4.53518 3.06273 4.3183 3.14661 4.11597C3.23048 3.91364 3.35341 3.72983 3.50837 3.57504C3.66316 3.42008 3.84698 3.29715 4.04931 3.21327C4.25164 3.1294 4.46852 3.08623 4.68754 3.08623C4.90657 3.08623 5.12344 3.1294 5.32577 3.21327C5.5281 3.29715 5.71192 3.42008 5.86671 3.57504L5.91671 3.62504C6.11311 3.81715 6.36255 3.94603 6.63288 3.99504C6.90321 4.04406 7.18203 4.01097 7.43337 3.90004H7.50004C7.74652 3.7944 7.95672 3.619 8.10478 3.39543C8.25285 3.17185 8.3323 2.90986 8.33337 2.64171V2.50004C8.33337 2.05801 8.50897 1.63409 8.82153 1.32153C9.13409 1.00897 9.55801 0.833374 10 0.833374C10.4421 0.833374 10.866 1.00897 11.1786 1.32153C11.4911 1.63409 11.6667 2.05801 11.6667 2.50004V2.57504C11.6678 2.8432 11.7472 3.10519 11.8953 3.32876C12.0434 3.55234 12.2536 3.72774 12.5 3.83337C12.7514 3.9443 13.0302 3.97739 13.3005 3.92838C13.5709 3.87936 13.8203 3.75049 14.0167 3.55837L14.0667 3.50837C14.2215 3.35341 14.4053 3.23048 14.6076 3.14661C14.81 3.06273 15.0268 3.01956 15.2459 3.01956C15.4649 3.01956 15.6818 3.06273 15.8841 3.14661C16.0864 3.23048 16.2703 3.35341 16.425 3.50837C16.58 3.66316 16.7029 3.84698 16.7868 4.04931C16.8707 4.25164 16.9139 4.46852 16.9139 4.68754C16.9139 4.90657 16.8707 5.12344 16.7868 5.32577C16.7029 5.5281 16.58 5.71192 16.425 5.86671L16.375 5.91671C16.1829 6.11311 16.0541 6.36255 16.005 6.63288C15.956 6.90321 15.9891 7.18203 16.1 7.43337V7.50004C16.2057 7.74652 16.3811 7.95672 16.6047 8.10478C16.8282 8.25285 17.0902 8.3323 17.3584 8.33337H17.5C17.9421 8.33337 18.366 8.50897 18.6786 8.82153C18.9911 9.13409 19.1667 9.55801 19.1667 10C19.1667 10.4421 18.9911 10.866 18.6786 11.1786C18.366 11.4911 17.9421 11.6667 17.5 11.6667H17.425C17.1569 11.6678 16.8949 11.7472 16.6713 11.8953C16.4477 12.0434 16.2723 12.2536 16.1667 12.5V12.5Z"
                                            ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="SettingsChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="SettingsButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -446,7 +446,7 @@
                                            x:Name="ThemeChatMenuButton"
                                            Data="M13.3334 4.16669H6.66671C3.44505 4.16669 0.833374 6.77836 0.833374 10C0.833374 13.2217 3.44505 15.8334 6.66671 15.8334H13.3334C16.555 15.8334 19.1667 13.2217 19.1667 10C19.1667 6.77836 16.555 4.16669 13.3334 4.16669Z M6.66663 12.5C8.04734 12.5 9.16663 11.3807 9.16663 10C9.16663 8.61929 8.04734 7.5 6.66663 7.5C5.28591 7.5 4.16663 8.61929 4.16663 10C4.16663 11.3807 5.28591 12.5 6.66663 12.5Z"
                                            ForegroundColor="{DynamicResource Normal-Stroke}"
-                                           PreviewMouseLeftButtonUp="ThemeChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="ThemeButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button}" />
@@ -465,7 +465,7 @@
                                            x:Name="LogoutChatMenuButton"
                                            Data="M15.3 5.53333C16.3487 6.58232 17.0627 7.91869 17.3519 9.37348C17.6411 10.8283 17.4924 12.3361 16.9247 13.7065C16.357 15.0768 15.3957 16.248 14.1624 17.072C12.9291 17.896 11.4791 18.3358 9.99585 18.3358C8.5126 18.3358 7.06265 17.896 5.82933 17.072C4.59602 16.248 3.63472 15.0768 3.06699 13.7065C2.49926 12.3361 2.35059 10.8283 2.63978 9.37348C2.92897 7.91869 3.64304 6.58232 4.69169 5.53333 M10 1.66669V10"
                                            ForegroundColor="{DynamicResource SideBar-Button-Red-Stroke}"
-                                           PreviewMouseLeftButtonUp="LogoutChatMenuButton_OnPreviewMouseLeftButtonUp">
+                                           PreviewMouseLeftButtonUp="LogoutButtonClick">
                             <uc:ChatMenuButton.Style>
                                 <Style TargetType="uc:ChatMenuButton">
                                     <Setter Property="BackgroundColor" Value="{DynamicResource SideBar-Button-Red}" />
@@ -486,7 +486,7 @@
                     <Button Style="{DynamicResource UcButton}"
                             Width="280" Height="48" Cursor="Hand"
                             VerticalAlignment="Bottom"
-                            PreviewMouseLeftButtonUp="Settings_Profile">
+                            PreviewMouseLeftButtonUp="SettingsProfile">
                         <Grid>
                             <Ellipse Width="34"
                                      Height="34"
@@ -635,7 +635,7 @@
                                              Converter={StaticResource WidthConverter}, 
                                              ElementName=HeaderPanel}"
                                              CaretBrush="{DynamicResource SearchBar-Foreground}"
-                                             PreviewKeyUp="SearchBox_PreviewKeyUp"
+                                             PreviewKeyUp="SearchBoxClick"
                                              Visibility="Visible">
                                         <TextBox.InputBindings>
                                             <KeyBinding Key="Escape" Command="{Binding ClearSearchBox}" />
@@ -684,7 +684,7 @@
                                              Converter={StaticResource WidthConverter}, 
                                              ElementName=HeaderPanel}"
                                              CaretBrush="{DynamicResource SearchBar-Foreground}"
-                                             PreviewKeyUp="SearchBoxSecond_PreviewKeyUp"
+                                             PreviewKeyUp="SearchBoxSecondClick"
                                              Visibility="Collapsed">
                                         <TextBox.InputBindings>
                                             <KeyBinding Key="Escape" Command="{Binding ClearSearchBox}" />
@@ -828,6 +828,7 @@
                                                Margin="20 0 0 0" Padding="0 6" />
                                 </Border>
                                 <ListView
+                                    x:Name="DialogsInSearch"
                                     ItemsSource="{Binding DialogsInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemContainerStyle="{StaticResource ChatBox}"
                                     SelectedItem="{Binding SelectedDialog}"
@@ -870,9 +871,9 @@
                                                Margin="20 0 0 0" Padding="0 6" />
                                 </Border>
                                 <ListView
+                                    x:Name="UsersInSearch"
                                     ItemsSource="{Binding UsersInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemContainerStyle="{StaticResource UserBox}"
-                                    SelectedItem="{Binding SelectedUser}"
                                     PreviewMouseLeftButtonUp="OnSelectedUser"
                                     BorderBrush="Transparent"
                                     HorizontalAlignment="Stretch"
@@ -914,7 +915,7 @@
                                 <ListView
                                     ItemsSource="{Binding MessagesInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
-                                    SelectedItem="{Binding SelectedDialog}"
+                                    SelectedItem="{Binding SelectedItemInSearch}"
                                     PreviewMouseLeftButtonUp="OnSelectedMessage"
                                     BorderBrush="Transparent"
                                     HorizontalAlignment="Stretch"
@@ -939,6 +940,81 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Visibility="{Binding MessagesNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.last_items}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Dialogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource ChatBox}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource UserBox}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noLastItemsFound}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding LastItemsNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Margin="0 6 0 20" Padding="0" />
                             </StackPanel>
                             <StackPanel x:Name="SearchInChatPanel"
@@ -965,12 +1041,12 @@
                                     <Ellipse Grid.Column="0"
                                              Width="34"
                                              Height="34"
-                                             Margin="8 0 0 0"
+                                             Margin="16 0 0 0"
                                              VerticalAlignment="Center" HorizontalAlignment="Left">
                                         <Ellipse.Fill>
                                             <ImageBrush RenderOptions.BitmapScalingMode="Fant"
                                                         Stretch="UniformToFill"
-                                                        ImageSource="{Binding SelectedDialogInSearch.PhotoUrl}" />
+                                                        ImageSource="{Binding SelectedDialog.User.PhotoUrl}" />
                                         </Ellipse.Fill>
                                     </Ellipse>
                                     <TextBlock Grid.Column="1"
@@ -982,9 +1058,9 @@
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
                                                Margin="8 0 0 0" Padding="0 6">
-                                        <Run Text="{Binding SelectedDialogInSearch.FirstName}" />
+                                        <Run Text="{Binding SelectedDialog.User.FirstName}" />
                                         <Run Text=" " />
-                                        <Run Text="{Binding SelectedDialogInSearch.LastName}" />
+                                        <Run Text="{Binding SelectedDialog.User.LastName}" />
                                     </TextBlock>
                                     <Button Grid.Column="2"
                                             OverridesDefaultStyle="True"
@@ -1040,9 +1116,10 @@
                                                Margin="20 0 0 0" Padding="0 6" />
                                 </Border>
                                 <ListView
+                                    x:Name="MessagesInSearch"
                                     ItemsSource="{Binding MessagesInSearch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
-                                    SelectedItem="{Binding SelectedDialog}"
+                                    SelectedItem="{Binding SelectedItemInSearch}"
                                     PreviewMouseLeftButtonUp="OnSelectedMessage"
                                     BorderBrush="Transparent"
                                     HorizontalAlignment="Stretch"
@@ -1067,6 +1144,84 @@
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Visibility="{Binding MessagesNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Margin="0 6 0 20" Padding="0" />
+                                <Border Background="{DynamicResource Main}"
+                                        Margin="0 0 0 4"
+                                        CornerRadius="0 4 4 0">
+                                    <TextBlock Text="{x:Static language:lang.last_items}"
+                                               FontFamily="{StaticResource Alata}"
+                                               FontSize="16" FontWeight="Regular"
+                                               Foreground="{DynamicResource Normal-Stroke}"
+                                               TextTrimming="CharacterEllipsis"
+                                               TextWrapping="Wrap"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Margin="20 0 0 0" Padding="0 6" />
+                                </Border>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Dialogs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource ChatBox}"
+                                    SelectedItem="{Binding SelectedDialog}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource UserBox}"
+                                    SelectedItem="{Binding SelectedUser}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <ListView
+                                    ItemsSource="{Binding LastItemsInSearch.Messages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemContainerStyle="{StaticResource MessagesInSearchStyle}"
+                                    SelectedItem="{Binding SelectedDialog}"
+                                    PreviewMouseLeftButtonUp="OnSelectedLastItem"
+                                    BorderBrush="Transparent"
+                                    HorizontalAlignment="Stretch"
+                                    BorderThickness="0"
+                                    MinWidth="200"
+                                    MaxWidth="350"
+                                    Margin="20 4 8 4"
+                                    Padding="0">
+                                    <ListView.Template>
+                                        <ControlTemplate>
+                                            <ItemsPresenter />
+                                        </ControlTemplate>
+                                    </ListView.Template>
+                                </ListView>
+                                <TextBlock
+                                    Text="{x:Static language:lang.noLastItemsFound}"
+                                    FontFamily="{StaticResource Alata}"
+                                    FontSize="14" FontWeight="Regular"
+                                    Foreground="{DynamicResource Normal-Stroke}"
+                                    TextTrimming="CharacterEllipsis"
+                                    TextWrapping="Wrap"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Visibility="{Binding LastItemsNotFoundVisibility, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Margin="0 6 0 20" Padding="0" />
                             </StackPanel>
                         </Grid>
@@ -1170,7 +1325,7 @@
                                 </Grid>
                                 <Grid Grid.Column="1" Margin="0 0 20 0" HorizontalAlignment="Right">
                                     <Button Width="40" Height="40" VerticalAlignment="Center" Cursor="Hand"
-                                            PreviewMouseLeftButtonUp="ActiveChat_Search_OnPreviewMouseLeftButtonUp">
+                                            PreviewMouseLeftButtonUp="ActiveChatSearch">
                                         <Image Width="20" Height="20"
                                                Source="{DynamicResource ActiveChat-Search}" />
                                         <Button.Style>
@@ -1218,10 +1373,12 @@
                                 <ScrollViewer x:Name="MessagesScrollViewer"
                                               VerticalScrollBarVisibility="Auto"
                                               HorizontalScrollBarVisibility="Disabled"
+                                              CanContentScroll="False"
                                               VerticalAlignment="Stretch"
                                               HorizontalAlignment="Stretch"
                                               ScrollChanged="HandleScrollChanged">
-                                    <StackPanel HorizontalAlignment="Stretch"
+                                    <StackPanel x:Name="MessagesStackPanel"
+                                                HorizontalAlignment="Stretch"
                                                 Margin="0 10 0 0">
                                         <uc:LoadingSpinner
                                             Visibility="{Binding MessagesLoadingVisibility,
@@ -1256,7 +1413,7 @@
                                         HorizontalAlignment="Right"
                                         Margin="0 0 10 10"
                                         Cursor="Hand"
-                                        PreviewMouseLeftButtonUp="ScrollDownButton_OnPreviewMouseLeftButtonUp">
+                                        PreviewMouseLeftButtonUp="ScrollDownButtonClick">
                                     <Image Width="16" Height="16"
                                            Source="{DynamicResource ActiveChat-ScrollDown}" />
                                 </Button>
@@ -1267,7 +1424,7 @@
                                 BorderBrush="{DynamicResource Main}"
                                 BorderThickness="1 0 0 0"
                                 Padding="0 6 0 6"
-                                Visibility="{Binding SelectedDialogTextBoxVisibility, 
+                                Visibility="{Binding DialogInputVisibility, 
                                         UpdateSourceTrigger=PropertyChanged, Mode=TwoWay,
                                         Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Grid>
@@ -1278,7 +1435,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Button Grid.Column="0" Width="34" Height="34" VerticalAlignment="Bottom"
                                         HorizontalAlignment="Center" Cursor="Hand"
-                                        PreviewMouseLeftButtonUp="SelectFileInDialog">
+                                        PreviewMouseLeftButtonUp="SelectFile">
                                     <Image Width="20" Height="20"
                                            Source="{DynamicResource ActiveChat-Attachment}" />
                                     <Button.Style>

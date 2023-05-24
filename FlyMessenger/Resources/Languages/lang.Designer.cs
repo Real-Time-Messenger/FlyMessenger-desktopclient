@@ -474,6 +474,15 @@ namespace FlyMessenger.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Viimase otsingu ajalugu.
+        /// </summary>
+        public static string last_items {
+            get {
+                return ResourceManager.GetString("last_items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Viimati nähtud.
         /// </summary>
         public static string last_seen {
@@ -659,6 +668,15 @@ namespace FlyMessenger.Resources.Languages {
         public static string noDialogs {
             get {
                 return ResourceManager.GetString("noDialogs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Viimast otsinguajalugu pole.
+        /// </summary>
+        public static string noLastItemsFound {
+            get {
+                return ResourceManager.GetString("noLastItemsFound", resourceCulture);
             }
         }
         

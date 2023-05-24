@@ -1,18 +1,17 @@
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 using FlyMessenger.Controllers;
 using Microsoft.Win32;
-using RestSharp;
 
 namespace FlyMessenger.Resources.Settings.Pages
 {
+    /// <summary>
+    /// Interaction logic for Profile.xaml
+    /// </summary>
     public partial class ProfilePage : Page
     {
         public ProfilePage()
@@ -20,6 +19,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Open name edit modal window
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenNameEditModalWindow(object sender, MouseButtonEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -29,6 +33,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.NameEditModalWindow.BeginAnimation(OpacityProperty, openAnimation);
         }
 
+        /// <summary>
+        /// Open email edit modal window
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OpenEmailEditModalWindow(object sender, MouseButtonEventArgs e)
         {
             var window = (MainWindow?)Application.Current.MainWindow;
@@ -38,6 +47,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.EmailEditModalWindow.BeginAnimation(OpacityProperty, openAnimation);
         }
 
+        /// <summary>
+        /// Method for copy username to clipboard
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void CopyUsernameToClipboard(object sender, MouseButtonEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window || window.UsernameCopiedTip.IsOpen) return;
@@ -58,8 +72,14 @@ namespace FlyMessenger.Resources.Settings.Pages
             window.UsernameCopiedTip.BeginAnimation(OpacityProperty, openAnimation);
         }
 
-        private void ChangeProfilePhoto(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Method for change profile photo
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void ChangeProfilePhoto(object sender, MouseButtonEventArgs e)
         {
+            // Filter for image files
             var openFileDialog = new OpenFileDialog
             {
                 Filter = "Image Files (*.png;*.jpg;*.jpeg;)|*.png;*.jpg;*.jpeg;",
@@ -71,11 +91,11 @@ namespace FlyMessenger.Resources.Settings.Pages
             if (openFileDialog.ShowDialog() != true) return;
             var fileToBytes = File.ReadAllBytes(openFileDialog.FileName);
 
-            ControllerBase.UserController.EditMyProfilePhoto(fileToBytes);
+            await ControllerBase.UserController.EditMyProfilePhoto(fileToBytes);
             
             ProfilePhotoProfilePage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
-            App.ProfilePhotoDefaultPage.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
-            App.ProfilePhotoMainWindow.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
+            App.SettingsProfilePhoto.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
+            App.NavBarProfilePhoto.ImageSource = ImageController.GetImageFromBytes(fileToBytes);
         }
     }
 }

@@ -1,11 +1,13 @@
 using System.Windows;
 using System.Windows.Controls;
 using FlyMessenger.Controllers;
-using FlyMessenger.MVVM.ViewModels;
 using FlyMessenger.Resources.Languages;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
+    /// <summary>
+    /// Interaction logic for LastActivityPage.xaml
+    /// </summary>
     public partial class LastActivityPage : Page
     {
         public LastActivityPage()
@@ -13,15 +15,25 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
 
-        private void OnAnyoneRadioButtonClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handler for anyone radio button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnAnyoneRadioButtonClick(object sender, RoutedEventArgs e)
         {
-            ControllerBase.UserController.EditMyLastActivity(true);
+            await ControllerBase.UserController.EditMyLastActivity(true);
             App.LastActivityTextData.TextData = lang.anyone;
         }
 
-        private void OnNobodyRadioButtonClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Handler for nobody radio button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private async void OnNobodyRadioButtonClick(object sender, RoutedEventArgs e)
         {
-            ControllerBase.UserController.EditMyLastActivity(false);
+            await ControllerBase.UserController.EditMyLastActivity(false);
             App.LastActivityTextData.TextData = lang.nobody;
         }
     }

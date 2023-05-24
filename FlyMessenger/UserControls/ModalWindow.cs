@@ -3,6 +3,9 @@ using System.Windows.Controls;
 
 namespace FlyMessenger.UserControls
 {
+    /// <summary>
+    /// Logic for LoadingSpinner.xaml
+    /// </summary>
     public class ModalWindow : ContentControl
     {
         public bool IsOpen

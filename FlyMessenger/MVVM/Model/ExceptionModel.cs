@@ -1,11 +1,17 @@
 namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Sender model.
+    /// </summary>
     public class ResponseValidationException
     {
         public int? Code { get; set; }
         public Details[] Details { get; set; }
     }
     
+    /// <summary>
+    /// Details model.
+    /// </summary>
     public class Details
     {
         public string? Location { get; set; }

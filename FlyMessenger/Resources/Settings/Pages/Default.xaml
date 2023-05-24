@@ -77,7 +77,7 @@
                     FontWeight="Regular"
                     FontSize="12"
                     Foreground="{DynamicResource Litest-Stroke}"
-                    PreviewMouseLeftButtonUp="Username_CopyToClipboard" />
+                    PreviewMouseLeftButtonUp="CopyUsernameToClipboard" />
             </StackPanel>
         </Grid>
         <!-- Line in second row -->

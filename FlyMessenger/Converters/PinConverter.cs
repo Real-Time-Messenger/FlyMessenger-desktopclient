@@ -4,8 +4,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Pin converter.
+    /// </summary>
     public class PinConverter : IValueConverter
     {
+        // Convert pinned status to string.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value is true

@@ -5,8 +5,12 @@ using System.Windows.Data;
 
 namespace FlyMessenger.Converters
 {
+    /// <summary>
+    /// Sound icon converter.
+    /// </summary>
     public class SoundIconConverter : IValueConverter
     {
+        // Convert sound status to icon.
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return (value is true

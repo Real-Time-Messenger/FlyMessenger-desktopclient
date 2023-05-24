@@ -5,6 +5,9 @@ using System.Windows.Media.Animation;
 
 namespace FlyMessenger.Resources.Settings.Pages.SmallMW
 {
+    /// <summary>
+    /// Interaction logic for LanguagePage.xaml
+    /// </summary>
     public partial class LanguagePage : Page
     {
         public LanguagePage()
@@ -12,6 +15,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             InitializeComponent();
         }
         
+        /// <summary>
+        /// Handler for estonian radio button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnEstonianRadioButtonClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -26,6 +34,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             window.RestartNotifyModalWindow.BeginAnimation(OpacityProperty, animation);
         }
         
+        /// <summary>
+        /// Handler for russian radio button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnRussianRadioButtonClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;
@@ -40,6 +53,11 @@ namespace FlyMessenger.Resources.Settings.Pages.SmallMW
             window.RestartNotifyModalWindow.BeginAnimation(OpacityProperty, animation);
         }
         
+        /// <summary>
+        /// Handler for english radio button click.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void OnEnglishRadioButtonClick(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is not MainWindow window) return;

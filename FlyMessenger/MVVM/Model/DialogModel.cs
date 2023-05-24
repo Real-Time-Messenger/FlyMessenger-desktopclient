@@ -3,6 +3,9 @@ using FlyMessenger.Core;
 
 namespace FlyMessenger.MVVM.Model
 {
+    /// <summary>
+    /// Sender model.
+    /// </summary>
     public class Sender
     {
         public string Id { get; set; }
@@ -12,6 +15,9 @@ namespace FlyMessenger.MVVM.Model
         public string PhotoUrl { get; set; }
     }
 
+    /// <summary>
+    /// Message model.
+    /// </summary>
     public class MessageModel
     {
         public string Id { get; set; }
@@ -27,11 +33,15 @@ namespace FlyMessenger.MVVM.Model
         public bool? IsCompanionPhotoVisible { get; set; }
     }
 
+    /// <summary>
+    /// User in dialog model.
+    /// </summary>
     public class UserInDialogModel
     {
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Username { get; set; }
         public string PhotoUrl { get; set; }
         public bool IsOnline { get; set; }
         public string LastActivity { get; set; }
@@ -39,6 +49,9 @@ namespace FlyMessenger.MVVM.Model
         public bool IsBlocked { get; set; }
     }
 
+    /// <summary>
+    /// Dialog model.
+    /// </summary>
     public class DialogModel : ObservableObject
     {
         public string Id { get; set; }
@@ -50,6 +63,8 @@ namespace FlyMessenger.MVVM.Model
         public MessageModel? LastMessage
         {
             get => _lastMessage;
+            
+            // If last message is null, set default message.
             set
             {
                 if (value == null)

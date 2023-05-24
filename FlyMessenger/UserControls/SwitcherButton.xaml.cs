@@ -5,6 +5,9 @@ using System.Windows.Media;
 
 namespace FlyMessenger.UserControls
 {
+    /// <summary>
+    /// Logic for SwitcherButton.xaml
+    /// </summary>
     public partial class SwitcherButton : UserControl
     {
         public SwitcherButton()
